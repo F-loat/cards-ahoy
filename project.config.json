@@ -1,0 +1,36 @@
+{
+  "miniprogramRoot": "dist/",
+  "projectname": "cards-ahoy",
+  "description": "Cards Ahoy! 小账本",
+  "appid": "wx5931d820da6e8e50",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "enhance": false,
+    "compileHotReLoad": false,
+    "postcss": false,
+    "minified": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "ignoreUploadUnusedFiles": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.4.0",
+  "srcMiniprogramRoot": "dist/",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "ignoreUploadUnusedFiles": false,
+  "ignoreDevUnusedFiles": false,
+  "cloudfunctionRoot": "cloudfunctions/",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
+}
