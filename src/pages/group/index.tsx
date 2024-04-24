@@ -8,18 +8,18 @@ import {
 } from '@nutui/nutui-react-taro';
 import { View, Text } from '@tarojs/components';
 import Taro, {
-  useDidShow,
+  useLoad,
   usePullDownRefresh,
   useShareAppMessage,
 } from '@tarojs/taro';
 import { PageLoading } from '../../components/PageLoading';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CardGroup } from './detail';
 import { CardFaction, CardFoil, cardsMap } from '../../assets/cards';
 import { RangeMenuItem } from './components/RangeMenuItem';
-import { BannerAd } from '../../components/BannerAd';
 import { getHonorPointsForCard } from '../../utils';
 import { CheckboxMenuItem } from '../index/components/CheckboxMenuItem';
+import { ThumbsDown, ThumbsUp } from '@nutui/icons-react-taro';
 
 definePageConfig({
   enablePullDownRefresh: true,
@@ -67,6 +67,8 @@ const Group = () => {
       price: number;
       faction: CardFaction;
       createAt: number;
+      up?: number;
+      down?: number;
     })[]
   >([]);
 
@@ -76,7 +78,7 @@ const Group = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const fetchCardList = async (filters: Filters) => {
+  const fetchCardGroups = async (filters: Filters) => {
     if (!!list.length) {
       Taro.showNavigationBarLoading();
     }
@@ -99,12 +101,51 @@ const Group = () => {
     Taro.hideNavigationBarLoading();
   };
 
-  useDidShow(() => {
-    fetchCardList(filters);
+  const handleVote = async (index: number, type: 'up' | 'down') => {
+    try {
+      const res = await Taro.cloud.callFunction({
+        name: 'voteCardGroup',
+        data: {
+          id: list[index]._id,
+          type,
+        },
+      });
+      const result = res.result as {
+        code: number;
+        msg: string;
+      };
+      if (result.code === 0) {
+        Taro.showToast({
+          title: result.msg,
+          icon: 'none',
+        });
+        return;
+      }
+      const newList = [...list];
+      newList[index][type] = (newList[index][type] || 0) + 1;
+      setList(newList);
+    } catch (err) {
+      Taro.showToast({
+        title: type === 'up' ? '点赞失败，请稍后再试' : '踩失败，请稍后再试',
+        icon: 'none',
+      });
+    }
+  };
+
+  useEffect(() => {
+    const refreshCardList = () => fetchCardGroups(filters);
+    Taro.eventCenter.on('refreshCardGroups', refreshCardList);
+    return () => {
+      Taro.eventCenter.off('refreshCardGroups', refreshCardList);
+    };
+  }, []);
+
+  useLoad(() => {
+    fetchCardGroups(filters);
   });
 
   usePullDownRefresh(async () => {
-    await fetchCardList(filters);
+    await fetchCardGroups(filters);
     Taro.stopPullDownRefresh();
   });
 
@@ -122,7 +163,7 @@ const Group = () => {
           title="阵营"
           options={factions}
           onChange={(value) => {
-            fetchCardList({
+            fetchCardGroups({
               ...filters,
               factions: value,
             });
@@ -134,7 +175,7 @@ const Group = () => {
           max={48}
           children
           onChange={(value) => {
-            fetchCardList({
+            fetchCardGroups({
               ...filters,
               cost: value,
             });
@@ -146,7 +187,7 @@ const Group = () => {
           max={10000}
           children
           onChange={(value) => {
-            fetchCardList({
+            fetchCardGroups({
               ...filters,
               price: value,
             });
@@ -158,68 +199,83 @@ const Group = () => {
           max={10}
           children
           onChange={(value) => {
-            fetchCardList({
+            fetchCardGroups({
               ...filters,
               level: value,
             });
           }}
         />
       </Menu>
-      <View className="flex-1 overflow-scroll px-2 py-4">
+      <View className="flex-1 overflow-scroll px-3 py-4">
         {list.map((item, index) => (
-          <View
-            key={item._id}
-            onClick={() => {
-              Taro.navigateTo({
-                url: `/pages/group/detail?id=${item._id}`,
-              });
-            }}
-          >
-            {!(index % 12) && <BannerAd unitId="adunit-e5f0ea53dd9c52ba" />}
-            <View className="flex justify-around">
-              <View className="relative h-28 pb-1">
-                <Image
-                  width={92}
-                  height={92}
-                  radius="10%"
-                  lazyLoad
-                  src={cardsMap[item.leader.id]?.image}
-                />
+          <View key={item._id}>
+            <View className="flex justify-between">
+              <View
+                onClick={() => {
+                  Taro.navigateTo({
+                    url: `/pages/group/detail?id=${item._id}`,
+                  });
+                }}
+              >
+                <View className="relative">
+                  <Image
+                    width={92}
+                    height={92}
+                    radius="10%"
+                    lazyLoad
+                    src={cardsMap[item.leader.id]?.image}
+                  />
+                  <View className="absolute bottom-0 left-0 right-0 text-center text-white text-sm leading-4">
+                    <Text>lv.{item.leader.level}</Text>
+                  </View>
+                </View>
                 <View className="text-xs flex justify-between -mx-1">
                   <Text>总{item.cost}费</Text>
                   <Text>${item.price}*</Text>
                 </View>
-                <View className="absolute -bottom-1 -left-1 -right-8 text-xs break-keep">
+                <View className="text-xs break-keep -mx-1">
                   {getHonorPointsForGroup(item)}点/加成
                   {getBonusesForGroup(item)}%
                 </View>
-                <View className="absolute bottom-6 left-0 right-0 text-center text-white text-sm">
-                  <Text>lv.{item.leader.level}</Text>
-                </View>
               </View>
-              <View className="flex flex-col">
-                <View className="grid gap-3 grid-cols-4">
-                  {item.members
-                    .filter((member) => member.id !== -1)
-                    .map((member) => (
-                      <View
-                        key={member.id}
-                        className="relative flex justify-center"
-                      >
-                        <Image
-                          width={52}
-                          height={52}
-                          radius="10%"
-                          lazyLoad
-                          src={cardsMap[member.id]?.image}
-                        />
-                        {!!member.level && (
-                          <View className="absolute bottom-0 -mb-px left-0 right-0 text-center text-xs text-white">
-                            <Text>lv.{member.level}</Text>
-                          </View>
-                        )}
-                      </View>
-                    ))}
+              <View
+                className="grid gap-3 grid-cols-4 h-full"
+                onClick={() => {
+                  Taro.navigateTo({
+                    url: `/pages/group/detail?id=${item._id}`,
+                  });
+                }}
+              >
+                {item.members
+                  .filter((member) => member.id !== -1)
+                  .map((member) => (
+                    <View
+                      key={member.id}
+                      className="relative flex justify-center"
+                    >
+                      <Image
+                        width={50}
+                        height={50}
+                        radius="10%"
+                        lazyLoad
+                        src={cardsMap[member.id]?.image}
+                      />
+                      {!!member.level && (
+                        <View className="absolute bottom-0 leading-3 left-0 right-0 text-center text-xs text-white">
+                          <Text>lv.{member.level}</Text>
+                        </View>
+                      )}
+                    </View>
+                  ))}
+              </View>
+              <View className="flex flex-col justify-around items-center py-4 text-xs text-center w-4">
+                <View onClick={() => handleVote(index, 'up')}>
+                  <ThumbsUp size={16} className="text-green-400" />
+                  <View>{item.up || 0}</View>
+                </View>
+                <View onClick={() => handleVote(index, 'down')}>
+                  <ThumbsDown size={16} className="text-red-400" />
+                  <View>{item.down || 0}</View>
                 </View>
               </View>
             </View>

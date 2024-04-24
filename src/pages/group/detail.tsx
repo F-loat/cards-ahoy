@@ -160,6 +160,7 @@ const GroupDetail = () => {
             title: '发布成功',
             icon: 'success',
           });
+          Taro.eventCenter.trigger('refreshCardGroups');
         } catch (error) {
           Taro.hideLoading();
           Taro.showToast({
