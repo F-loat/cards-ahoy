@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View } from '@tarojs/components';
 import {
-  Checkbox,
   ConfigProvider,
   Divider,
   Image,
@@ -9,7 +8,7 @@ import {
   Menu,
   SafeArea,
 } from '@nutui/nutui-react-taro';
-import { Checklist, Purse } from '@nutui/icons-react-taro';
+import { Purse } from '@nutui/icons-react-taro';
 import Taro, {
   usePullDownRefresh,
   useReachBottom,
@@ -21,8 +20,13 @@ import { Filters, useCardList } from './hooks';
 import { PageLoading } from '../../components/PageLoading';
 import { samrtCeil } from '../../utils';
 import classnames from 'classnames';
-import { BannerAd } from '../../components/BannerAd';
 import { CheckboxMenuItem } from './components/CheckboxMenuItem';
+import {
+  CardFaction,
+  CardFoil,
+  CardRarity,
+  CardType,
+} from '../../assets/cards';
 
 definePageConfig({
   navigationBarTitleText: 'Cards Ahoy!',
@@ -51,13 +55,27 @@ const Profit = ({ value }: { value: number }) => {
   );
 };
 
+const types = [
+  { text: '领袖', value: CardType.Leaders },
+  { text: '成员', value: CardType.Members },
+  { text: '金卡', value: CardFoil.Gold },
+  { text: '普卡', value: CardFoil.Regular },
+];
+
 const factions = [
-  { text: '中立', value: 'Neutral' },
-  { text: '动物', value: 'Animal' },
-  { text: '植物', value: 'Plant' },
-  { text: '僵尸', value: 'Zombie' },
-  { text: '机械', value: 'Mech' },
-  { text: '龙族', value: 'Dragon' },
+  { text: '中立', value: CardFaction.Neutral },
+  { text: '动物', value: CardFaction.Animal },
+  { text: '植物', value: CardFaction.Plant },
+  { text: '僵尸', value: CardFaction.Zombie },
+  { text: '机械', value: CardFaction.Mech },
+  { text: '龙族', value: CardFaction.Dragon },
+];
+
+const rarities = [
+  { text: '普通', value: CardRarity.Common },
+  { text: '稀有', value: CardRarity.Rare },
+  { text: '史诗', value: CardRarity.Epic },
+  { text: '传说', value: CardRarity.Legendary },
 ];
 
 const sorts = [
@@ -133,6 +151,7 @@ const Index = () => {
           <CheckboxMenuItem
             title="阵营"
             options={factions}
+            defaultValue={filters.factions}
             onChange={(value) => {
               setFilters({
                 ...filters,
@@ -140,7 +159,30 @@ const Index = () => {
               });
             }}
           />
+          <CheckboxMenuItem
+            title="种类"
+            options={types}
+            defaultValue={filters.types}
+            onChange={(value) => {
+              setFilters({
+                ...filters,
+                types: value,
+              });
+            }}
+          />
+          <CheckboxMenuItem
+            title="稀有度"
+            options={rarities}
+            defaultValue={filters.rarities}
+            onChange={(value) => {
+              setFilters({
+                ...filters,
+                rarities: value,
+              });
+            }}
+          />
           <Menu.Item
+            title="排序"
             options={sorts}
             defaultValue={filters.sort}
             onChange={({ value }) => {
@@ -159,9 +201,8 @@ const Index = () => {
             loading && !list.length ? 'opacity-0' : 'opacity-100',
           )}
         >
-          {list.map((item, index) => (
+          {list.map((item) => (
             <View key={item.secondaryId}>
-              {!(index % 12) && <BannerAd unitId="adunit-b303bbcdf81e9676" />}
               <View
                 className="flex items-center mx-1"
                 onClick={() => {

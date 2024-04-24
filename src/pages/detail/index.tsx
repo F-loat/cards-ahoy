@@ -1,4 +1,4 @@
-import { Ad, View } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import { useRouter, useShareAppMessage } from '@tarojs/taro';
 import { Divider, Image, SafeArea } from '@nutui/nutui-react-taro';
 import { cardsMap } from '../../assets/cards';
@@ -18,8 +18,8 @@ import {
   getPointsForCard,
   samrtCeil,
 } from '../../utils';
-import { useShowAds, useTheme } from '../../hooks';
 import { LevelSlider } from '../../components/LevelSlider';
+import { VideoAd } from './components/VideoAd';
 
 interface SellCard {
   image: string;
@@ -63,15 +63,12 @@ interface FloorPrice {
 }
 
 const Detail = () => {
-  const { theme } = useTheme();
   const { params } = useRouter();
   const cardInfo = params.id && cardsMap[params.id];
   const [loading, setLoading] = useState(false);
   const [sellCards, setSellCards] = useState<SellCard[]>([]);
   const [sellHistory, setSellHistory] = useState<SellHistory[]>([]);
   const [floorPrices, setFloorPrices] = useState<FloorPrice[]>([]);
-
-  const { showAds } = useShowAds();
 
   const [level, setLevel] = useState(1);
 
@@ -237,12 +234,12 @@ const Detail = () => {
       </View>
       <View>
         {cardInfo.skills !== undefined && (
-          <View className="rounded bg-gray-100 dark:bg-[#191919] p-2 mx-2">
+          <View className="rounded bg-gray-100 dark:bg-black p-2 mx-2">
             {formatSkills(cardInfo.skills, level)}
           </View>
         )}
       </View>
-      <View className="w-full h-24">
+      <View className="h-24" style={{ width: '92vw', margin: '0 4vw 0 2vw' }}>
         <F2Canvas>
           <Chart data={floorPrices}>
             <Line x="time" y="value" />
@@ -306,20 +303,7 @@ const Detail = () => {
           </View>
         )}
       </View>
-      {showAds && (
-        <View
-          className={classnames(
-            'transition-opacity duration-300',
-            loading ? 'opacity-0' : 'opacity-100',
-          )}
-        >
-          <Ad
-            adType="video"
-            unitId="adunit-1b5daab0700aac2d"
-            adTheme={theme === 'light' ? 'white' : 'black'}
-          />
-        </View>
-      )}
+      <VideoAd loading={loading} />
       <SafeArea position="bottom" />
       <PageLoading visible={loading} />
     </View>

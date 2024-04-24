@@ -7,7 +7,7 @@ type AdError = BaseEventOrig<AdProps.onErrorEventDetail>;
 
 export const BannerAd = ({ unitId }: { unitId: string }) => {
   const { theme } = useTheme();
-  const { showAds } = useShowAds();
+  const [showAds] = useShowAds();
   const [error, setError] = useState<AdError | null>(null);
 
   if (error || !showAds) return null;

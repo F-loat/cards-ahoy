@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 import { useState } from 'react';
-import { cardsMap } from '../../../assets/cards';
+import { CardFoil, CardType, cardsMap } from '../../../assets/cards';
 
 export interface Card {
   chainNftId: number;
@@ -18,6 +18,8 @@ export interface Card {
 export interface Filters {
   factions?: string[];
   sort?: number;
+  rarities?: string[];
+  types?: string[];
 }
 
 interface CardListResult {
@@ -34,6 +36,12 @@ const fetchCardList = async ({
   pageNumber?: number;
   filters?: Filters;
 }) => {
+  const types = (filters.types ?? []).filter((type: CardType) =>
+    [CardType.Leaders, CardType.Members].includes(type),
+  );
+  const foils = (filters.types ?? []).filter((foil: CardFoil) =>
+    [CardFoil.Gold, CardFoil.Regular].includes(foil),
+  );
   const res = await Taro.cloud.callFunction({
     name: 'fetchCardsAhoy',
     data: {
@@ -44,108 +52,31 @@ const fetchCardList = async ({
         discreteList: [
           {
             filterName: 'Type',
-            filterValueList: [
-              {
-                valueName: 'Leaders',
-                valueId: 'Leaders',
-              },
-              {
-                valueName: 'Members',
-                valueId: 'Members',
-              },
-            ],
-            valueIdList: [],
-            filterIdList: [],
+            filterValueList: [],
+            valueIdList: types,
+            filterIdList: types,
           },
           {
             filterName: 'Faction',
-            filterValueList: [
-              {
-                valueName: 'Neutral',
-                valueId: 'Neutral',
-              },
-              {
-                valueName: 'Animal',
-                valueId: 'Animal',
-              },
-              {
-                valueName: 'Plant',
-                valueId: 'Plant',
-              },
-              {
-                valueName: 'Zombie',
-                valueId: 'Zombie',
-              },
-            ],
+            filterValueList: [],
             valueIdList: filters.factions ?? [],
             filterIdList: filters.factions ?? [],
           },
           {
             filterName: 'Rarity',
-            filterValueList: [
-              {
-                valueName: 'Common',
-                valueId: 'Common',
-              },
-              {
-                valueName: 'Rare',
-                valueId: 'Rare',
-              },
-              {
-                valueName: 'Epic',
-                valueId: 'Epic',
-              },
-              {
-                valueName: 'Legendary',
-                valueId: 'Legendary',
-              },
-            ],
-            valueIdList: [],
-            filterIdList: [],
+            filterValueList: [],
+            valueIdList: filters.rarities ?? [],
+            filterIdList: filters.rarities ?? [],
           },
           {
             filterName: 'Foil',
-            filterValueList: [
-              {
-                valueName: 'Regular',
-                valueId: 'Regular',
-              },
-              {
-                valueName: 'Gold',
-                valueId: 'Gold',
-              },
-            ],
-            valueIdList: [],
-            filterIdList: [],
+            filterValueList: [],
+            valueIdList: foils,
+            filterIdList: foils,
           },
           {
             filterName: 'Source',
-            filterValueList: [
-              {
-                valueName: 'All',
-                valueId: 'All',
-              },
-              {
-                valueName: 'Ahoy Box',
-                valueId: 'Ahoy Box',
-              },
-              {
-                valueName: 'Ladder Chest',
-                valueId: 'Ladder Chest',
-              },
-              {
-                valueName: 'Alchemy',
-                valueId: 'Alchemy',
-              },
-              {
-                valueName: 'Reward',
-                valueId: 'Reward',
-              },
-              {
-                valueName: 'Season Box',
-                valueId: 'Season Box',
-              },
-            ],
+            filterValueList: [],
             valueIdList: [],
             filterIdList: [],
           },

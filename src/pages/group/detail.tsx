@@ -13,7 +13,6 @@ import {
   getLabelForFaction,
   samrtCeil,
 } from '../../utils';
-import { useShowAds } from '../../hooks';
 import { LevelSlider } from '../../components/LevelSlider';
 
 export interface CardGroup {
@@ -29,7 +28,6 @@ const GroupDetail = () => {
     members: Array(8).fill({ id: -1 }),
   });
   const { params } = useRouter();
-  const { showAds } = useShowAds();
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(true);
   const [priceMap, setPriceMap] = useState<Record<number, number>>({});
@@ -376,11 +374,6 @@ const GroupDetail = () => {
           </View>
         )}
       </View>
-      {showAds && (
-        <View className="fixed right-2 bottom-48">
-          <AdCustom unitId="adunit-f0a9a40676d94f6b" />
-        </View>
-      )}
       <SafeArea position="bottom" />
       <PageLoading visible={loading || imageLoading} />
     </View>

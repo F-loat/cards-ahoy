@@ -7,16 +7,14 @@ export const useShowAds = () => {
   useEffect(() => {
     Taro.getStorage({ key: 'ad-time' })
       .then(({ data: time }) => {
-        setShowAds(!time || time < Date.now() - 1000 * 60 * 60 * 24 * 3);
+        setShowAds(!time || time < Date.now() - 1000 * 60 * 60 * 24);
       })
       .catch(() => {
         setShowAds(true);
       });
   }, []);
 
-  return {
-    showAds,
-  };
+  return [showAds, setShowAds] as const;
 };
 
 export const useTheme = () => {
