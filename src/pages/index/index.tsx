@@ -194,7 +194,7 @@ const Index = () => {
           />
         </Menu>
       </View>
-      <View className="px-2 pt-17 pb-2">
+      <View className="px-2 pt-17 pb-3">
         <View
           className={classnames(
             'ftransition-opacity duration-300',

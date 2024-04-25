@@ -44,6 +44,7 @@ export const CheckboxMenuItem = ({
         </Checkbox.Group>
         <Button
           size="mini"
+          style={{ marginBottom: '4px' }}
           onClick={() => {
             onChange?.(val);
             (itemRef.current as any)?.toggle(false);

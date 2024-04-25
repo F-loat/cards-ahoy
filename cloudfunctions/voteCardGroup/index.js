@@ -12,7 +12,7 @@ exports.main = async (event, context, callback) => {
 
   const t = new Date().setHours(0, 0, 0, 0);
 
-  const doc = await db
+  const docs = await db
     .collection(VOTES)
     .where({
       _openid: OPENID,
@@ -21,8 +21,8 @@ exports.main = async (event, context, callback) => {
     .get();
 
   if (
-    doc.data.length &&
-    doc.data[0].updateAt > Date.now() - 1000 * 60 * 60 * 24
+    docs.data.length &&
+    docs.data[0].updateAt > Date.now() - 1000 * 60 * 60 * 24
   ) {
     return {
       code: 0,
@@ -30,7 +30,7 @@ exports.main = async (event, context, callback) => {
     };
   }
 
-  if (!doc.data.length) {
+  if (!docs.data.length) {
     db.collection(VOTES).add({
       data: {
         _openid: OPENID,
@@ -41,7 +41,7 @@ exports.main = async (event, context, callback) => {
     });
   } else {
     db.collection(VOTES)
-      .doc(doc._id)
+      .doc(docs.data[0]._id)
       .update({
         data: {
           updateAt: t,

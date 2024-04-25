@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Drag, FixedNav } from '@nutui/nutui-react-taro';
-import { BookMark, Receipt, Top } from '@nutui/icons-react-taro';
+import {
+  BookMark,
+  PackageArrowDown,
+  Receipt,
+  Top,
+} from '@nutui/icons-react-taro';
 import Taro, { usePageScroll } from '@tarojs/taro';
 import { OrderImport } from './OrderImport';
 
@@ -18,6 +23,11 @@ const ToolsNav = ({ onUpdate }: { onUpdate?: () => void }) => {
       id: 'cards-group',
       text: '热门卡组',
       icon: <BookMark size={18} style={{ transform: 'none' }} />,
+    },
+    {
+      id: 'my-cards-group',
+      text: '我的卡组',
+      icon: <PackageArrowDown size={18} style={{ transform: 'none' }} />,
     },
     {
       id: 'order-import',
@@ -49,6 +59,9 @@ const ToolsNav = ({ onUpdate }: { onUpdate?: () => void }) => {
                 break;
               case 'cards-group':
                 Taro.navigateTo({ url: '/pages/group/index' });
+                break;
+              case 'my-cards-group':
+                Taro.navigateTo({ url: '/pages/group/index?type=self' });
                 break;
               case 'order-import':
                 setDialogVisible(true);

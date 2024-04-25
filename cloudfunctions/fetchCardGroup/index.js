@@ -6,13 +6,19 @@ const db = cloud.database();
 const _ = db.command;
 const CARD_GROUPS = 'card_groups';
 
-exports.main = async ({ filters }, context, callback) => {
+exports.main = async ({ type, filters }, context, callback) => {
   let query = db
     .collection(CARD_GROUPS)
     .orderBy('createAt', 'desc')
     .skip(0)
     .limit(50);
 
+  if (type === 'self') {
+    const { OPENID } = cloud.getWXContext();
+    query = query.where({
+      _openid: _.eq(OPENID),
+    });
+  }
   if (filters.faction !== 'All') {
     query = query.where({
       faction: filters.faction,

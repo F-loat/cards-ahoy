@@ -1,5 +1,6 @@
 import {
   Button,
+  Dialog,
   Divider,
   Empty,
   Image,
@@ -10,6 +11,7 @@ import { View, Text } from '@tarojs/components';
 import Taro, {
   useLoad,
   usePullDownRefresh,
+  useRouter,
   useShareAppMessage,
 } from '@tarojs/taro';
 import { PageLoading } from '../../components/PageLoading';
@@ -19,7 +21,11 @@ import { CardFaction, CardFoil, cardsMap } from '../../assets/cards';
 import { RangeMenuItem } from './components/RangeMenuItem';
 import { getHonorPointsForCard } from '../../utils';
 import { CheckboxMenuItem } from '../index/components/CheckboxMenuItem';
-import { ThumbsDown, ThumbsUp } from '@nutui/icons-react-taro';
+import {
+  ThumbsDown,
+  ThumbsUp,
+  Trash,
+} from '@nutui/icons-react-taro';
 
 definePageConfig({
   enablePullDownRefresh: true,
@@ -76,6 +82,7 @@ const Group = () => {
     faction: 'All',
   });
 
+  const { params } = useRouter();
   const [loading, setLoading] = useState(true);
 
   const fetchCardGroups = async (filters: Filters) => {
@@ -87,6 +94,7 @@ const Group = () => {
       name: 'fetchCardGroup',
       data: {
         filters,
+        type: params.type,
       },
     });
 
@@ -130,6 +138,36 @@ const Group = () => {
         icon: 'none',
       });
     }
+  };
+
+  const handleDelete = (index: number) => {
+    Dialog.open('confirm', {
+      title: '确认删除?',
+      content: '删除后无法恢复，但分享链接仍然有效',
+      onConfirm: async () => {
+        Dialog.close('confirm');
+        const db = Taro.cloud.database();
+        db.collection('card_groups')
+          .doc(list[index]?._id)
+          .remove({
+            success: () => {
+              const newList = [...list];
+              newList.splice(index, 1);
+              setList(newList);
+            },
+            fail: () => {
+              Taro.showToast({
+                title: '删除失败，请稍后再试',
+                icon: 'none',
+              });
+            },
+          });
+        return Promise.resolve(() => true);
+      },
+      onCancel: () => {
+        Dialog.close('confirm');
+      },
+    });
   };
 
   useEffect(() => {
@@ -211,6 +249,7 @@ const Group = () => {
           <View key={item._id}>
             <View className="flex justify-between">
               <View
+                className="relative"
                 onClick={() => {
                   Taro.navigateTo({
                     url: `/pages/group/detail?id=${item._id}`,
@@ -229,11 +268,11 @@ const Group = () => {
                     <Text>lv.{item.leader.level}</Text>
                   </View>
                 </View>
-                <View className="text-xs flex justify-between -mx-1">
+                <View className="text-xs flex justify-between -ml-1">
                   <Text>总{item.cost}费</Text>
                   <Text>${item.price}*</Text>
                 </View>
-                <View className="text-xs break-keep -mx-1">
+                <View className="text-xs break-keep absolute -bottom-3 -left-1 -right-4">
                   {getHonorPointsForGroup(item)}点/加成
                   {getBonusesForGroup(item)}%
                 </View>
@@ -268,15 +307,20 @@ const Group = () => {
                     </View>
                   ))}
               </View>
-              <View className="flex flex-col justify-around items-center py-4 text-xs text-center w-4">
+              <View className="flex flex-col justify-center items-center text-xs text-center w-4 pt-1.5">
                 <View onClick={() => handleVote(index, 'up')}>
-                  <ThumbsUp size={16} className="text-green-400" />
-                  <View>{item.up || 0}</View>
+                  <ThumbsUp size={16} className="text-green-500" />
+                  <View className="mb-1">{item.up || 0}</View>
                 </View>
-                <View onClick={() => handleVote(index, 'down')}>
-                  <ThumbsDown size={16} className="text-red-400" />
-                  <View>{item.down || 0}</View>
-                </View>
+                {params.type === 'self' ? (
+                  <View onClick={() => handleDelete(index)}>
+                    <Trash size={16} className="text-red-500" />
+                  </View>
+                ) : (
+                  <View onClick={() => handleVote(index, 'down')}>
+                    <ThumbsDown size={16} className="text-red-500" />
+                  </View>
+                )}
               </View>
             </View>
             <Divider />
@@ -302,6 +346,7 @@ const Group = () => {
           创建卡组
         </Button>
       </View>
+      <Dialog id="confirm" />
       <SafeArea position="bottom" />
       <PageLoading visible={loading && !list.length} />
     </View>
