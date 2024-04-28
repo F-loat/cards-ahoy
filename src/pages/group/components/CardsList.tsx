@@ -6,10 +6,10 @@ import {
   CardFoil,
   CardType,
   cardsList,
-  cardsMap,
 } from '../../../assets/cards';
 import { useMemo } from 'react';
 import { CardGroup, SelectedCard } from '../detail';
+import { getCard } from '../../../utils';
 
 const CardItem = ({ card, onClick }: { card: Card; onClick?: () => void }) => {
   return (
@@ -58,7 +58,7 @@ export const CardsList = ({
       .filter((card) => {
         if (card.type !== CardType.Members) return false;
         if (card.faction === CardFaction.Neutral) return true;
-        const leader = cardsMap[group.leader.id];
+        const leader = getCard(group.leader.id);
         return !leader || card.faction === leader.faction;
       })
       .sort(compareCards);
@@ -79,7 +79,7 @@ export const CardsList = ({
             card={card}
             onClick={() => {
               onSelect({
-                ...cardsMap[card.id],
+                ...getCard(card.id),
                 level: group.leader.level ?? 1,
                 group: false,
               });
@@ -100,7 +100,7 @@ export const CardsList = ({
             card={card}
             onClick={() => {
               onSelect({
-                ...cardsMap[card.id],
+                ...getCard(card.id),
                 level: group.leader.level ?? 1,
                 group: false,
               });

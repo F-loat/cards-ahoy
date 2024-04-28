@@ -17,15 +17,11 @@ import Taro, {
 import { PageLoading } from '../../components/PageLoading';
 import { useEffect, useState } from 'react';
 import { CardGroup } from './detail';
-import { CardFaction, CardFoil, cardsMap } from '../../assets/cards';
+import { CardFaction, CardFoil } from '../../assets/cards';
 import { RangeMenuItem } from './components/RangeMenuItem';
-import { getHonorPointsForCard } from '../../utils';
+import { getCard, getHonorPointsForCard } from '../../utils';
 import { CheckboxMenuItem } from '../index/components/CheckboxMenuItem';
-import {
-  ThumbsDown,
-  ThumbsUp,
-  Trash,
-} from '@nutui/icons-react-taro';
+import { ThumbsDown, ThumbsUp, Trash } from '@nutui/icons-react-taro';
 
 definePageConfig({
   enablePullDownRefresh: true,
@@ -52,16 +48,16 @@ interface Filters {
 const getBonusesForGroup = (group: CardGroup) => {
   return group.members.reduce(
     (acc, member) =>
-      acc + (cardsMap[member.id]?.foil === CardFoil.Gold ? 10 : 0),
-    cardsMap[group.leader.id]?.foil === CardFoil.Gold ? 10 : 0,
+      acc + (getCard(member.id)?.foil === CardFoil.Gold ? 10 : 0),
+    getCard(group.leader.id)?.foil === CardFoil.Gold ? 10 : 0,
   );
 };
 
 const getHonorPointsForGroup = (group: CardGroup) => {
   return group.members.reduce(
     (acc, member) =>
-      acc + getHonorPointsForCard(cardsMap[member.id], member.level),
-    getHonorPointsForCard(cardsMap[group.leader.id], group.leader.level),
+      acc + getHonorPointsForCard(getCard(member.id), member.level),
+    getHonorPointsForCard(getCard(group.leader.id), group.leader.level),
   );
 };
 
@@ -262,7 +258,7 @@ const Group = () => {
                     height={92}
                     radius="10%"
                     lazyLoad
-                    src={cardsMap[item.leader.id]?.image}
+                    src={getCard(item.leader.id)?.image}
                   />
                   <View className="absolute bottom-0 left-0 right-0 text-center text-white text-sm leading-4">
                     <Text>lv.{item.leader.level}</Text>
@@ -297,7 +293,7 @@ const Group = () => {
                         height={50}
                         radius="10%"
                         lazyLoad
-                        src={cardsMap[member.id]?.image}
+                        src={getCard(member.id)?.image}
                       />
                       {!!member.level && (
                         <View className="absolute bottom-0 leading-3 left-0 right-0 text-center text-xs text-white">

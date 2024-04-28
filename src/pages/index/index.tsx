@@ -27,6 +27,7 @@ import {
   CardRarity,
   CardType,
 } from '../../assets/cards';
+import { Notice } from './components/Notice';
 
 definePageConfig({
   navigationBarTitleText: 'Cards Ahoy!',
@@ -201,6 +202,7 @@ const Index = () => {
             loading && !list.length ? 'opacity-0' : 'opacity-100',
           )}
         >
+          <Notice />
           {list.map((item) => (
             <View key={item.secondaryId}>
               <View

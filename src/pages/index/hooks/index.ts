@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro';
 import { useState } from 'react';
-import { CardFoil, CardType, cardsMap } from '../../../assets/cards';
+import { CardFoil, CardType } from '../../../assets/cards';
+import { getCard } from '../../../utils';
 
 export interface Card {
   chainNftId: number;
@@ -130,7 +131,7 @@ export const useCardList = () => {
       const time = Date.now();
       result.data?.list.forEach((item) => {
         item.time = time;
-        const card = cardsMap[item.secondaryId];
+        const card = getCard(item.secondaryId);
         if (card) item.secondaryName = card.name;
       });
       if (pageNumber === 1) {

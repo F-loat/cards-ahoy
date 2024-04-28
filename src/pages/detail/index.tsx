@@ -1,7 +1,10 @@
 import { View } from '@tarojs/components';
-import { useRouter, useShareAppMessage } from '@tarojs/taro';
+import {
+  usePullDownRefresh,
+  useRouter,
+  useShareAppMessage,
+} from '@tarojs/taro';
 import { Divider, Image, SafeArea } from '@nutui/nutui-react-taro';
-import { cardsMap } from '../../assets/cards';
 import { useEffect, useState } from 'react';
 import Taro from '@tarojs/taro';
 import dayjs from 'dayjs';
@@ -14,6 +17,7 @@ import Line from '@antv/f2/es/components/line';
 import Tooltip from '@antv/f2/es/components/tooltip';
 import {
   formatSkills,
+  getCard,
   getHonorPointsForCard,
   getPointsForCard,
   samrtCeil,
@@ -62,9 +66,16 @@ interface FloorPrice {
   value: number;
 }
 
+definePageConfig({
+  navigationBarTitleText: 'Cards Ahoy!',
+  enablePullDownRefresh: true,
+  enableShareTimeline: true,
+  enableShareAppMessage: true,
+});
+
 const Detail = () => {
   const { params } = useRouter();
-  const cardInfo = params.id && cardsMap[params.id];
+  const cardInfo = params.id && getCard(params.id);
   const [loading, setLoading] = useState(false);
   const [sellCards, setSellCards] = useState<SellCard[]>([]);
   const [sellHistory, setSellHistory] = useState<SellHistory[]>([]);
@@ -151,15 +162,6 @@ const Detail = () => {
     );
   };
 
-  useShareAppMessage(() => {
-    return {
-      title: cardInfo
-        ? `价格分享 - ${cardInfo.name} - $${params.price}`
-        : 'Cards Ahoy!',
-      path: `/pages/detail/index?id=${params.id}&price=${params.price}&time=${params.time}`,
-    };
-  });
-
   useEffect(() => {
     setLoading(true);
     Promise.all([
@@ -170,6 +172,20 @@ const Detail = () => {
       setLoading(false);
     });
   }, []);
+
+  usePullDownRefresh(async () => {
+    await Promise.all([fetchSellCards(), fetchSellHistory()]);
+    Taro.stopPullDownRefresh();
+  });
+
+  useShareAppMessage(() => {
+    return {
+      title: cardInfo
+        ? `价格分享 - ${cardInfo.name} - $${params.price}`
+        : 'Cards Ahoy!',
+      path: `/pages/detail/index?id=${params.id}&price=${params.price}&time=${params.time}`,
+    };
+  });
 
   if (!cardInfo) {
     return (
@@ -239,7 +255,7 @@ const Detail = () => {
           </View>
         )}
       </View>
-      <View className="h-24" style={{ width: '92vw', margin: '0 4vw 0 2vw' }}>
+      <View className="h-24" style={{ width: '92vw', margin: '0 6vw 0 2vw' }}>
         <F2Canvas>
           <Chart data={floorPrices}>
             <Line x="time" y="value" />

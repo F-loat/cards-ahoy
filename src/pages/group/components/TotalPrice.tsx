@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CardGroup } from '../detail';
-import { cardsMap } from '../../../assets/cards';
 import Taro from '@tarojs/taro';
-import { getPointsForCard, samrtCeil } from '../../../utils';
+import { getCard, getPointsForCard, samrtCeil } from '../../../utils';
 import { View } from '@tarojs/components';
 import { Button } from '@nutui/nutui-react-taro';
 
@@ -25,7 +24,7 @@ export const getPriceForCards = async (
   const result = (res.result as number[]) || [];
   const priceMap = cards.reduce(
     (acc, cur, index) => {
-      const points = getPointsForCard(cardsMap[cur.id], cur.level || 1);
+      const points = getPointsForCard(getCard(cur.id), cur.level || 1);
       const val = samrtCeil(result[index] * points);
       return { ...acc, [cur.id]: val };
     },

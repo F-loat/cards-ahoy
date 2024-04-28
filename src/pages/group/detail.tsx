@@ -1,5 +1,5 @@
-import { View, Text, CustomWrapper, AdCustom } from '@tarojs/components';
-import { Card, CardType, cardsMap } from '../../assets/cards';
+import { View, Text, CustomWrapper } from '@tarojs/components';
+import { Card, CardType } from '../../assets/cards';
 import { Button, Dialog, Image, SafeArea } from '@nutui/nutui-react-taro';
 import { useEffect, useMemo, useState } from 'react';
 import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
@@ -9,6 +9,7 @@ import { PageLoading } from '../../components/PageLoading';
 import classnames from 'classnames';
 import {
   formatSkills,
+  getCard,
   getHonorPointsForCard,
   getLabelForFaction,
   samrtCeil,
@@ -34,20 +35,23 @@ const GroupDetail = () => {
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
 
   const totalCost = useMemo(() => {
-    return group.members.reduce((acc, cur) => {
-      return acc + (cardsMap[cur.id]?.cost || 0);
-    }, cardsMap[group.leader.id]?.cost || 0);
+    return group.members.reduce(
+      (acc, cur) => {
+        return acc + (getCard(cur.id)?.cost || 0);
+      },
+      getCard(group.leader.id)?.cost || 0,
+    );
   }, [group]);
 
   const totalHonorPoints = useMemo(() => {
     return group.members.reduce(
-      (acc, cur) => acc + getHonorPointsForCard(cardsMap[cur.id], cur.level),
-      getHonorPointsForCard(cardsMap[group.leader.id], group.leader.level),
+      (acc, cur) => acc + getHonorPointsForCard(getCard(cur.id), cur.level),
+      getHonorPointsForCard(getCard(group.leader.id), group.leader.level),
     );
   }, [group]);
 
   const faction = useMemo(() => {
-    const card = cardsMap[group.leader.id];
+    const card = getCard(group.leader.id);
     return card ? getLabelForFaction(card.faction) : null;
   }, [group.leader.id]);
 
@@ -70,7 +74,7 @@ const GroupDetail = () => {
 
   const getUpIndex = (card: SelectedCard) => {
     const index = group.members.findIndex(({ id }) => {
-      return card.name === cardsMap[id]?.name;
+      return card.name === getCard(id)?.name;
     });
     if (index !== -1) return index;
     return group.members.findIndex(({ id }) => {
@@ -101,7 +105,7 @@ const GroupDetail = () => {
   const handleMemberDown = (card: SelectedCard) => {
     const newMembers = [...group.members];
     const index = newMembers.findIndex(({ id }) => {
-      return card.name === cardsMap[id]?.name;
+      return card.name === getCard(id)?.name;
     });
     if (index === -1) return;
     newMembers[index] = {
@@ -152,7 +156,7 @@ const GroupDetail = () => {
               cost: totalCost,
               price: samrtCeil(price),
               honorPoints: totalHonorPoints,
-              faction: cardsMap[group.leader.id]?.faction,
+              faction: getCard(group.leader.id)?.faction,
             },
           });
           Taro.hideLoading();
@@ -245,10 +249,10 @@ const GroupDetail = () => {
               height={100}
               radius="10%"
               key={group.leader.id === -1 ? 0 : 1}
-              src={cardsMap[group.leader.id]?.image}
+              src={getCard(group.leader.id)?.image}
               onClick={() => {
                 setSelectedCard({
-                  ...cardsMap[group.leader.id],
+                  ...getCard(group.leader.id),
                   level: group.leader.level ?? 1,
                   group: true,
                 });
@@ -286,10 +290,10 @@ const GroupDetail = () => {
                 width={80}
                 height={80}
                 radius="10%"
-                src={cardsMap[member.id]?.image}
+                src={getCard(member.id)?.image}
                 onClick={() => {
                   setSelectedCard({
-                    ...cardsMap[member.id],
+                    ...getCard(member.id),
                     level: member.level ?? 1,
                     group: true,
                   });
