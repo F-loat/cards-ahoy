@@ -1,6 +1,6 @@
 {
   "name": "cards-ahoy",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": true,
   "description": "Cards Ahoy! 小账本",
   "templateInfo": {
@@ -25,10 +25,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@antv/f2": "^5.4.5",
     "@babel/runtime": "^7.7.7",
     "@nutui/icons-react-taro": "^1.0.4",
     "@nutui/nutui-react-taro": "^2.3.10",
+    "@qiun/ucharts": "2.5.0-20230101",
     "@tarojs/components": "3.6.25",
     "@tarojs/helper": "3.6.25",
     "@tarojs/plugin-framework-react": "3.6.25",
@@ -42,8 +42,7 @@
     "dayjs": "^1.11.10",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-refresh": "^0.11.0",
-    "taro-f2-react": "^1.2.0"
+    "react-refresh": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",

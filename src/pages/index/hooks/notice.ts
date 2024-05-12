@@ -1,13 +1,8 @@
 import Taro from '@tarojs/taro';
 import { useEffect, useState } from 'react';
+import { GlobalData, getGlobalData } from '../../../utils/data';
 
-export interface Notice {
-  text?: string;
-  copy?: {
-    content?: string;
-    message?: string;
-  };
-}
+type Notice = GlobalData['notice'];
 
 export const useNotice = () => {
   const [data, setData] = useState<Notice>();
@@ -30,7 +25,11 @@ export const useNotice = () => {
   };
 
   useEffect(() => {
-    runAsync();
+    if (getGlobalData('notice')) {
+      setData(getGlobalData('notice') as Notice);
+    } else {
+      runAsync();
+    }
   }, []);
 
   return {

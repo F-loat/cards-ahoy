@@ -1,12 +1,12 @@
 import { Loading, NoticeBar } from '@nutui/nutui-react-taro';
 import Taro from '@tarojs/taro';
-import { Notice as INotice } from '../hooks/notice';
+import { GlobalData } from '../../../utils/data';
 
 export const Notice = ({
   notice,
   loading,
 }: {
-  notice?: INotice;
+  notice?: GlobalData['notice'];
   loading?: boolean;
 }) => {
   if (!notice?.text) return null;

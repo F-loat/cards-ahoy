@@ -1,10 +1,8 @@
 import {
-  Button,
   ConfigProvider,
   Input,
   InputNumber,
   Dialog,
-  Space,
 } from '@nutui/nutui-react-taro';
 import { ScrollView, View } from '@tarojs/components';
 import Taro from '@tarojs/taro';

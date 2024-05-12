@@ -11,10 +11,6 @@ import dayjs from 'dayjs';
 import classnames from 'classnames';
 import { PageLoading } from '../../components/PageLoading';
 import { AngleDoubleRight } from '@nutui/icons-react-taro';
-import F2Canvas from 'taro-f2-react';
-import Chart from '@antv/f2/es/chart';
-import Line from '@antv/f2/es/components/line';
-import Tooltip from '@antv/f2/es/components/tooltip';
 import {
   formatSkills,
   getCard,
@@ -24,6 +20,8 @@ import {
 } from '../../utils';
 import { LevelSlider } from '../../components/LevelSlider';
 import { VideoAd } from './components/VideoAd';
+import { Subscribe } from './components/Subscribe';
+import { PriceChart } from './components/PriceChart';
 
 interface SellCard {
   image: string;
@@ -61,7 +59,7 @@ interface SellHistory {
   image: string;
 }
 
-interface FloorPrice {
+export interface FloorPrice {
   time: string;
   value: number;
 }
@@ -75,7 +73,9 @@ definePageConfig({
 
 const Detail = () => {
   const { params } = useRouter();
-  const cardInfo = params.id && getCard(params.id);
+  const cardInfo = params.id && getCard(Number(params.id));
+  const [time, setTime] = useState(params.time);
+  const [price, setPrice] = useState(params.price);
   const [loading, setLoading] = useState(false);
   const [sellCards, setSellCards] = useState<SellCard[]>([]);
   const [sellHistory, setSellHistory] = useState<SellHistory[]>([]);
@@ -86,20 +86,9 @@ const Detail = () => {
   const fetchSellCards = async () => {
     if (!cardInfo) return;
     const res = await Taro.cloud.callFunction({
-      name: 'fetchCardsAhoy',
+      name: 'fetchSellCards',
       data: {
-        url: 'api/marketQuery/queryMarketHome',
-        method: 'post',
-        body: {
-          sortType: 4,
-          pageNumber: 1,
-          pageSize: 10,
-          firstCategoryId: 12,
-          secondCategoryId: cardInfo.id,
-          discreteList: [],
-          continuityList: [],
-          coinId: 1,
-        },
+        cardId: cardInfo.id,
       },
     });
     const result = res.result as {
@@ -108,7 +97,13 @@ const Detail = () => {
         total: number | null;
       };
     };
-    setSellCards(result.data?.list || []);
+    const list = result.data?.list || [];
+    setSellCards(list);
+    if (!price && list.length) {
+      const salePrice = Number(list[0].salePrice);
+      setPrice(String(salePrice / list[0].accumulateTrait.value));
+      setTime(Date.now().toString());
+    }
   };
 
   const fetchSellHistory = async () => {
@@ -181,9 +176,9 @@ const Detail = () => {
   useShareAppMessage(() => {
     return {
       title: cardInfo
-        ? `价格分享 - ${cardInfo.name} - $${params.price}`
+        ? `价格分享 - ${cardInfo.name} - $${price}`
         : 'Cards Ahoy!',
-      path: `/pages/detail/index?id=${params.id}&price=${params.price}&time=${params.time}`,
+      path: `/pages/detail/index?id=${params.id}&price=${price}&time=${time}`,
     };
   });
 
@@ -200,30 +195,25 @@ const Detail = () => {
         <View className="ml-2 flex flex-col flex-1">
           <View className="flex justify-between">
             <View className="text-lg">{cardInfo.name}</View>
-            {!!params.price && (
-              <View className="flex">
+            {!!price && (
+              <View className="flex items-center">
                 <View>地板价</View>
                 <View
                   className={classnames('ml-2 transition-colors', {
                     'text-red-500':
-                      sellHistory.length &&
-                      sellHistory[0].salePrice < params.price,
+                      sellHistory.length && sellHistory[0].salePrice < price,
                     'text-green-500':
-                      sellHistory.length &&
-                      sellHistory[0].salePrice > params.price,
+                      sellHistory.length && sellHistory[0].salePrice > price,
                   })}
                 >
                   $
-                  {samrtCeil(
-                    Number(params.price) * getPointsForCard(cardInfo, level),
-                  )}
+                  {samrtCeil(Number(price) * getPointsForCard(cardInfo, level))}
                   <AngleDoubleRight
                     style={{
                       transform: `rotate(${
-                        !sellHistory.length ||
-                        sellHistory[0].salePrice == params.price
+                        !sellHistory.length || sellHistory[0].salePrice == price
                           ? 0
-                          : sellHistory[0].salePrice > params.price
+                          : sellHistory[0].salePrice > price
                             ? 90
                             : -90
                       }deg)`,
@@ -239,12 +229,17 @@ const Detail = () => {
             <View className="text-lg">等级</View>
             <LevelSlider value={level} onChange={setLevel} />
           </View>
-          <View className="flex items-center justify-between">
-            <View className="text-lg">荣耀点</View>
-            <View>{getHonorPointsForCard(cardInfo, level)}</View>
+          <View className="flex items-center justify-between mt-1">
+            <View>经验值 {getPointsForCard(cardInfo, level)}</View>
+            <View>荣耀点 {getHonorPointsForCard(cardInfo, level)}</View>
           </View>
-          <View className="flex-1 flex items-center text-xl">
-            {dayjs(Number(params.time)).format('YYYY/MM/DD HH:mm:ss')}
+          <View className="flex-1 flex items-center justify-between">
+            <View className="text-lg">
+              {dayjs(Number(time)).format('YYYY/MM/DD HH:mm:ss')}
+            </View>
+            <View className="flex items-center">
+              <Subscribe cardId={Number(params.id)} />
+            </View>
           </View>
         </View>
       </View>
@@ -255,14 +250,7 @@ const Detail = () => {
           </View>
         )}
       </View>
-      <View className="h-24" style={{ width: '92vw', margin: '0 6vw 0 2vw' }}>
-        <F2Canvas>
-          <Chart data={floorPrices}>
-            <Line x="time" y="value" />
-            <Tooltip />
-          </Chart>
-        </F2Canvas>
-      </View>
+      {!!floorPrices.length && <PriceChart data={floorPrices} />}
       <View
         className={classnames(
           'px-2 flex-1 overflow-scroll transition-opacity duration-300',
