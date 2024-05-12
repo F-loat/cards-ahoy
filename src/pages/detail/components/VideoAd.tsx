@@ -71,7 +71,7 @@ export const VideoAd = ({ loading }: { loading?: boolean }) => {
   return (
     <View
       className={classnames(
-        'transition-opacity duration-300',
+        'transition-opacity duration-300 dark:text-white',
         loading ? 'opacity-0' : 'opacity-100',
       )}
     >

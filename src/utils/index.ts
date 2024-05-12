@@ -1,34 +1,11 @@
 import {
   Card,
   CardFaction,
-  CardFoil,
-  CardRarity,
   CardSkills,
   cardsMap,
   honorPointsMap,
   pointsMap,
 } from '../assets/cards';
-
-export interface GlobalData {
-  openid?: string;
-  notice?: {
-    text?: string;
-    copy?: {
-      content?: string;
-      message?: string;
-    };
-  };
-}
-
-const globalData: GlobalData = {};
-
-export function setGlobalData(key: keyof GlobalData, val) {
-  globalData[key] = val;
-}
-
-export function getGlobalData(key: keyof GlobalData) {
-  return globalData[key];
-}
 
 export const getCard = (id: number) => cardsMap[id];
 

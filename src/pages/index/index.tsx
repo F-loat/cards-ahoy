@@ -28,6 +28,7 @@ import {
   CardType,
 } from '../../assets/cards';
 import { Notice } from './components/Notice';
+import { useNotice } from './hooks/notice';
 
 definePageConfig({
   navigationBarTitleText: 'Cards Ahoy!',
@@ -85,6 +86,12 @@ const sorts = [
 ];
 
 const Index = () => {
+  const {
+    data: notice,
+    loading: noticeLoading,
+    runAsync: fetchNotice,
+  } = useNotice();
+
   const [costMap, setCostMap] = useState<Record<string, Cost[]>>(
     Taro.getStorageSync('costMap') || {},
   );
@@ -124,6 +131,7 @@ const Index = () => {
   }, [filters]);
 
   usePullDownRefresh(async () => {
+    fetchNotice();
     await fetchCardList({
       pageNumber: 1,
       filters,
@@ -202,7 +210,7 @@ const Index = () => {
             loading && !list.length ? 'opacity-0' : 'opacity-100',
           )}
         >
-          <Notice />
+          <Notice notice={notice} loading={noticeLoading} />
           {list.map((item) => (
             <View key={item.secondaryId}>
               <View
