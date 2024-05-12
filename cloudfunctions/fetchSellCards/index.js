@@ -78,7 +78,7 @@ exports.main = async ({ cardId }, context, callback) => {
 
   const priceMap = cards.reduce((rst, cur) => {
     if (rst[cur.priorityTrait1]) return rst;
-    const price = Number(cur.salePrice) / cur.accumulateTrait.value;
+    const price = Number(cur.salePrice);
     return { ...rst, [cur.priorityTrait1]: price };
   }, {});
 

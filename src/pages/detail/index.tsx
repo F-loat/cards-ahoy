@@ -59,6 +59,16 @@ interface SellHistory {
   image: string;
 }
 
+export interface Subscription {
+  _id: string;
+  cardId: number;
+  level: number;
+  name: string;
+  price: number;
+  updateAt?: number;
+  createAt?: number;
+}
+
 export interface FloorPrice {
   time: string;
   value: number;
@@ -73,22 +83,23 @@ definePageConfig({
 
 const Detail = () => {
   const { params } = useRouter();
-  const cardInfo = params.id && getCard(Number(params.id));
+  const cardId = params.id && Number(params.id);
+  const cardInfo = cardId && getCard(cardId);
   const [time, setTime] = useState(params.time);
   const [price, setPrice] = useState(params.price);
   const [loading, setLoading] = useState(false);
   const [sellCards, setSellCards] = useState<SellCard[]>([]);
   const [sellHistory, setSellHistory] = useState<SellHistory[]>([]);
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [floorPrices, setFloorPrices] = useState<FloorPrice[]>([]);
 
   const [level, setLevel] = useState(1);
 
   const fetchSellCards = async () => {
-    if (!cardInfo) return;
     const res = await Taro.cloud.callFunction({
       name: 'fetchSellCards',
       data: {
-        cardId: cardInfo.id,
+        cardId,
       },
     });
     const result = res.result as {
@@ -107,14 +118,13 @@ const Detail = () => {
   };
 
   const fetchSellHistory = async () => {
-    if (!cardInfo) return;
     const res = await Taro.cloud.callFunction({
       name: 'fetchCardsAhoy',
       data: {
         url: 'api/marketQuery/queryAnalyzeSellHistory',
         method: 'post',
         body: {
-          categoryId: cardInfo.id,
+          categoryId: cardId,
           chainNftId: 12,
         },
       },
@@ -122,18 +132,28 @@ const Detail = () => {
     const result = res.result as {
       data?: SellHistory[];
     };
-    setSellHistory(result.data || []);
+    setSellHistory((result.data || []).slice(0, 10));
+  };
+
+  const fetchSubscriptions = async () => {
+    const db = Taro.cloud.database();
+    const docs = await db
+      .collection('subscriptions')
+      .where({
+        cardId,
+      })
+      .get();
+    setSubscriptions((docs.data as Subscription[]) || []);
   };
 
   const fetchFloorPriceTrend = async () => {
-    if (!cardInfo) return;
     const res = await Taro.cloud.callFunction({
       name: 'fetchCardsAhoy',
       data: {
         url: 'api/marketQuery/queryAnalyzeFloorPriceTrend',
         method: 'post',
         body: {
-          categoryId: cardInfo.id,
+          categoryId: cardId,
           chainNftId: 12,
           timeRange: '7d',
         },
@@ -163,13 +183,18 @@ const Detail = () => {
       fetchSellCards(),
       fetchSellHistory(),
       fetchFloorPriceTrend(),
+      fetchSubscriptions(),
     ]).finally(() => {
       setLoading(false);
     });
   }, []);
 
   usePullDownRefresh(async () => {
-    await Promise.all([fetchSellCards(), fetchSellHistory()]);
+    await Promise.all([
+      fetchSellCards(),
+      fetchSellHistory(),
+      fetchSubscriptions(),
+    ]);
     Taro.stopPullDownRefresh();
   });
 
@@ -178,7 +203,7 @@ const Detail = () => {
       title: cardInfo
         ? `价格分享 - ${cardInfo.name} - $${price}`
         : 'Cards Ahoy!',
-      path: `/pages/detail/index?id=${params.id}&price=${price}&time=${time}`,
+      path: `/pages/detail/index?id=${cardId}&price=${price}&time=${time}`,
     };
   });
 
@@ -238,7 +263,7 @@ const Detail = () => {
               {dayjs(Number(time)).format('YYYY/MM/DD HH:mm:ss')}
             </View>
             <View className="flex items-center">
-              <Subscribe cardId={Number(params.id)} />
+              <Subscribe cardId={cardId} />
             </View>
           </View>
         </View>
@@ -300,6 +325,28 @@ const Detail = () => {
                   <View>${item.totalPrice}</View>
                   <View className="text-gray-600 dark:text-gray-400 text-sm">
                     {dayjs(item.saleTime).format('YYYY-MM-DD HH:mm:ss')}
+                  </View>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
+        {!!subscriptions.length && (
+          <View>
+            <Divider
+              className="sticky top-0 bg-white dark:bg-[#191919] box-border py-2 z-10"
+              style={{ margin: 0 }}
+            >
+              订阅记录
+            </Divider>
+            <View>
+              {subscriptions.map((item) => (
+                <View className="flex justify-between font-mono">
+                  <View>${item.price}</View>
+                  <View className="text-gray-600 dark:text-gray-400 text-sm">
+                    {dayjs(item.updateAt || item.createAt).format(
+                      'YYYY-MM-DD HH:mm:ss',
+                    )}
                   </View>
                 </View>
               ))}

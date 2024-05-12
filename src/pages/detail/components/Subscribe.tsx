@@ -57,6 +57,7 @@ export const Subscribe = ({ cardId }: { cardId: number }) => {
             price: Number(price),
             level,
             name: getCard(cardId).name,
+            updateAt: Date.now(),
           },
         });
     } else {
@@ -66,6 +67,7 @@ export const Subscribe = ({ cardId }: { cardId: number }) => {
           price: Number(price),
           level,
           name: getCard(cardId).name,
+          createAt: Date.now(),
         },
       });
     }
