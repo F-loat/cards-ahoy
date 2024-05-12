@@ -3,7 +3,9 @@
 const axios = require('axios');
 const cloud = require('wx-server-sdk');
 
-cloud.init();
+cloud.init({
+  env: 'cards-ahoy-3g50hglqe5f630e4',
+});
 
 const db = cloud.database();
 const _ = db.command;

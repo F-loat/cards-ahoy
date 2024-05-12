@@ -17,7 +17,7 @@ function App(props) {
 
   useEffect(() => {
     Taro.cloud.init({
-      env: 'cloud1-3gwdxekw0ddeddde',
+      env: 'cards-ahoy-3g50hglqe5f630e4',
     });
   }, []);
 

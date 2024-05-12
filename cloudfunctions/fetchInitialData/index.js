@@ -1,7 +1,9 @@
 const http2 = require('http2');
 const cloud = require('wx-server-sdk');
 
-cloud.init();
+cloud.init({
+  env: 'cards-ahoy-3g50hglqe5f630e4',
+});
 
 function get(host, path) {
   return new Promise((resolve, reject) => {
