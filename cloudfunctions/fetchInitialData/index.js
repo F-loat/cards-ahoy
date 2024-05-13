@@ -60,6 +60,12 @@ exports.main = async (event, context, callback) => {
           message: '邀请码复制成功~',
         },
       },
+      banners: [
+        {
+          img: 'cloud://cards-ahoy-3g50hglqe5f630e4.6361-cards-ahoy-3g50hglqe5f630e4-1325577246/banners/1.png',
+          link: 'https://app.questn.com/quest/902449849208766663?invite_code=FGDENT',
+        },
+      ],
     });
   } catch (error) {
     console.log(error);

@@ -7,6 +7,7 @@ import {
   Loading,
   Menu,
   SafeArea,
+  Swiper,
 } from '@nutui/nutui-react-taro';
 import { Purse } from '@nutui/icons-react-taro';
 import Taro, {
@@ -29,6 +30,7 @@ import {
 } from '../../assets/cards';
 import { Notice } from './components/Notice';
 import { useNotice } from './hooks/notice';
+import { GlobalData, getGlobalData } from '../../utils/data';
 
 definePageConfig({
   navigationBarTitleText: 'Cards Ahoy!',
@@ -91,6 +93,8 @@ const Index = () => {
     loading: noticeLoading,
     runAsync: fetchNotice,
   } = useNotice();
+
+  const banners = (getGlobalData('banners') as GlobalData['banners']) || [];
 
   const [costMap, setCostMap] = useState<Record<string, Cost[]>>(
     Taro.getStorageSync('costMap') || {},
@@ -211,6 +215,43 @@ const Index = () => {
           )}
         >
           <Notice notice={notice} loading={noticeLoading} />
+          {!!banners.length && (
+            <Swiper
+              height={120}
+              autoPlay
+              indicator={banners.length > 1}
+              className="rounded mb-4 -mt-2"
+            >
+              {banners.map((item) => (
+                <Swiper.Item key={item.img}>
+                  <Image
+                    width="100%"
+                    height="100%"
+                    src={item.img}
+                    mode="aspectFill"
+                    onClick={() => {
+                      if (!item.link) return;
+                      if (!item.link.startsWith('http')) {
+                        Taro.navigateTo({
+                          url: item.link,
+                        });
+                        return;
+                      }
+                      Taro.setClipboardData({
+                        data: item.link,
+                        success: () => {
+                          Taro.showToast({
+                            title: '链接已复制，请在浏览器中打开~',
+                            icon: 'none',
+                          });
+                        },
+                      });
+                    }}
+                  />
+                </Swiper.Item>
+              ))}
+            </Swiper>
+          )}
           {list.map((item) => (
             <View key={item.secondaryId}>
               <View

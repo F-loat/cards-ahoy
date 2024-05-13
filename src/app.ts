@@ -10,6 +10,7 @@ function App(props) {
       const data = JSON.parse(res.fetchedData);
       setGlobalData('openid', data?.openid);
       setGlobalData('notice', data?.notice);
+      setGlobalData('banners', data?.banners);
     } catch (err) {
       console.log(err);
     }

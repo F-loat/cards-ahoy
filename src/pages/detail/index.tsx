@@ -142,6 +142,8 @@ const Detail = () => {
       .where({
         cardId,
       })
+      .orderBy('createAt', 'desc')
+      .limit(10)
       .get();
     setSubscriptions((docs.data as Subscription[]) || []);
   };
@@ -260,7 +262,7 @@ const Detail = () => {
           </View>
           <View className="flex-1 flex items-center justify-between">
             <View className="text-lg">
-              {dayjs(Number(time)).format('YYYY/MM/DD HH:mm:ss')}
+              {time ? dayjs(Number(time)).format('YYYY/MM/DD HH:mm:ss') : ''}
             </View>
             <View className="flex items-center">
               <Subscribe cardId={cardId} />
@@ -278,7 +280,7 @@ const Detail = () => {
       {!!floorPrices.length && <PriceChart data={floorPrices} />}
       <View
         className={classnames(
-          'px-2 flex-1 overflow-scroll transition-opacity duration-300',
+          'px-2 pb-4 flex-1 overflow-scroll transition-opacity duration-300',
           loading ? 'opacity-0' : 'opacity-100',
         )}
       >
@@ -342,7 +344,9 @@ const Detail = () => {
             <View>
               {subscriptions.map((item) => (
                 <View className="flex justify-between font-mono">
-                  <View>${item.price}</View>
+                  <View>
+                    LV.{item.level} / ${item.price}
+                  </View>
                   <View className="text-gray-600 dark:text-gray-400 text-sm">
                     {dayjs(item.updateAt || item.createAt).format(
                       'YYYY-MM-DD HH:mm:ss',

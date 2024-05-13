@@ -7,6 +7,10 @@ export interface GlobalData {
       message?: string;
     };
   };
+  banners?: {
+    img: string;
+    link?: string;
+  }[];
 }
 
 const globalData: GlobalData = {};
