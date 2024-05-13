@@ -1,5 +1,5 @@
 import { Notice } from '@nutui/icons-react-taro';
-import { Button, Dialog, Input } from '@nutui/nutui-react-taro';
+import { Button, ConfigProvider, Dialog, Input } from '@nutui/nutui-react-taro';
 import { View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { LevelSlider } from '../../../components/LevelSlider';
@@ -92,14 +92,24 @@ export const Subscribe = ({ cardId }: { cardId: number }) => {
         onCancel={() => setVisible(false)}
         onConfirm={handleSubscribe}
       >
+        <View className="text-xs border-y-0 border-r-0 border-solid border-l-2 border-red-500 text-gray-400 leading-3 pl-1 my-2">
+          卡牌地板价低于目标价格时触发推送
+        </View>
         <View className="flex items-center">
-          <View>地板价</View>
-          <Input
-            placeholder="请输入目标价格"
-            type="digit"
-            value={price}
-            onChange={setPrice}
-          />
+          <View>目标价格</View>
+          <View className="ml-4">$</View>
+          <ConfigProvider
+            theme={{
+              nutuiInputPadding: '4px',
+            }}
+          >
+            <Input
+              placeholder="请输入目标价格"
+              type="digit"
+              value={price}
+              onChange={setPrice}
+            />
+          </ConfigProvider>
         </View>
         <View className="flex items-center">
           <View>卡牌等级</View>

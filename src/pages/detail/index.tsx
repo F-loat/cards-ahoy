@@ -218,7 +218,24 @@ const Detail = () => {
   return (
     <View className="flex flex-col h-screen">
       <View className="p-2 flex">
-        <Image width={128} height={128} src={cardInfo.image} radius={6} />
+        <View className="relative">
+          <Image width={128} height={128} src={cardInfo.image} radius="10%" />
+          {!!cardInfo.props && !!level && cardInfo.props[level - 1] && (
+            <View
+              className="absolute left-5 bottom-6 text-white text-center leading-4 text-xs font-bold"
+              style={{ fontSize: '10px' }}
+            >
+              {!!cardInfo.props[level - 1][1] && (
+                <View className="bg-blue-500 min-w-4 border-solid border-white border-1 rounded">
+                  {cardInfo.props[level - 1][1]}
+                </View>
+              )}
+              <View className="bg-red-500 min-w-4 border-solid border-white border-1 rounded-xl mt-px">
+                {cardInfo.props[level - 1][0]}
+              </View>
+            </View>
+          )}
+        </View>
         <View className="ml-2 flex flex-col flex-1">
           <View className="flex justify-between">
             <View className="text-lg">{cardInfo.name}</View>

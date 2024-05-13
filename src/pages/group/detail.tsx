@@ -15,6 +15,7 @@ import {
   samrtCeil,
 } from '../../utils';
 import { LevelSlider } from '../../components/LevelSlider';
+import { CardImage } from './components/CardImage';
 
 export interface CardGroup {
   leader: { id: number; level?: number };
@@ -282,32 +283,21 @@ const GroupDetail = () => {
         </View>
         <View className="mt-1 grid gap-2 grid-cols-4">
           {group.members.map((member, index) => (
-            <View
+            <CardImage
+              id={member.id}
+              level={member.level}
               key={`${index}_${member.id === -1 ? 0 : 1}`}
-              className="relative mt-2 flex justify-center"
-            >
-              <Image
-                width={80}
-                height={80}
-                radius="10%"
-                src={getCard(member.id)?.image}
-                onClick={() => {
-                  setSelectedCard({
-                    ...getCard(member.id),
-                    level: member.level ?? 1,
-                    group: true,
-                  });
-                }}
-              />
-              {member.id !== -1 && (
-                <View className="absolute bottom-0 left-0 right-0 text-center text-xs text-white">
-                  <Text>lv.{member.level}</Text>
-                  {!!priceMap[member.id] && (
-                    <Text>/${priceMap[member.id]}</Text>
-                  )}
-                </View>
-              )}
-            </View>
+              bottomSlot={
+                !!priceMap[member.id] && <Text>/${priceMap[member.id]}</Text>
+              }
+              onClick={() => {
+                setSelectedCard({
+                  ...getCard(member.id),
+                  level: member.level ?? 1,
+                  group: true,
+                });
+              }}
+            />
           ))}
         </View>
       </View>

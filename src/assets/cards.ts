@@ -24,10 +24,13 @@ export enum CardFaction {
   Dragon = 'Dragon',
 }
 
-export type CardSkills = null | {
-  text: string;
-  nums: number[][];
-};
+export type CardSkills =
+  | null
+  | string
+  | {
+      text: string;
+      nums: number[][];
+    };
 
 export interface Card {
   id: number;
@@ -40,6 +43,7 @@ export interface Card {
   foil: keyof typeof CardFoil;
   cost: number;
   skills?: CardSkills;
+  props?: [number, number?][];
 }
 
 export const cardsList: Card[] = [
@@ -228,6 +232,22 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Legendary',
+    skills: {
+      text: '受伤后>己方所有植物成员增加{{0}}护甲',
+      nums: [[1], [1], [2], [2], [3], [3], [3], [3], [3], [3]],
+    },
+    props: [
+      [6, 10],
+      [7, 11],
+      [8, 12],
+      [9, 13],
+      [10, 14],
+      [11, 15],
+      [12, 16],
+      [13, 17],
+      [14, 18],
+      [15, 27],
+    ],
   },
   {
     image:
@@ -297,6 +317,19 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Epic',
+    skills: '受伤后>后方最近1位成员受到1伤害',
+    props: [
+      [7, 4],
+      [8, 4],
+      [9, 4],
+      [10, 4],
+      [11, 4],
+      [12, 4],
+      [13, 4],
+      [14, 4],
+      [15, 4],
+      [17, 4],
+    ],
   },
   {
     image:
@@ -385,6 +418,22 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Legendary',
+    skills: {
+      text: '受伤后>己方所有植物成员增加{{0}}护甲',
+      nums: [[1], [1], [2], [2], [3], [3], [3], [3], [3], [3]],
+    },
+    props: [
+      [6, 10],
+      [7, 11],
+      [8, 12],
+      [9, 13],
+      [10, 14],
+      [11, 15],
+      [12, 16],
+      [13, 17],
+      [14, 18],
+      [15, 27],
+    ],
   },
   {
     image:
@@ -472,6 +521,33 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Rare',
+    skills: {
+      text: '受伤后>敌方队头成员受到随机{{0}}到{{1}}伤害',
+      nums: [
+        [2, 4],
+        [2, 4],
+        [3, 5],
+        [3, 5],
+        [4, 6],
+        [4, 6],
+        [4, 6],
+        [5, 7],
+        [5, 7],
+        [6, 8],
+      ],
+    },
+    props: [
+      [4, 8],
+      [5, 9],
+      [6, 10],
+      [7, 11],
+      [8, 12],
+      [9, 13],
+      [10, 14],
+      [11, 15],
+      [12, 16],
+      [13, 17],
+    ],
   },
   {
     image:
@@ -509,6 +585,33 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Rare',
+    skills: {
+      text: '受伤后>敌方队头成员受到随机{{0}}到{{1}}伤害',
+      nums: [
+        [2, 4],
+        [2, 4],
+        [3, 5],
+        [3, 5],
+        [4, 6],
+        [4, 6],
+        [4, 6],
+        [5, 7],
+        [5, 7],
+        [6, 8],
+      ],
+    },
+    props: [
+      [4, 8],
+      [5, 9],
+      [6, 10],
+      [7, 11],
+      [8, 12],
+      [9, 13],
+      [10, 14],
+      [11, 15],
+      [12, 16],
+      [13, 17],
+    ],
   },
   {
     image:
@@ -594,6 +697,11 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Rare',
+    skills: {
+      text: '前方最近成员受伤后>自身增加{{0}}点战斗力',
+      nums: [[2], [2], [3], [3], [4], [4], [4], [5], [5], [5]],
+    },
+    props: [[7], [8], [9], [10], [11], [12], [13], [14], [15], [18]],
   },
   {
     image:
@@ -618,6 +726,11 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Rare',
+    skills: {
+      text: '前方最近成员受伤后>自身增加{{0}}点战斗力',
+      nums: [[2], [2], [3], [3], [4], [4], [4], [5], [5], [5]],
+    },
+    props: [[7], [8], [9], [10], [11], [12], [13], [14], [15], [18]],
   },
   {
     image:
@@ -1032,6 +1145,18 @@ export const cardsList: Card[] = [
     skills: null,
     faction: 'Plant',
     rarity: 'Common',
+    props: [
+      [3, 0],
+      [3, 1],
+      [3, 2],
+      [3, 3],
+      [3, 4],
+      [3, 5],
+      [3, 6],
+      [3, 7],
+      [3, 8],
+      [3, 9],
+    ],
   },
   {
     image:
@@ -1045,6 +1170,18 @@ export const cardsList: Card[] = [
     skills: null,
     faction: 'Plant',
     rarity: 'Common',
+    props: [
+      [5, 0],
+      [5, 1],
+      [5, 2],
+      [5, 3],
+      [5, 4],
+      [5, 5],
+      [5, 6],
+      [5, 7],
+      [5, 8],
+      [5, 15],
+    ],
   },
   {
     image:
@@ -1058,6 +1195,18 @@ export const cardsList: Card[] = [
     skills: null,
     faction: 'Plant',
     rarity: 'Common',
+    props: [
+      [3, 8],
+      [4, 8],
+      [5, 8],
+      [6, 8],
+      [7, 8],
+      [8, 8],
+      [9, 8],
+      [10, 8],
+      [11, 8],
+      [13, 8],
+    ],
   },
   {
     image:
@@ -1168,6 +1317,18 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Common',
+    props: [
+      [5, 0],
+      [5, 1],
+      [5, 2],
+      [5, 3],
+      [5, 4],
+      [5, 5],
+      [5, 6],
+      [5, 7],
+      [5, 8],
+      [5, 15],
+    ],
   },
   {
     image:
@@ -1222,6 +1383,18 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Common',
+    props: [
+      [3, 0],
+      [3, 1],
+      [3, 2],
+      [3, 3],
+      [3, 4],
+      [3, 5],
+      [3, 6],
+      [3, 7],
+      [3, 8],
+      [3, 9],
+    ],
   },
   {
     image:
@@ -1391,6 +1564,19 @@ export const cardsList: Card[] = [
     cost: 3,
     faction: 'Plant',
     rarity: 'Epic',
+    skills: '受伤后>后方最近1位成员受到1伤害',
+    props: [
+      [7, 4],
+      [8, 4],
+      [9, 4],
+      [10, 4],
+      [11, 4],
+      [12, 4],
+      [13, 4],
+      [14, 4],
+      [15, 4],
+      [17, 4],
+    ],
   },
   {
     image:
@@ -1443,6 +1629,8 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Neutral',
     rarity: 'Epic',
+    skills: '攻击造成伤害时>破坏攻击目标',
+    props: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]],
   },
   {
     image:
@@ -1480,6 +1668,18 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Common',
+    props: [
+      [3, 8],
+      [4, 8],
+      [5, 8],
+      [6, 8],
+      [7, 8],
+      [8, 8],
+      [9, 8],
+      [10, 8],
+      [11, 8],
+      [13, 8],
+    ],
   },
   {
     image:
@@ -1492,6 +1692,33 @@ export const cardsList: Card[] = [
     cost: 6,
     faction: 'Plant',
     rarity: 'Epic',
+    skills: {
+      text: '受伤后>后方最近1个成员增加{{0}}战斗力与{{1}}护甲',
+      nums: [
+        [2, 2],
+        [2, 2],
+        [3, 2],
+        [3, 2],
+        [3, 4],
+        [3, 4],
+        [3, 4],
+        [4, 4],
+        [4, 4],
+        [4, 4],
+      ],
+    },
+    props: [
+      [11, 1],
+      [12, 2],
+      [13, 3],
+      [14, 4],
+      [15, 5],
+      [16, 6],
+      [17, 7],
+      [18, 8],
+      [19, 9],
+      [23, 10],
+    ],
   },
   {
     image:
@@ -1596,6 +1823,33 @@ export const cardsList: Card[] = [
     type: 'Members',
     faction: 'Plant',
     rarity: 'Epic',
+    skills: {
+      text: '受伤后>后方最近1个成员增加{{0}}战斗力与{{1}}护甲',
+      nums: [
+        [2, 2],
+        [2, 2],
+        [3, 2],
+        [3, 2],
+        [3, 4],
+        [3, 4],
+        [3, 4],
+        [4, 4],
+        [4, 4],
+        [4, 4],
+      ],
+    },
+    props: [
+      [11, 1],
+      [12, 2],
+      [13, 3],
+      [14, 4],
+      [15, 5],
+      [16, 6],
+      [17, 7],
+      [18, 8],
+      [19, 9],
+      [23, 10],
+    ],
   },
   {
     image:
@@ -1760,6 +2014,8 @@ export const cardsList: Card[] = [
     cost: 3,
     faction: 'Neutral',
     rarity: 'Epic',
+    skills: '攻击造成伤害时>破坏攻击目标',
+    props: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]],
   },
   {
     image:

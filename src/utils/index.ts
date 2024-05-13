@@ -37,6 +37,7 @@ export const formatSkills = (skills?: CardSkills, level: number = 1) => {
   if (typeof skills === 'string') {
     return skills;
   }
+  if (!skills.nums.length) return skills.text;
   return skills.nums[level - 1].reduce((rst, cur, idx) => {
     return rst.replace(`{{${idx}}}`, String(cur));
   }, skills.text);
