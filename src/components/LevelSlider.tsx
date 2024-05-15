@@ -2,15 +2,17 @@ import { ConfigProvider, Range } from '@nutui/nutui-react-taro';
 
 export const LevelSlider = ({
   value,
+  range,
   onChange,
 }: {
   value?: number;
+  range?: boolean;
   onChange?: (value: number) => void;
 }) => {
   return (
     <ConfigProvider
       theme={{
-        nutuiRangeActiveColor: 'transparent',
+        nutuiRangeActiveColor: range ? 'red' : 'transparent',
       }}
       className="flex-1 ml-2"
     >

@@ -107,13 +107,14 @@ export const Subscribe = ({ cardId }: { cardId: number }) => {
               placeholder="请输入目标价格"
               type="digit"
               value={price}
+              autoFocus
               onChange={setPrice}
             />
           </ConfigProvider>
         </View>
         <View className="flex items-center">
           <View>卡牌等级</View>
-          <LevelSlider value={level} onChange={setLevel} />
+          <LevelSlider range value={level} onChange={setLevel} />
         </View>
       </Dialog>
     </>

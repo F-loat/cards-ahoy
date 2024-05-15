@@ -8,6 +8,7 @@ import { FloorPrice } from '../index';
 const uChartsInstance = {};
 
 export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
+  const [date, setDate] = useState<string>();
   const [cWidth, setCWidth] = useState(375);
   const [cHeight, setCHeight] = useState(100);
   const [pixelRatio, setPixelRatio] = useState(2);
@@ -70,15 +71,25 @@ export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
       });
   };
 
-  const tap = (e) => {
-    uChartsInstance[e.target.id].touchLegend(e);
-    uChartsInstance[e.target.id].showToolTip(e);
+  const handleTap = (e) => {
     const { index } = uChartsInstance[e.target.id].getCurrentDataIndex(e);
+    uChartsInstance[e.target.id].touchLegend(e);
     if (index === -1) return;
-    Taro.showToast({
-      title: `${data[index].time}`,
-      icon: 'none',
+    uChartsInstance[e.target.id].showToolTip(e, {
+      textList: [
+        {
+          text: `地板价：$${data[index].value}`,
+          color: '#f00',
+          legendShape: 'line',
+        },
+        { text: data[index].time, color: '#f000', legendShape: 'line' },
+      ],
     });
+    setDate(index === -1 ? undefined : data[index].time);
+    console.log(e, [
+      `时间：${data[index].time}`,
+      `地板价：$${data[index].value}`,
+    ]);
   };
 
   useEffect(() => {
@@ -96,7 +107,7 @@ export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
         canvas-id="price"
         id="price"
         type="2d"
-        onTouchEnd={tap}
+        onTouchEnd={handleTap}
       />
     </View>
   );

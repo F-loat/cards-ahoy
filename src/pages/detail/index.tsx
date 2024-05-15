@@ -330,26 +330,6 @@ const Detail = () => {
             </View>
           </View>
         )}
-        {!!sellHistory.length && (
-          <View>
-            <Divider
-              className="sticky top-0 bg-white dark:bg-[#191919] box-border py-2 z-10"
-              style={{ margin: 0 }}
-            >
-              成交历史
-            </Divider>
-            <View>
-              {sellHistory.map((item) => (
-                <View className="flex justify-between font-mono">
-                  <View>${item.totalPrice}</View>
-                  <View className="text-gray-600 dark:text-gray-400 text-sm">
-                    {dayjs(item.saleTime).format('YYYY-MM-DD HH:mm:ss')}
-                  </View>
-                </View>
-              ))}
-            </View>
-          </View>
-        )}
         {!!subscriptions.length && (
           <View>
             <Divider
@@ -368,6 +348,26 @@ const Detail = () => {
                     {dayjs(item.updateAt || item.createAt).format(
                       'YYYY-MM-DD HH:mm:ss',
                     )}
+                  </View>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
+        {!!sellHistory.length && (
+          <View>
+            <Divider
+              className="sticky top-0 bg-white dark:bg-[#191919] box-border py-2 z-10"
+              style={{ margin: 0 }}
+            >
+              成交历史
+            </Divider>
+            <View>
+              {sellHistory.map((item) => (
+                <View className="flex justify-between font-mono">
+                  <View>${item.totalPrice}</View>
+                  <View className="text-gray-600 dark:text-gray-400 text-sm">
+                    {dayjs(item.saleTime).format('YYYY-MM-DD HH:mm:ss')}
                   </View>
                 </View>
               ))}
