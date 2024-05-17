@@ -7,7 +7,13 @@ import { useRef, useState } from 'react';
 import { getCard } from '../../../utils';
 import { getGlobalData } from '../../../utils/data';
 
-export const Subscribe = ({ cardId }: { cardId: number }) => {
+export const Subscribe = ({
+  cardId,
+  onSuccess,
+}: {
+  cardId: number;
+  onSuccess?: () => void;
+}) => {
   const subId = useRef<string | null>();
   const [price, setPrice] = useState<string>();
   const [level, setLevel] = useState<number>(1);
@@ -75,6 +81,7 @@ export const Subscribe = ({ cardId }: { cardId: number }) => {
       title: '订阅成功',
       icon: 'none',
     });
+    onSuccess?.();
   };
 
   return (

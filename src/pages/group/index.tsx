@@ -324,7 +324,7 @@ const Group = () => {
         ))}
         {!loading && !list.length && (
           <View className="h-full flex items-center justify-center">
-            <Empty style={{ background: 'transparent' }} />
+            <Empty style={{ background: 'transparent' }} className="-mt-24" />
           </View>
         )}
         {!!list.length && (

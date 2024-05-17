@@ -4,7 +4,7 @@ import {
   useRouter,
   useShareAppMessage,
 } from '@tarojs/taro';
-import { Divider, Image, SafeArea } from '@nutui/nutui-react-taro';
+import { Divider, Empty, Image, SafeArea } from '@nutui/nutui-react-taro';
 import { useEffect, useState } from 'react';
 import Taro from '@tarojs/taro';
 import dayjs from 'dayjs';
@@ -211,7 +211,13 @@ const Detail = () => {
 
   if (!cardInfo) {
     return (
-      <View className="h-full flex items-center justify-center">暂未收录</View>
+      <View className="h-screen flex items-center justify-center">
+        <Empty
+          style={{ background: 'transparent' }}
+          className="-mt-24"
+          title="暂未收录"
+        />
+      </View>
     );
   }
 
@@ -282,7 +288,7 @@ const Detail = () => {
               {time ? dayjs(Number(time)).format('YYYY/MM/DD HH:mm:ss') : ''}
             </View>
             <View className="flex items-center">
-              <Subscribe cardId={cardId} />
+              <Subscribe cardId={cardId} onSuccess={fetchSubscriptions} />
             </View>
           </View>
         </View>

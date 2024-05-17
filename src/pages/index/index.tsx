@@ -80,6 +80,7 @@ const rarities = [
   { text: '稀有', value: CardRarity.Rare },
   { text: '史诗', value: CardRarity.Epic },
   { text: '传说', value: CardRarity.Legendary },
+  { text: '神话', value: CardRarity.Mythic },
 ];
 
 const sorts = [
