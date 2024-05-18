@@ -9,6 +9,7 @@ import Taro from '@tarojs/taro';
 import { useState } from 'react';
 import { cardsList } from '../../../../assets/cards';
 import { Cost } from '../CostPopup';
+import { CardFoil } from '../../../../types';
 
 export const OrderImport = ({
   visible,
@@ -78,7 +79,7 @@ export const OrderImport = ({
 
     const cardMap = cardsList.reduce(
       (rst, cur) => {
-        const isGold = cur.foil === 'gold';
+        const isGold = cur.foil === CardFoil.Gold;
         return {
           ...rst,
           [cur.nameEn + isGold]: cur.id,

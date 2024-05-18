@@ -8,7 +8,6 @@ import { FloorPrice } from '../index';
 const uChartsInstance = {};
 
 export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
-  const [date, setDate] = useState<string>();
   const [cWidth, setCWidth] = useState(375);
   const [cHeight, setCHeight] = useState(100);
   const [pixelRatio, setPixelRatio] = useState(2);
@@ -85,11 +84,6 @@ export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
         { text: data[index].time, color: '#f000', legendShape: 'line' },
       ],
     });
-    setDate(index === -1 ? undefined : data[index].time);
-    console.log(e, [
-      `时间：${data[index].time}`,
-      `地板价：$${data[index].value}`,
-    ]);
   };
 
   useEffect(() => {

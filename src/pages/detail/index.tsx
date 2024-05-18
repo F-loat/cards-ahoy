@@ -22,7 +22,7 @@ import { LevelSlider } from '../../components/LevelSlider';
 import { VideoAd } from './components/VideoAd';
 import { Subscribe } from './components/Subscribe';
 import { PriceChart } from './components/PriceChart';
-import { CardRarity } from '../../assets/cards';
+import { CardRarity } from '../../types';
 
 interface SellCard {
   image: string;

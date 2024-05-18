@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 import { useState } from 'react';
-import { CardFoil, CardType } from '../../../assets/cards';
+import { CardFoil, CardType } from '../../../types';
 import { getCard } from '../../../utils';
 
 export interface Card {

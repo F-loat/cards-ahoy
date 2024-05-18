@@ -17,7 +17,7 @@ import Taro, {
 import { PageLoading } from '../../components/PageLoading';
 import { useEffect, useState } from 'react';
 import { CardGroup } from './detail';
-import { CardFaction, CardFoil } from '../../assets/cards';
+import { CardFaction, CardFoil } from '../../types';
 import { RangeMenuItem } from './components/RangeMenuItem';
 import { getCard, getHonorPointsForCard } from '../../utils';
 import { CheckboxMenuItem } from '../index/components/CheckboxMenuItem';

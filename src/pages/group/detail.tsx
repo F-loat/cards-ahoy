@@ -1,5 +1,5 @@
 import { View, Text, CustomWrapper } from '@tarojs/components';
-import { Card, CardRarity, CardType } from '../../assets/cards';
+import { Card, CardRarity, CardType } from '../../types';
 import { Button, Dialog, Image, SafeArea } from '@nutui/nutui-react-taro';
 import { useEffect, useMemo, useState } from 'react';
 import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';

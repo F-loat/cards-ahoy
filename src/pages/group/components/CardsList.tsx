@@ -1,12 +1,7 @@
 import { Image, Divider } from '@nutui/nutui-react-taro';
 import { View } from '@tarojs/components';
-import {
-  Card,
-  CardFaction,
-  CardFoil,
-  CardType,
-  cardsList,
-} from '../../../assets/cards';
+import { Card, CardFaction, CardFoil, CardType } from '../../../types';
+import { cardsList } from '../../../assets/cards';
 import { useMemo } from 'react';
 import { CardGroup, SelectedCard } from '../detail';
 import { getCard } from '../../../utils';

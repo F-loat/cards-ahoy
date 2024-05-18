@@ -27,7 +27,7 @@ import {
   CardFoil,
   CardRarity,
   CardType,
-} from '../../assets/cards';
+} from '../../types';
 import { Notice } from './components/Notice';
 import { useNotice } from './hooks/notice';
 import { GlobalData, getGlobalData } from '../../utils/data';

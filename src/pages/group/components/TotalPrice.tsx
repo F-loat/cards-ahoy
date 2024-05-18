@@ -4,7 +4,7 @@ import Taro from '@tarojs/taro';
 import { getCard, getPointsForCard, samrtCeil } from '../../../utils';
 import { View } from '@tarojs/components';
 import { Button } from '@nutui/nutui-react-taro';
-import { CardRarity } from '../../../assets/cards';
+import { CardRarity } from '../../../types';
 
 export const getPriceForCards = async (
   cards: {
