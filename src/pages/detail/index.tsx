@@ -22,6 +22,7 @@ import { LevelSlider } from '../../components/LevelSlider';
 import { VideoAd } from './components/VideoAd';
 import { Subscribe } from './components/Subscribe';
 import { PriceChart } from './components/PriceChart';
+import { CardRarity } from '../../assets/cards';
 
 interface SellCard {
   image: string;
@@ -232,11 +233,11 @@ const Detail = () => {
               style={{ fontSize: '10px' }}
             >
               {!!cardInfo.props[level - 1][1] && (
-                <View className="bg-blue-500 min-w-4 border-solid border-white border-1 rounded">
+                <View className="bg-blue-500 min-w-4 border-solid border-white border-1.5 rounded">
                   {cardInfo.props[level - 1][1]}
                 </View>
               )}
-              <View className="bg-red-500 min-w-4 border-solid border-white border-1 rounded-xl mt-px">
+              <View className="bg-red-500 min-w-4 border-solid border-white border-1.5 rounded-xl mt-px">
                 {cardInfo.props[level - 1][0]}
               </View>
             </View>
@@ -257,7 +258,16 @@ const Detail = () => {
                   })}
                 >
                   $
-                  {samrtCeil(Number(price) * getPointsForCard(cardInfo, level))}
+                  {samrtCeil(
+                    Number(price) *
+                      getPointsForCard(
+                        cardInfo,
+                        cardInfo.rarity === CardRarity.Mythic ? 1 : level,
+                      ),
+                  )}
+                  {cardInfo.rarity === CardRarity.Mythic && level !== 1
+                    ? '*'
+                    : null}
                   <AngleDoubleRight
                     style={{
                       transform: `rotate(${

@@ -1,5 +1,5 @@
 import { View, Text, CustomWrapper } from '@tarojs/components';
-import { Card, CardType } from '../../assets/cards';
+import { Card, CardRarity, CardType } from '../../assets/cards';
 import { Button, Dialog, Image, SafeArea } from '@nutui/nutui-react-taro';
 import { useEffect, useMemo, useState } from 'react';
 import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
@@ -62,7 +62,10 @@ const GroupDetail = () => {
         id: card.id,
         level: card.level,
       },
-      members: group.members,
+      members:
+        getCard(group.leader.id).faction === getCard(card.id).faction
+          ? group.members
+          : Array(8).fill({ id: -1 }),
     });
   };
 
@@ -288,7 +291,15 @@ const GroupDetail = () => {
               level={member.level}
               key={`${index}_${member.id === -1 ? 0 : 1}`}
               bottomSlot={
-                !!priceMap[member.id] && <Text>/${priceMap[member.id]}</Text>
+                !!priceMap[member.id] && (
+                  <Text>
+                    /${priceMap[member.id]}
+                    {getCard(member.id).rarity === CardRarity.Mythic &&
+                    member.level !== 1
+                      ? '*'
+                      : null}
+                  </Text>
+                )
               }
               onClick={() => {
                 setSelectedCard({

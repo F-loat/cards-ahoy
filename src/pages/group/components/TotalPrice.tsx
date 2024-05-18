@@ -4,6 +4,7 @@ import Taro from '@tarojs/taro';
 import { getCard, getPointsForCard, samrtCeil } from '../../../utils';
 import { View } from '@tarojs/components';
 import { Button } from '@nutui/nutui-react-taro';
+import { CardRarity } from '../../../assets/cards';
 
 export const getPriceForCards = async (
   cards: {
@@ -24,7 +25,11 @@ export const getPriceForCards = async (
   const result = (res.result as number[]) || [];
   const priceMap = cards.reduce(
     (acc, cur, index) => {
-      const points = getPointsForCard(getCard(cur.id), cur.level || 1);
+      const cardInfo = getCard(cur.id);
+      const points = getPointsForCard(
+        cardInfo,
+        cardInfo.rarity === CardRarity.Mythic ? 1 : cur.level || 1,
+      );
       const val = samrtCeil(result[index] * points);
       return { ...acc, [cur.id]: val };
     },

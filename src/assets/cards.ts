@@ -3396,6 +3396,7 @@ export const cardsMap = cardsList.reduce(
   {} as Record<number, Card>,
 );
 
+// 总经验
 export const pointsMap = {
   [`${CardFoil.Gold}_${CardRarity.Common}`]: [
     1, 4, 9, 16, 26, 40, 58, 80, 106, 136,
@@ -3406,6 +3407,9 @@ export const pointsMap = {
   [`${CardFoil.Gold}_${CardRarity.Epic}`]: [1, 2, 4, 7, 11, 15, 20, 25, 30, 36],
   [`${CardFoil.Gold}_${CardRarity.Legendary}`]: [
     1, 2, 3, 5, 7, 9, 11, 13, 15, 18,
+  ],
+  [`${CardFoil.Gold}_${CardRarity.Mythic}`]: [
+    1, 30, 75, 120, 165, 210, 255, 315, 405, 540,
   ],
   [`${CardFoil.Regular}_${CardRarity.Common}`]: [
     1, 5, 15, 30, 60, 100, 150, 220, 300, 400,
@@ -3419,8 +3423,12 @@ export const pointsMap = {
   [`${CardFoil.Regular}_${CardRarity.Legendary}`]: [
     1, 2, 4, 6, 8, 11, 14, 17, 21, 26,
   ],
+  [`${CardFoil.Regular}_${CardRarity.Mythic}`]: [
+    1, 20, 50, 80, 110, 140, 170, 210, 270, 360,
+  ],
 };
 
+// 荣耀点
 export const honorPointsMap = {
   [`${CardFoil.Gold}_${CardRarity.Common}`]: [
     50, 200, 450, 800, 1300, 2000, 2900, 4000, 5300, 7140,
@@ -3434,6 +3442,9 @@ export const honorPointsMap = {
   [`${CardFoil.Gold}_${CardRarity.Legendary}`]: [
     5000, 10000, 15000, 25000, 35000, 45000, 55000, 65000, 75000, 94500,
   ],
+  [`${CardFoil.Gold}_${CardRarity.Mythic}`]: [
+    240, 7200, 18000, 28800, 39600, 50400, 61200, 75600, 97200, 136000,
+  ],
   [`${CardFoil.Regular}_${CardRarity.Common}`]: [
     5, 25, 75, 150, 300, 500, 750, 1100, 1500, 2100,
   ],
@@ -3445,5 +3456,8 @@ export const honorPointsMap = {
   ],
   [`${CardFoil.Regular}_${CardRarity.Legendary}`]: [
     500, 1000, 2000, 3000, 4000, 5500, 7000, 8500, 10500, 13650,
+  ],
+  [`${CardFoil.Regular}_${CardRarity.Mythic}`]: [
+    60, 1200, 3000, 4800, 6600, 8400, 10200, 12600, 16200, 22680,
   ],
 };
