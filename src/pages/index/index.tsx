@@ -22,12 +22,7 @@ import { PageLoading } from '../../components/PageLoading';
 import { samrtCeil } from '../../utils';
 import classnames from 'classnames';
 import { CheckboxMenuItem } from './components/CheckboxMenuItem';
-import {
-  CardFaction,
-  CardFoil,
-  CardRarity,
-  CardType,
-} from '../../types';
+import { CardFaction, CardFoil, CardRarity, CardType } from '../../types';
 import { Notice } from './components/Notice';
 import { useNotice } from './hooks/notice';
 import { GlobalData, getGlobalData } from '../../utils/data';

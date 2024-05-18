@@ -1,13 +1,5 @@
-import {
-  cardsMap,
-  honorPointsMap,
-  pointsMap,
-} from '../assets/cards';
-import {
-  Card,
-  CardFaction,
-  CardSkills,
-} from '../types';
+import { cardsMap, honorPointsMap, pointsMap } from '../assets/cards';
+import { Card, CardFaction, CardSkills } from '../types';
 
 export const getCard = (id: number) => cardsMap[id];
 
