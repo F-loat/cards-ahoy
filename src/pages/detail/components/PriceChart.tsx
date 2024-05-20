@@ -35,7 +35,7 @@ export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
                 data: data.map((i) => i.value),
               },
             ],
-            pixelRatio: pixelRatio,
+            pixelRatio,
             animation: false,
             background: '#FFFFFF',
             color: ['#ff0000'],
