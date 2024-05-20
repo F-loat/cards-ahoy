@@ -3283,7 +3283,7 @@ export const cardsList: Card[] = [
       ],
     },
     props: [[20], [23], [26], [29], [32], [35], [38], [41], [44], [48]],
-    faction: 'Zombie',
+    faction: 'Neutral',
     rarity: 'Mythic',
   },
   {

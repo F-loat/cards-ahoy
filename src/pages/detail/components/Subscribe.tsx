@@ -48,10 +48,18 @@ export const Subscribe = ({
       return;
     }
     setVisible(false);
-    await Taro.requestSubscribeMessage({
-      tmplIds: ['7tACZmiQF0qnNR5v5PAUAF_i_bEEMNtQRbdbKZaPvJQ'],
+    const tmplId = '7tACZmiQF0qnNR5v5PAUAF_i_bEEMNtQRbdbKZaPvJQ';
+    const res = await Taro.requestSubscribeMessage({
+      tmplIds: [tmplId],
       entityIds: [],
     });
+    if (res[tmplId] === 'reject') {
+      Taro.showToast({
+        title: '用户取消',
+        icon: 'none',
+      });
+      return;
+    }
     const db = Taro.cloud.database();
     if (subId.current) {
       await db
