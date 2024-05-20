@@ -206,7 +206,7 @@ const Group = () => {
         <RangeMenuItem
           title={'费用'}
           min={12}
-          max={48}
+          max={40}
           children
           onChange={(value) => {
             fetchCardGroups({
@@ -329,7 +329,7 @@ const Group = () => {
         )}
         {!!list.length && (
           <View className="text-sm text-center text-gray-400 dark:text-gray-600">
-            没有更多了~
+            {list.length >= 50 ? '仅展示前50条数据~' : '没有更多了~'}
           </View>
         )}
       </View>
