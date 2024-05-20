@@ -3409,11 +3409,8 @@ export const cardsList: Card[] = [
 ];
 
 export const cardsMap = cardsList.reduce(
-  (acc, card) => {
-    acc[card.id] = card;
-    return acc;
-  },
-  {} as Record<number, Card>,
+  (acc, card) => acc.set(card.id, card),
+  new Map<number, Card>(),
 );
 
 // 总经验
