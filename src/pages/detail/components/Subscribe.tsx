@@ -129,7 +129,7 @@ export const Subscribe = ({
         </View>
         <View className="flex items-center">
           <View>卡牌等级</View>
-          <LevelSlider range value={level} onChange={setLevel} />
+          <LevelSlider value={level} onChange={setLevel} />
         </View>
       </Dialog>
     </>

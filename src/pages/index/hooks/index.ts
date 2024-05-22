@@ -31,9 +31,11 @@ interface CardListResult {
 }
 
 const fetchCardList = async ({
+  pageSize = 20,
   pageNumber = 1,
   filters = {},
 }: {
+  pageSize?: number;
   pageNumber?: number;
   filters?: Filters;
 }) => {
@@ -93,7 +95,7 @@ const fetchCardList = async ({
           },
         ],
         pageNumber,
-        pageSize: 20,
+        pageSize,
         sortType: filters.sort,
       },
     },
@@ -106,7 +108,7 @@ export const useCardList = () => {
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
     current: 1,
-    size: 20,
+    size: 50,
     total: 0,
   });
 
@@ -126,6 +128,7 @@ export const useCardList = () => {
     try {
       const result = await fetchCardList({
         pageNumber,
+        pageSize: pagination.size,
         filters,
       });
       const time = Date.now();

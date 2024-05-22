@@ -1,6 +1,8 @@
 import { cardsMap, honorPointsMap, pointsMap } from '../assets/cards';
 import { Card, CardFaction, CardSkills } from '../types';
 
+export const noop = () => {};
+
 export const getCard = (id: number) => cardsMap.get(id);
 
 export const getPointsForCard = (card: Card, level: number = 1): number => {

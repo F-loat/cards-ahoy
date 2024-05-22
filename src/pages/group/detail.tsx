@@ -169,13 +169,13 @@ const GroupDetail = () => {
             icon: 'success',
           });
           Taro.eventCenter.trigger('refreshCardGroups');
-        } catch (error) {
+        } catch (err) {
           Taro.hideLoading();
           Taro.showToast({
             title: '发布失败，请稍后再试',
             icon: 'error',
           });
-          console.log(error);
+          console.log(err);
         }
         return Promise.resolve(() => true);
       },
@@ -226,8 +226,8 @@ const GroupDetail = () => {
           return { id } as { id: number };
         }),
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   });
 

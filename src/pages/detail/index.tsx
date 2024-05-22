@@ -16,6 +16,7 @@ import {
   getCard,
   getHonorPointsForCard,
   getPointsForCard,
+  noop,
   samrtCeil,
 } from '../../utils';
 import { LevelSlider } from '../../components/LevelSlider';
@@ -23,6 +24,7 @@ import { VideoAd } from './components/VideoAd';
 import { Subscribe } from './components/Subscribe';
 import { PriceChart } from './components/PriceChart';
 import { CardRarity } from '../../types';
+import { useCloudFunction } from '../../hooks';
 
 interface SellCard {
   image: string;
@@ -88,57 +90,97 @@ const Detail = () => {
   const cardInfo = cardId && getCard(cardId);
   const [time, setTime] = useState(params.time);
   const [price, setPrice] = useState(params.price);
-  const [loading, setLoading] = useState(false);
-  const [sellCards, setSellCards] = useState<SellCard[]>([]);
-  const [sellHistory, setSellHistory] = useState<SellHistory[]>([]);
-  const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
-  const [floorPrices, setFloorPrices] = useState<FloorPrice[]>([]);
-
   const [level, setLevel] = useState(1);
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
 
-  const fetchSellCards = async () => {
-    const res = await Taro.cloud.callFunction({
-      name: 'fetchSellCards',
-      data: {
-        cardId,
-      },
-    });
-    const result = res.result as {
+  const {
+    data: sellCards,
+    run: fetchSellCards,
+    loading: sellCardsLoading,
+  } = useCloudFunction<SellCard[]>({
+    name: 'fetchSellCards',
+    data: {
+      cardId,
+    },
+    initialData: [],
+    cacheKey: `sellCards-${cardId}`,
+    formatResult: (res: {
       data?: {
         list: SellCard[];
         total: number | null;
       };
-    };
-    const list = result.data?.list || [];
-    setSellCards(list);
-    if (!price && list.length) {
+    }) => res.data?.list || [],
+    onSuccess: (list) => {
+      if (price || !list.length) return;
       const salePrice = Number(list[0].salePrice);
       setPrice(String(salePrice / list[0].accumulateTrait.value));
       setTime(Date.now().toString());
-    }
-  };
+    },
+  });
 
-  const fetchSellHistory = async () => {
-    const res = await Taro.cloud.callFunction({
-      name: 'fetchCardsAhoy',
-      data: {
-        url: 'api/marketQuery/queryAnalyzeSellHistory',
-        method: 'post',
-        body: {
-          categoryId: cardId,
-          chainNftId: 12,
-        },
+  const {
+    data: sellHistory,
+    run: fetchSellHistory,
+    loading: sellHistoryLoading,
+  } = useCloudFunction<SellHistory[]>({
+    name: 'fetchCardsAhoy',
+    data: {
+      url: 'api/marketQuery/queryAnalyzeSellHistory',
+      method: 'post',
+      body: {
+        categoryId: cardId,
+        chainNftId: 12,
       },
-    });
-    const result = res.result as {
-      data?: SellHistory[];
-    };
-    setSellHistory((result.data || []).slice(0, 10));
-  };
+    },
+    initialData: [],
+    cacheKey: `sellHistory-${cardId}`,
+    formatResult: (res: { data?: SellHistory[] }) => {
+      return (res.data || []).slice(0, 10);
+    },
+  });
+
+  const {
+    data: floorPrices,
+    loading: floorPricesLoading,
+    validating,
+  } = useCloudFunction<FloorPrice[]>({
+    name: 'fetchCardsAhoy',
+    data: {
+      url: 'api/marketQuery/queryAnalyzeFloorPriceTrend',
+      method: 'post',
+      body: {
+        categoryId: cardId,
+        chainNftId: 12,
+        timeRange: '7d',
+      },
+    },
+    initialData: [],
+    cacheKey: `floorPrices-${cardId}`,
+    formatResult: (res: {
+      data?: {
+        nodes: {
+          timestamp: number;
+          value: string;
+        }[];
+      };
+    }) => {
+      return (res.data?.nodes || []).map((item) => ({
+        time: dayjs(item.timestamp).format('MM/DD HH:mm'),
+        value: Number(item.value),
+      }));
+    },
+  });
 
   const fetchSubscriptions = async () => {
-    const db = Taro.cloud.database();
-    const docs = await db
+    const cacheKey = `subscriptions-${cardId}`;
+    try {
+      const { data: cacheData } = await Taro.getStorage({ key: cacheKey });
+      if (cacheData) setSubscriptions(cacheData);
+    } catch {
+      noop();
+    }
+    const docs = await Taro.cloud
+      .database()
       .collection('subscriptions')
       .where({
         cardId,
@@ -147,50 +189,22 @@ const Detail = () => {
       .limit(10)
       .get();
     setSubscriptions((docs.data as Subscription[]) || []);
+    Taro.setStorage({ key: cacheKey, data: docs.data });
   };
 
-  const fetchFloorPriceTrend = async () => {
-    const res = await Taro.cloud.callFunction({
-      name: 'fetchCardsAhoy',
-      data: {
-        url: 'api/marketQuery/queryAnalyzeFloorPriceTrend',
-        method: 'post',
-        body: {
-          categoryId: cardId,
-          chainNftId: 12,
-          timeRange: '7d',
-        },
-      },
-    });
-    const result = res.result as {
-      data?: {
-        nodes: {
-          timestamp: number;
-          value: string;
-        }[];
-      };
-    };
-    setFloorPrices(
-      (result.data?.nodes || []).map((item) => {
-        return {
-          time: dayjs(item.timestamp).format('MM/DD HH:mm'),
-          value: Number(item.value),
-        };
-      }),
-    );
-  };
+  const loading = sellCardsLoading || sellHistoryLoading || floorPricesLoading;
 
   useEffect(() => {
-    setLoading(true);
-    Promise.all([
-      fetchSellCards(),
-      fetchSellHistory(),
-      fetchFloorPriceTrend(),
-      fetchSubscriptions(),
-    ]).finally(() => {
-      setLoading(false);
-    });
+    fetchSubscriptions();
   }, []);
+
+  useEffect(() => {
+    if (validating && !loading) {
+      Taro.showNavigationBarLoading();
+    } else {
+      Taro.hideNavigationBarLoading();
+    }
+  }, [validating]);
 
   usePullDownRefresh(async () => {
     await Promise.all([

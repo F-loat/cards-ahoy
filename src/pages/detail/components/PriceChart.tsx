@@ -41,7 +41,7 @@ export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
             color: ['#ff0000'],
             dataLabel: false,
             dataPointShape: false,
-            padding: [15, 10, 0, 15],
+            padding: [15, 15, 10, 15],
             enableScroll: false,
             legend: {
               show: false,
