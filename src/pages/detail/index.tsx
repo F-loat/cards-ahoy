@@ -317,13 +317,11 @@ const Detail = () => {
           </View>
         </View>
       </View>
-      <View>
-        {cardInfo.skills !== undefined && (
-          <View className="rounded bg-gray-100 dark:bg-black p-2 mx-2">
-            {formatSkills(cardInfo.skills, level)}
-          </View>
-        )}
-      </View>
+      {cardInfo.skills !== undefined && (
+        <View className="rounded bg-gray-100 dark:bg-gray-800 py-2 px-3 mx-2 min-h-10 flex items-center">
+          {formatSkills(cardInfo.skills, level)}
+        </View>
+      )}
       {!!floorPrices.length && <PriceChart data={floorPrices} />}
       <View
         className={classnames(

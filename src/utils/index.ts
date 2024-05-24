@@ -3,7 +3,7 @@ import { Card, CardFaction, CardSkills } from '../types';
 
 export const noop = () => {};
 
-export const getCard = (id: number) => cardsMap.get(id);
+export const getCard = (id: number) => cardsMap.get(Number(id)) || ({} as Card);
 
 export const getPointsForCard = (card: Card, level: number = 1): number => {
   if (!card) return 0;

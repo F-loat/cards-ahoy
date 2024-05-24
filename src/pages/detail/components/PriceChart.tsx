@@ -6,13 +6,16 @@ import uCharts from '@qiun/ucharts';
 import { FloorPrice } from '../index';
 
 const uChartsInstance = {};
+const sysInfo = Taro.getSystemInfoSync();
+
+const cWidth = (750 / 750) * sysInfo.windowWidth;
+const cHeight = (200 / 750) * sysInfo.windowWidth;
 
 export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
-  const [cWidth, setCWidth] = useState(375);
-  const [cHeight, setCHeight] = useState(100);
-  const [pixelRatio, setPixelRatio] = useState(2);
+  const [visible, setVisible] = useState(true);
 
   const drawCharts = (id) => {
+    const pixelRatio = sysInfo.pixelRatio;
     const query = Taro.createSelectorQuery();
     query
       .select('#' + id)
@@ -21,8 +24,8 @@ export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
         if (res[0]) {
           const canvas = res[0].node;
           const ctx = canvas.getContext('2d');
-          canvas.width = res[0].width * pixelRatio;
-          canvas.height = res[0].height * pixelRatio;
+          canvas.width = cWidth * pixelRatio;
+          canvas.height = cHeight * pixelRatio;
           uChartsInstance[id] = new uCharts({
             type: 'line',
             context: ctx,
@@ -65,6 +68,7 @@ export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
             },
           });
         } else {
+          setVisible(false);
           console.error('[uCharts]: 未获取到 context');
         }
       });
@@ -87,12 +91,10 @@ export const PriceChart = ({ data }: { data: FloorPrice[] }) => {
   };
 
   useEffect(() => {
-    const sysInfo = Taro.getSystemInfoSync();
-    setCWidth((750 / 750) * sysInfo.windowWidth);
-    setCHeight((200 / 750) * sysInfo.windowWidth);
-    setPixelRatio(sysInfo.pixelRatio);
     setTimeout(() => drawCharts('price'));
   }, [data]);
+
+  if (!visible) return null;
 
   return (
     <View>
