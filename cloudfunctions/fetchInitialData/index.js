@@ -5,6 +5,10 @@ cloud.init({
   env: 'cards-ahoy-3g50hglqe5f630e4',
 });
 
+const db = cloud.database();
+const _ = db.command;
+const USERS = 'users';
+
 function get(host, path) {
   return new Promise((resolve, reject) => {
     const session = http2.connect(`https://${host}`, {
@@ -47,20 +51,30 @@ exports.main = async (event, context, callback) => {
   const { OPENID } = cloud.getWXContext();
 
   try {
-    const data = await get(
-      'apespace.io',
-      '/_api/token/data?chain=56&address=0xe0b1a112ee17ef376260ad347d0d9c38efdffe07',
-    );
+    const [data, res] = await Promise.all([
+      get(
+        'apespace.io',
+        '/_api/token/data?chain=56&address=0xe0b1a112ee17ef376260ad347d0d9c38efdffe07',
+      ),
+      db
+        .collection(USERS)
+        .where({
+          _openid: _.eq(OPENID),
+        })
+        .get(),
+    ]);
+
     callback(null, {
       openid: OPENID,
       notice: {
-        text: `CAC 实时价格：$${Math.round((JSON.parse(data).price || 0) * 100000) / 100000} / 邀请码：881b0228`,
+        text: `CAC 实时价格: $${Math.round((JSON.parse(data).price || 0) * 100000) / 100000} / 小程序已开源,点击完善卡牌数据`,
         copy: {
-          content: '881b0228',
-          message: '邀请码复制成功~',
+          content: 'https://github.com/F-loat/cards-ahoy',
+          message: '已复制，请通过浏览器访问',
         },
       },
       banners: [],
+      plan: res.data[0]?.plan,
     });
   } catch (error) {
     console.log(error);

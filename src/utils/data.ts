@@ -1,3 +1,8 @@
+export enum Plan {
+  Free = 0,
+  Pro = 1,
+}
+
 export interface GlobalData {
   openid?: string;
   notice?: {
@@ -11,6 +16,7 @@ export interface GlobalData {
     img: string;
     link?: string;
   }[];
+  plan?: Plan;
 }
 
 const globalData: GlobalData = {};

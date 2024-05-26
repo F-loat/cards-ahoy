@@ -11,6 +11,7 @@ function App(props) {
       setGlobalData('openid', data?.openid);
       setGlobalData('notice', data?.notice);
       setGlobalData('banners', data?.banners);
+      setGlobalData('plan', data?.plan);
     } catch (err) {
       console.log(err);
     }
