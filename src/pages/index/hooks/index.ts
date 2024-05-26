@@ -2,6 +2,7 @@ import Taro from '@tarojs/taro';
 import { useState } from 'react';
 import { CardFoil, CardType } from '../../../types';
 import { getCard } from '../../../utils';
+import { useCloudFunction } from '../../../hooks';
 
 export interface Card {
   chainNftId: number;
@@ -30,82 +31,63 @@ interface CardListResult {
   };
 }
 
-const fetchCardList = async ({
-  pageSize = 20,
-  pageNumber = 1,
-  filters = {},
-}: {
-  pageSize?: number;
-  pageNumber?: number;
-  filters?: Filters;
-}) => {
+const getParams = (filters: Filters) => {
   const types = (filters.types ?? []).filter((type: CardType) =>
     [CardType.Leaders, CardType.Members].includes(type),
   );
   const foils = (filters.types ?? []).filter((foil: CardFoil) =>
     [CardFoil.Gold, CardFoil.Regular].includes(foil),
   );
-  const res = await Taro.cloud.callFunction({
-    name: 'fetchCardsAhoy',
-    data: {
-      url: 'api/marketQuery/queryMarketSecondary',
-      method: 'post',
-      body: {
-        chainNftId: 12,
-        discreteList: [
-          {
-            filterName: 'Type',
-            filterValueList: [],
-            valueIdList: types,
-            filterIdList: types,
-          },
-          {
-            filterName: 'Faction',
-            filterValueList: [],
-            valueIdList: filters.factions ?? [],
-            filterIdList: filters.factions ?? [],
-          },
-          {
-            filterName: 'Rarity',
-            filterValueList: [],
-            valueIdList: filters.rarities ?? [],
-            filterIdList: filters.rarities ?? [],
-          },
-          {
-            filterName: 'Foil',
-            filterValueList: [],
-            valueIdList: foils,
-            filterIdList: foils,
-          },
-          {
-            filterName: 'Source',
-            filterValueList: [],
-            valueIdList: [],
-            filterIdList: [],
-          },
-        ],
-        continuityList: [
-          {
-            filterName: 'Cost',
-            start: 0,
-            end: 9,
-            stepSize: 1,
-            min: 0,
-            max: 9,
-          },
-        ],
-        pageNumber,
-        pageSize,
-        sortType: filters.sort,
+  return {
+    chainNftId: 12,
+    discreteList: [
+      {
+        filterName: 'Type',
+        filterValueList: [],
+        valueIdList: types,
+        filterIdList: types,
       },
-    },
-  });
-  return res.result as CardListResult;
+      {
+        filterName: 'Faction',
+        filterValueList: [],
+        valueIdList: filters.factions ?? [],
+        filterIdList: filters.factions ?? [],
+      },
+      {
+        filterName: 'Rarity',
+        filterValueList: [],
+        valueIdList: filters.rarities ?? [],
+        filterIdList: filters.rarities ?? [],
+      },
+      {
+        filterName: 'Foil',
+        filterValueList: [],
+        valueIdList: foils,
+        filterIdList: foils,
+      },
+      {
+        filterName: 'Source',
+        filterValueList: [],
+        valueIdList: [],
+        filterIdList: [],
+      },
+    ],
+    continuityList: [
+      {
+        filterName: 'Cost',
+        start: 0,
+        end: 9,
+        stepSize: 1,
+        min: 0,
+        max: 9,
+      },
+    ],
+    sortType: filters.sort,
+  };
 };
 
 export const useCardList = () => {
   const [list, setList] = useState<Card[]>([]);
-  const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
     current: 1,
     size: 50,
@@ -114,55 +96,71 @@ export const useCardList = () => {
 
   const isLoadAll = pagination.current * pagination.size >= pagination.total;
 
-  const runAsync = async ({
-    pageNumber = 1,
-    filters,
-  }: {
-    pageNumber?: number;
-    filters?: Filters;
-  }) => {
-    if (isLoadAll && pageNumber !== 1) {
-      return;
-    }
-    setLoading(true);
-    try {
-      const result = await fetchCardList({
-        pageNumber,
-        pageSize: pagination.size,
-        filters,
-      });
+  const {
+    run: fetchCardList,
+    loading,
+    validating,
+  } = useCloudFunction<CardListResult['data']>({
+    manual: true,
+    name: 'fetchCardsAhoy',
+    data: {
+      url: 'api/marketQuery/queryMarketSecondary',
+      method: 'post',
+    },
+    formatResult(res: CardListResult) {
       const time = Date.now();
-      result.data?.list.forEach((item) => {
+      res.data?.list.forEach((item) => {
         item.time = time;
         const card = getCard(item.secondaryId);
         if (card) item.secondaryName = card.name;
       });
-      if (pageNumber === 1) {
-        setList(result?.data?.list || []);
+      return res.data;
+    },
+    onSuccess(data, params) {
+      if (params.pageNumber === 1) {
+        setList(data?.list || []);
       } else {
-        setList(list.concat(result?.data?.list || []));
+        setList(list.concat(data?.list || []));
       }
       setPagination({
         ...pagination,
-        total: result?.data?.total || 0,
-        current: pageNumber,
+        current: params.pageNumber,
+        total: data?.total || 0,
       });
-    } catch (err) {
+    },
+    onError(err) {
       console.log(err);
       Taro.showToast({
         title: err.message || '数据加载失败',
         icon: 'none',
       });
-    } finally {
-      setLoading(false);
+    },
+    cacheKey: (params) => (params.pageNumber === 1 ? 'cardList' : null),
+  });
+
+  const run = ({
+    pageNumber = 1,
+    filters = {},
+  }: {
+    pageNumber?: number;
+    filters?: Filters;
+  }) => {
+    if (isLoadAll && pageNumber !== 1) {
+      return Promise.resolve();
     }
+    return fetchCardList({
+      pageNumber,
+      pageSize: pagination.size,
+      ...getParams(filters),
+    });
   };
 
   return {
     list,
     loading,
+    validating,
     isLoadAll,
-    runAsync,
+    run,
     pagination,
   };
 };

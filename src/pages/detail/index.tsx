@@ -318,7 +318,7 @@ const Detail = () => {
         </View>
       </View>
       {cardInfo.skills !== undefined && (
-        <View className="rounded bg-gray-100 dark:bg-gray-800 py-2 px-3 mx-2 min-h-10 flex items-center">
+        <View className="rounded bg-gray-100 dark:bg-[#222] py-2 px-3 mx-2 min-h-10 flex items-center">
           {formatSkills(cardInfo.skills, level)}
         </View>
       )}

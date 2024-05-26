@@ -38,58 +38,86 @@ export const useTheme = () => {
   };
 };
 
+type CacheKey = string | ((params?: any) => string | null);
+
+const getCacheKey = (cacheKey?: CacheKey, params?: any) => {
+  return typeof cacheKey === 'function' ? cacheKey(params) : cacheKey;
+};
+
 export const useCloudFunction = <T>({
+  manual,
   initialData,
   formatResult = (res) => res,
   cacheKey,
   onSuccess,
+  onError,
   ...options
 }: {
+  manual?: boolean;
   name: string;
   data: Record<string, any>;
   initialData?: T;
-  cacheKey?: string;
+  cacheKey?: CacheKey;
   formatResult?: (res: any) => any;
-  onSuccess?: (data: T) => void;
+  onSuccess?: (data: T, params: any) => void;
+  onError?: (err: Error) => void;
 }) => {
   const [data, setData] = useState<T>(initialData as T);
   const [loading, setLoading] = useState(false);
   const [validating, setValidating] = useState(false);
 
-  const run = () => {
+  const request = (params = {}) => {
     setValidating(true);
     return Taro.cloud
-      .callFunction(options)
+      .callFunction({
+        ...options,
+        data: {
+          ...options.data,
+          body: {
+            ...options.data.body,
+            ...params,
+          },
+        },
+      })
       .then((res) => {
         const result = formatResult(res.result) as T;
         setData(result);
-        onSuccess?.(result);
-        if (cacheKey) Taro.setStorage({ key: cacheKey, data: result });
+        onSuccess?.(result, params);
+        const key = getCacheKey(cacheKey, params);
+        if (key) Taro.setStorage({ key, data: result });
         return result;
+      })
+      .catch((err) => {
+        onError?.(err);
       })
       .finally(() => {
         setValidating(false);
       });
   };
 
-  useEffect(() => {
-    const getCacheData = cacheKey
-      ? () => Taro.getStorage({ key: cacheKey })
+  const run = (params = {}) => {
+    const key = getCacheKey(cacheKey, params);
+
+    const getCacheData = key
+      ? () => Taro.getStorage({ key }).catch(() => ({ data: null }))
       : () => Promise.resolve({ data: null });
-    getCacheData()
-      .then(({ data }) => {
-        if (data) {
-          setData(data);
-        } else {
-          setLoading(true);
-        }
-      })
-      .catch(() => {
+
+    return getCacheData().then(({ data }) => {
+      if (data) {
+        setData(data);
+        onSuccess?.(data, params);
+      } else {
         setLoading(true);
-      })
-      .finally(() => {
-        run().finally(() => setLoading(false));
+      }
+      return request(params).then((res) => {
+        setLoading(false);
+        return res;
       });
+    });
+  };
+
+  useEffect(() => {
+    if (!manual) run();
   }, []);
 
   return {

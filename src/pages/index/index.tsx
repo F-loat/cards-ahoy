@@ -107,7 +107,7 @@ const Index = () => {
     loading,
     pagination,
     isLoadAll,
-    runAsync: fetchCardList,
+    run: fetchCardList,
   } = useCardList();
 
   const [popupConfig, setPopupConfig] = useState<{
@@ -118,13 +118,15 @@ const Index = () => {
   });
 
   useEffect(() => {
-    if (!!list.length) {
-      Taro.showNavigationBarLoading();
-    }
+    if (loading) Taro.hideNavigationBarLoading();
+  }, [loading]);
+
+  useEffect(() => {
+    Taro.showNavigationBarLoading();
     fetchCardList({
       pageNumber: 1,
       filters,
-    }).finally(() => {
+    }).then(() => {
       Taro.hideNavigationBarLoading();
     });
     Taro.setStorage({ key: 'filters', data: filters });
@@ -310,7 +312,7 @@ const Index = () => {
               <Loading type="spinner" />
             </ConfigProvider>
           )}
-          {!loading && isLoadAll && (
+          {!!list.length && isLoadAll && (
             <View className="text-sm text-gray-400 dark:text-gray-600">
               没有更多了~
             </View>
