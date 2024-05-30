@@ -113,7 +113,12 @@ const Detail = () => {
     onSuccess: (list) => {
       if (price || !list.length) return;
       const salePrice = Number(list[0].salePrice);
-      setPrice(String(salePrice / list[0].accumulateTrait.value));
+      const unitCard = list.find((i) => i.accumulateTrait.value === 1);
+      if (unitCard) {
+        setPrice(unitCard.salePrice);
+      } else {
+        setPrice(String(salePrice / list[0].accumulateTrait.value));
+      }
       setTime(Date.now().toString());
     },
   });

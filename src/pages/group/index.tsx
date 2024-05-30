@@ -104,6 +104,9 @@ const Group = () => {
 
   const handleVote = async (index: number, type: 'up' | 'down') => {
     try {
+      Taro.showLoading({
+        title: '投票中...',
+      });
       const res = await Taro.cloud.callFunction({
         name: 'voteCardGroup',
         data: {
@@ -111,6 +114,7 @@ const Group = () => {
           type,
         },
       });
+      Taro.hideLoading();
       const result = res.result as {
         code: number;
         msg: string;

@@ -4,6 +4,7 @@ export default defineAppConfig({
     'pages/detail/index',
     'pages/group/index',
     'pages/group/detail',
+    'pages/tools/discount',
   ],
   window: {
     backgroundTextStyle: '@bgTxtStyle',

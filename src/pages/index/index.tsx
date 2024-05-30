@@ -326,11 +326,7 @@ const Index = () => {
             setCostMap(Taro.getStorageSync('costMap'));
           }}
         />
-        <ToolsNav
-          onUpdate={() => {
-            setCostMap(Taro.getStorageSync('costMap'));
-          }}
-        />
+        <ToolsNav />
         <SafeArea position="bottom" />
         <PageLoading visible={loading && !list.length} />
       </View>

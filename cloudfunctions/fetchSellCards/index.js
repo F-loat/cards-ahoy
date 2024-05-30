@@ -9,11 +9,36 @@ cloud.init({
 
 const db = cloud.database();
 const _ = db.command;
-const Subscriptions = 'subscriptions';
+const CARDS = 'cards';
+const SUBSCRIPTIONS = 'subscriptions';
+
+const ceil = (num) => Math.ceil(num * 100) / 100;
+
+const upsertCard = (cardId, cards) => {
+  if (!cards?.length) return;
+  const card = cards[0];
+  const exp = card.accumulateTrait.value;
+  const level = Number(card.priorityTrait1.match(/\d$/)[0]);
+  const unitCard = cards.find((c) => c.accumulateTrait.value === 1);
+  const floorPrice = unitCard?.salePrice || card.salePrice / exp;
+  return db
+    .collection(CARDS)
+    .doc(cardId)
+    .set({
+      data: {
+        exp,
+        level,
+        floorPrice,
+        salePrice: card.salePrice,
+        updatedAt: new Date(),
+        discount: ceil(card.salePrice / (floorPrice * exp)),
+      },
+    });
+};
 
 const sendMessage = async (cardId, level, price) => {
   const docs = await db
-    .collection(Subscriptions)
+    .collection(SUBSCRIPTIONS)
     .where({
       cardId,
       price: _.gte(price),
@@ -43,7 +68,7 @@ const sendMessage = async (cardId, level, price) => {
       data: message,
       templateId: '7tACZmiQF0qnNR5v5PAUAF_i_bEEMNtQRbdbKZaPvJQ',
     });
-    db.collection(Subscriptions).doc(doc._id).remove();
+    db.collection(SUBSCRIPTIONS).doc(doc._id).remove();
   });
 
   await Promise.all(queue).then(console.log).catch(console.error);
@@ -76,18 +101,18 @@ exports.main = async ({ cardId }, context, callback) => {
 
   const cards = response.data.data.list || [];
 
+  upsertCard(cardId, cards);
+
   const priceMap = cards.reduce((rst, cur) => {
     if (rst[cur.priorityTrait1]) return rst;
     const price = Number(cur.salePrice);
     return { ...rst, [cur.priorityTrait1]: price };
   }, {});
 
-  console.log(priceMap);
-
-  const queue = Object.keys(priceMap).map((key) => {
+  const messageQueue = Object.keys(priceMap).map((key) => {
     const level = Number(key.match(/\d$/)[0]);
     return sendMessage(cardId, level, priceMap[key]);
   });
 
-  await Promise.all(queue).then(console.log).catch(console.error);
+  await Promise.all(messageQueue).then(console.log).catch(console.error);
 };
