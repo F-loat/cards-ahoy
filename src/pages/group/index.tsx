@@ -19,9 +19,14 @@ import { useEffect, useState } from 'react';
 import { CardGroup } from './detail';
 import { CardFaction, CardFoil } from '../../types';
 import { RangeMenuItem } from './components/RangeMenuItem';
-import { getCard, getHonorPointsForCard } from '../../utils';
+import {
+  getBonusesForGroup,
+  getCard,
+  getHonorPointsForCard,
+} from '../../utils';
 import { CheckboxMenuItem } from '../index/components/CheckboxMenuItem';
 import { ThumbsDown, ThumbsUp, Trash } from '@nutui/icons-react-taro';
+import dayjs from 'dayjs';
 
 definePageConfig({
   enablePullDownRefresh: true,
@@ -44,14 +49,6 @@ interface Filters {
   price?: [number, number];
   level?: [number, number];
 }
-
-const getBonusesForGroup = (group: CardGroup) => {
-  return group.members.reduce(
-    (acc, member) =>
-      acc + (getCard(member.id)?.foil === CardFoil.Gold ? 10 : 0),
-    getCard(group.leader.id)?.foil === CardFoil.Gold ? 10 : 0,
-  );
-};
 
 const getHonorPointsForGroup = (group: CardGroup) => {
   return group.members.reduce(
@@ -247,8 +244,9 @@ const Group = () => {
               <View
                 className="relative"
                 onClick={() => {
-                  Taro.navigateTo({
-                    url: `/pages/group/detail?id=${item._id}`,
+                  Taro.showToast({
+                    title: `创建时间：${dayjs(item.createAt).format('YYYY/MM/DD')}`,
+                    icon: 'none',
                   });
                 }}
               >

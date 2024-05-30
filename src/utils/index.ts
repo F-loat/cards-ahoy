@@ -1,5 +1,6 @@
+import { CardGroup } from '../pages/group/detail';
 import { cardsMap, honorPointsMap, pointsMap } from '../assets/cards';
-import { Card, CardFaction, CardSkills } from '../types';
+import { Card, CardFaction, CardFoil, CardSkills } from '../types';
 
 export const noop = () => {};
 
@@ -54,6 +55,14 @@ export const getLabelForFaction = (faction?: Card['faction']) => {
     case CardFaction.Neutral:
       return '中立';
     default:
-      return '未知';
+      return null;
   }
+};
+
+export const getBonusesForGroup = (group: CardGroup) => {
+  return group.members.reduce(
+    (acc, member) =>
+      acc + (getCard(member.id)?.foil === CardFoil.Gold ? 10 : 0),
+    getCard(group.leader.id)?.foil === CardFoil.Gold ? 10 : 0,
+  );
 };

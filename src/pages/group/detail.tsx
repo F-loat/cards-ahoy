@@ -16,6 +16,7 @@ import {
 } from '../../utils';
 import { LevelSlider } from '../../components/LevelSlider';
 import { CardImage } from './components/CardImage';
+import { getBonusesForGroup } from '../../utils';
 
 export interface CardGroup {
   leader: { id: number; level?: number };
@@ -272,15 +273,21 @@ const GroupDetail = () => {
             )}
           </View>
           <View className="ml-8 flex flex-col leading-7">
-            <View className="w-24">阵营：{faction || '-'}</View>
-            <View>
-              总费用：{totalCost} 荣耀点：{totalHonorPoints}
+            <View className="flex">
+              <View className="w-24">阵营：{faction || '-'}</View>
             </View>
-            <View className="flex items-center">
-              <View>总成本：</View>
-              <CustomWrapper>
-                <TotalPrice group={group} onUpdate={setPriceMap} />
-              </CustomWrapper>
+            <View className="flex">
+              <View className="w-24">费用：{totalCost}</View>
+              <View>荣耀：{totalHonorPoints}</View>
+            </View>
+            <View className="flex">
+              <View className="w-24">加成：{getBonusesForGroup(group)}%</View>
+              <View className="flex items-center">
+                <View>成本：</View>
+                <CustomWrapper>
+                  <TotalPrice group={group} onUpdate={setPriceMap} />
+                </CustomWrapper>
+              </View>
             </View>
           </View>
         </View>

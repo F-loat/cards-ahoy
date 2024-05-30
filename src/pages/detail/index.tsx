@@ -374,7 +374,7 @@ const Detail = () => {
                   </View>
                   <View className="text-gray-600 dark:text-gray-400 text-sm">
                     {dayjs(item.updateAt || item.createAt).format(
-                      'YYYY-MM-DD HH:mm:ss',
+                      'YYYY/MM/DD HH:mm:ss',
                     )}
                   </View>
                 </View>
@@ -395,7 +395,7 @@ const Detail = () => {
                 <View className="flex justify-between font-mono">
                   <View>${item.totalPrice}</View>
                   <View className="text-gray-600 dark:text-gray-400 text-sm">
-                    {dayjs(item.saleTime).format('YYYY-MM-DD HH:mm:ss')}
+                    {dayjs(item.saleTime).format('YYYY/MM/DD HH:mm:ss')}
                   </View>
                 </View>
               ))}
