@@ -30,11 +30,11 @@ function App(props) {
   }, []);
 
   useLaunch(() => {
-    Taro.onBackgroundFetchData(updateGlobalData);
     Taro.getBackgroundFetchData({
       fetchType: 'pre',
-      success: updateGlobalData,
-    });
+    })
+      .then(updateGlobalData)
+      .catch(() => Taro.onBackgroundFetchData(updateGlobalData));
   });
 
   return props.children;

@@ -47,7 +47,6 @@ export const Subscribe = ({
       });
       return;
     }
-    setVisible(false);
     const tmplId = '7tACZmiQF0qnNR5v5PAUAF_i_bEEMNtQRbdbKZaPvJQ';
     const res = await Taro.requestSubscribeMessage({
       tmplIds: [tmplId],
@@ -90,6 +89,7 @@ export const Subscribe = ({
       icon: 'none',
     });
     onSuccess?.();
+    setVisible(false);
   };
 
   return (

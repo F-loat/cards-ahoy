@@ -7,18 +7,19 @@ import {
   Price,
   SafeArea,
 } from '@nutui/nutui-react-taro';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getCard, samrtCeil } from '../../utils';
 import dayjs from 'dayjs';
 import { PageLoading } from '../../components/PageLoading';
+import { SellCard } from '../detail';
 
 interface DiscountCard {
   _id: number;
   exp: number;
   level: number;
   discount: number;
-  salePrice: string;
-  floorPrice: string;
+  salePrice: number;
+  floorPrice: number;
   updatedAt: number;
 }
 
@@ -32,6 +33,9 @@ definePageConfig({
 const Discount = () => {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState<DiscountCard[]>([]);
+  const listRef = useRef(list);
+
+  listRef.current = list;
 
   const fetchCards = async (pageNumber = 1) => {
     const pageSize = 20;
@@ -60,6 +64,38 @@ const Discount = () => {
     run();
   }, []);
 
+  const refreshCard = (cardId: number, cards: SellCard[]) => {
+    if (!cards?.length) return;
+    const card = cards[0];
+    const exp = card.accumulateTrait.value;
+    const level = Number(card.priorityTrait1.match(/\d+$/)?.[0]);
+    const unitCard = cards.find((c) => c.accumulateTrait.value === 1);
+    const salePrice = Number(card.salePrice);
+    const floorPrice = Number(
+      unitCard?.salePrice || samrtCeil(salePrice / exp),
+    );
+    const newList = [...listRef.current];
+    const index = listRef.current.findIndex((item) => item._id === cardId);
+    if (index === -1) return;
+    newList[index] = {
+      _id: cardId,
+      exp,
+      level,
+      floorPrice,
+      salePrice,
+      updatedAt: Date.now(),
+      discount: samrtCeil(salePrice / (floorPrice * exp)),
+    };
+    setList(newList);
+  };
+
+  useEffect(() => {
+    Taro.eventCenter.on('refreshSellCards', refreshCard);
+    return () => {
+      Taro.eventCenter.off('refreshSellCards', refreshCard);
+    };
+  }, []);
+
   usePullDownRefresh(async () => {
     await run();
     Taro.stopPullDownRefresh();
@@ -73,7 +109,7 @@ const Discount = () => {
             className="flex items-center mx-1"
             onClick={() => {
               Taro.navigateTo({
-                url: `/pages/detail/index?id=${item._id}&price=${item.floorPrice}&time=${Number(item.updatedAt)}`,
+                url: `/pages/detail/index?id=${item._id}&price=${item.floorPrice}&time=${Number(item.updatedAt)}&from=discount`,
               });
             }}
           >
@@ -105,7 +141,7 @@ const Discount = () => {
                   }}
                 >
                   <Price
-                    price={samrtCeil(Number(item.floorPrice) * item.exp)}
+                    price={samrtCeil(item.floorPrice * item.exp)}
                     thousands
                     symbol="$"
                     line

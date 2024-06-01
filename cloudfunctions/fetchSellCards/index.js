@@ -18,9 +18,10 @@ const upsertCard = (cardId, cards) => {
   if (!cards?.length) return;
   const card = cards[0];
   const exp = card.accumulateTrait.value;
-  const level = Number(card.priorityTrait1.match(/\d$/)[0]);
+  const level = Number(card.priorityTrait1.match(/\d+$/)?.[0]);
   const unitCard = cards.find((c) => c.accumulateTrait.value === 1);
-  const floorPrice = unitCard?.salePrice || ceil(card.salePrice / exp);
+  const salePrice = Number(card.salePrice);
+  const floorPrice = Number(unitCard?.salePrice || samrtCeil(salePrice / exp));
   return db
     .collection(CARDS)
     .doc(cardId)
@@ -29,7 +30,7 @@ const upsertCard = (cardId, cards) => {
         exp,
         level,
         floorPrice,
-        salePrice: card.salePrice,
+        salePrice,
         updatedAt: new Date(),
         discount: ceil(card.salePrice / (floorPrice * exp)),
       },
@@ -115,7 +116,7 @@ exports.main = async ({ cardId }, context, callback) => {
   }, {});
 
   const messageQueue = Object.keys(priceMap).map((key) => {
-    const level = Number(key.match(/\d$/)[0]);
+    const level = Number(key.match(/\d+$/)[0]);
     return sendMessage(cardId, level, priceMap[key]);
   });
 

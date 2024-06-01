@@ -26,7 +26,7 @@ import { PriceChart } from './components/PriceChart';
 import { CardRarity } from '../../types';
 import { useCloudFunction } from '../../hooks';
 
-interface SellCard {
+export interface SellCard {
   image: string;
   chainNftId: number;
   tokenId: string;
@@ -111,6 +111,7 @@ const Detail = () => {
       };
     }) => res.data?.list || [],
     onSuccess: (list) => {
+      Taro.eventCenter.trigger('refreshSellCards', cardId, list);
       if (price || !list.length) return;
       const salePrice = Number(list[0].salePrice);
       const unitCard = list.find((i) => i.accumulateTrait.value === 1);

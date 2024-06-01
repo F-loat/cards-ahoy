@@ -15,7 +15,7 @@ import Taro, {
   useShareAppMessage,
 } from '@tarojs/taro';
 import { PageLoading } from '../../components/PageLoading';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CardGroup } from './detail';
 import { CardFaction, CardFoil } from '../../types';
 import { RangeMenuItem } from './components/RangeMenuItem';
@@ -74,9 +74,12 @@ const Group = () => {
   const [filters, setFilters] = useState<Filters>({
     faction: 'All',
   });
+  const filtersRef = useRef(filters);
 
   const { params } = useRouter();
   const [loading, setLoading] = useState(true);
+
+  filtersRef.current = filters;
 
   const fetchCardGroups = async (filters: Filters) => {
     if (!!list.length) {
@@ -168,7 +171,7 @@ const Group = () => {
   };
 
   useEffect(() => {
-    const refreshCardList = () => fetchCardGroups(filters);
+    const refreshCardList = () => fetchCardGroups(filtersRef.current);
     Taro.eventCenter.on('refreshCardGroups', refreshCardList);
     return () => {
       Taro.eventCenter.off('refreshCardGroups', refreshCardList);
