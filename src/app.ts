@@ -1,8 +1,14 @@
 import { useEffect } from 'react';
 import Taro, { useLaunch } from '@tarojs/taro';
 import { setGlobalData } from './utils/data';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/zh-cn';
 import 'windi.css';
 import './app.less';
+
+dayjs.locale('zh-cn');
+dayjs.extend(relativeTime);
 
 function App(props) {
   const updateGlobalData = (res) => {

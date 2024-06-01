@@ -20,7 +20,7 @@ const upsertCard = (cardId, cards) => {
   const exp = card.accumulateTrait.value;
   const level = Number(card.priorityTrait1.match(/\d$/)[0]);
   const unitCard = cards.find((c) => c.accumulateTrait.value === 1);
-  const floorPrice = unitCard?.salePrice || card.salePrice / exp;
+  const floorPrice = unitCard?.salePrice || ceil(card.salePrice / exp);
   return db
     .collection(CARDS)
     .doc(cardId)
@@ -88,7 +88,7 @@ exports.main = async ({ cardId }, context, callback) => {
     data: JSON.stringify({
       sortType: 4,
       pageNumber: 1,
-      pageSize: 10,
+      pageSize: 20,
       firstCategoryId: 12,
       secondCategoryId: cardId,
       discreteList: [],
@@ -97,9 +97,14 @@ exports.main = async ({ cardId }, context, callback) => {
     }),
   });
 
-  callback(null, response.data);
-
   const cards = response.data.data.list || [];
+
+  callback(null, {
+    ...response.data,
+    data: {
+      list: cards.slice(0, 10),
+    },
+  });
 
   upsertCard(cardId, cards);
 

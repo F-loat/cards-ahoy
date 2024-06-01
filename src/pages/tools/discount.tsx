@@ -33,7 +33,8 @@ const Discount = () => {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState<DiscountCard[]>([]);
 
-  const fetchCards = async () => {
+  const fetchCards = async (pageNumber = 1) => {
+    const pageSize = 20;
     const db = Taro.cloud.database();
     const _ = db.command;
     const docs = await db
@@ -42,18 +43,25 @@ const Discount = () => {
         discount: _.lt(1),
       })
       .orderBy('discount', 'asc')
-      .limit(20)
+      .skip((pageNumber - 1) * pageSize)
+      .limit(pageSize)
       .get();
     setLoading(false);
-    setList((docs.data as DiscountCard[]) || []);
+    const data = (docs.data as DiscountCard[]) || [];
+    setList((val) => (pageNumber === 1 ? data : val.concat(data)));
+  };
+
+  const run = async () => {
+    await fetchCards(1);
+    fetchCards(2);
   };
 
   useEffect(() => {
-    fetchCards();
+    run();
   }, []);
 
   usePullDownRefresh(async () => {
-    await fetchCards();
+    await run();
     Taro.stopPullDownRefresh();
   });
 
@@ -107,8 +115,8 @@ const Discount = () => {
             </View>
             <View className="text-right">
               <View>{Math.ceil(item.discount * 100) / 10}折</View>
-              <View className="text-sm font-mono text-gray-500">
-                {dayjs(item.updatedAt).format('MM/DD HH:mm')}
+              <View className="text-sm text-gray-500">
+                {dayjs(item.updatedAt).fromNow()}更新
               </View>
             </View>
           </View>
