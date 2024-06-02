@@ -7,13 +7,12 @@ import {
   Price,
   SafeArea,
 } from '@nutui/nutui-react-taro';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getCard, samrtCeil } from '../../utils';
 import dayjs from 'dayjs';
 import { PageLoading } from '../../components/PageLoading';
-import { SellCard } from '../detail';
 
-interface DiscountCard {
+export interface DiscountCard {
   _id: number;
   exp: number;
   level: number;
@@ -33,9 +32,6 @@ definePageConfig({
 const Discount = () => {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState<DiscountCard[]>([]);
-  const listRef = useRef(list);
-
-  listRef.current = list;
 
   const fetchCards = async (pageNumber = 1) => {
     const pageSize = 20;
@@ -55,6 +51,17 @@ const Discount = () => {
     setList((val) => (pageNumber === 1 ? data : val.concat(data)));
   };
 
+  const refreshCard = (card: DiscountCard | null) => {
+    if (!card) return;
+    setList((val) => {
+      const index = val.findIndex((item) => item._id === card._id);
+      if (index === -1) return val;
+      const newList = [...val];
+      newList[index] = card;
+      return newList;
+    });
+  };
+
   const run = async () => {
     await fetchCards(1);
     fetchCards(2);
@@ -63,31 +70,6 @@ const Discount = () => {
   useEffect(() => {
     run();
   }, []);
-
-  const refreshCard = (cardId: number, cards: SellCard[]) => {
-    if (!cards?.length) return;
-    const card = cards[0];
-    const exp = card.accumulateTrait.value;
-    const level = Number(card.priorityTrait1.match(/\d+$/)?.[0]);
-    const unitCard = cards.find((c) => c.accumulateTrait.value === 1);
-    const salePrice = Number(card.salePrice);
-    const floorPrice = Number(
-      unitCard?.salePrice || samrtCeil(salePrice / exp),
-    );
-    const newList = [...listRef.current];
-    const index = listRef.current.findIndex((item) => item._id === cardId);
-    if (index === -1) return;
-    newList[index] = {
-      _id: cardId,
-      exp,
-      level,
-      floorPrice,
-      salePrice,
-      updatedAt: Date.now(),
-      discount: samrtCeil(salePrice / (floorPrice * exp)),
-    };
-    setList(newList);
-  };
 
   useEffect(() => {
     Taro.eventCenter.on('refreshSellCards', refreshCard);
@@ -150,7 +132,11 @@ const Discount = () => {
               </View>
             </View>
             <View className="text-right">
-              <View>{Math.ceil(item.discount * 100) / 10}折</View>
+              {item.discount >= 1 ? (
+                <View>无折扣</View>
+              ) : (
+                <View>{Math.ceil(item.discount * 100) / 10}折</View>
+              )}
               <View className="text-sm text-gray-500">
                 {dayjs(item.updatedAt).fromNow()}更新
               </View>

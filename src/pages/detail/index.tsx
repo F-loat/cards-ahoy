@@ -25,6 +25,7 @@ import { Subscribe } from './components/Subscribe';
 import { PriceChart } from './components/PriceChart';
 import { CardRarity } from '../../types';
 import { useCloudFunction } from '../../hooks';
+import { DiscountCard } from '../tools/discount';
 
 export interface SellCard {
   image: string;
@@ -108,10 +109,13 @@ const Detail = () => {
       data?: {
         list: SellCard[];
         total: number | null;
+        card: null | DiscountCard;
       };
-    }) => res.data?.list || [],
+    }) => {
+      Taro.eventCenter.trigger('refreshSellCards', res.data?.card);
+      return res.data?.list || [];
+    },
     onSuccess: (list) => {
-      Taro.eventCenter.trigger('refreshSellCards', cardId, list);
       if (price || !list.length) return;
       const salePrice = Number(list[0].salePrice);
       const unitCard = list.find((i) => i.accumulateTrait.value === 1);

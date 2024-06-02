@@ -14,27 +14,24 @@ const SUBSCRIPTIONS = 'subscriptions';
 
 const ceil = (num) => Math.ceil(num * 100) / 100;
 
-const upsertCard = (cardId, cards) => {
-  if (!cards?.length) return;
+const upsertCard = async (cardId, cards) => {
+  if (!cards?.length) return null;
   const card = cards[0];
   const exp = card.accumulateTrait.value;
   const level = Number(card.priorityTrait1.match(/\d+$/)?.[0]);
   const unitCard = cards.find((c) => c.accumulateTrait.value === 1);
   const salePrice = Number(card.salePrice);
   const floorPrice = Number(unitCard?.salePrice || samrtCeil(salePrice / exp));
-  return db
-    .collection(CARDS)
-    .doc(cardId)
-    .set({
-      data: {
-        exp,
-        level,
-        floorPrice,
-        salePrice,
-        updatedAt: new Date(),
-        discount: ceil(card.salePrice / (floorPrice * exp)),
-      },
-    });
+  const data = {
+    exp,
+    level,
+    floorPrice,
+    salePrice,
+    updatedAt: new Date(),
+    discount: ceil(card.salePrice / (floorPrice * exp)),
+  };
+  await db.collection(CARDS).doc(cardId).set({ data });
+  return { ...data, _id: cardId };
 };
 
 const sendMessage = async (cardId, level, price) => {
@@ -99,15 +96,15 @@ exports.main = async ({ cardId }, context, callback) => {
   });
 
   const cards = response.data.data.list || [];
+  const card = await upsertCard(cardId, cards);
 
   callback(null, {
     ...response.data,
     data: {
+      card,
       list: cards.slice(0, 10),
     },
   });
-
-  upsertCard(cardId, cards);
 
   const priceMap = cards.reduce((rst, cur) => {
     if (rst[cur.priorityTrait1]) return rst;
