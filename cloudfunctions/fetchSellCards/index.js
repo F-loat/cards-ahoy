@@ -27,7 +27,7 @@ const upsertCard = async (cardId, cards) => {
     level,
     floorPrice,
     salePrice,
-    updatedAt: new Date(),
+    updatedAt: Date.now(),
     discount: ceil(card.salePrice / (floorPrice * exp)),
   };
   await db.collection(CARDS).doc(cardId).set({ data });
