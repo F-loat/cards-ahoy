@@ -3,7 +3,6 @@ import {
   Dialog,
   Divider,
   Empty,
-  Image,
   Menu,
   SafeArea,
 } from '@nutui/nutui-react-taro';
@@ -17,7 +16,7 @@ import Taro, {
 import { PageLoading } from '../../components/PageLoading';
 import { useEffect, useRef, useState } from 'react';
 import { CardGroup } from './detail';
-import { CardFaction, CardFoil } from '../../types';
+import { CardFaction } from '../../types';
 import { RangeMenuItem } from './components/RangeMenuItem';
 import {
   getBonusesForGroup,
@@ -27,6 +26,7 @@ import {
 import { CheckboxMenuItem } from '../index/components/CheckboxMenuItem';
 import { ThumbsDown, ThumbsUp, Trash } from '@nutui/icons-react-taro';
 import dayjs from 'dayjs';
+import { CloudImage } from '../../components/CloudImage';
 
 definePageConfig({
   enablePullDownRefresh: true,
@@ -258,7 +258,7 @@ const Group = () => {
                 }}
               >
                 <View className="relative">
-                  <Image
+                  <CloudImage
                     width={92}
                     height={92}
                     radius="10%"
@@ -293,7 +293,7 @@ const Group = () => {
                       key={member.id}
                       className="relative flex justify-center"
                     >
-                      <Image
+                      <CloudImage
                         width={50}
                         height={50}
                         radius="10%"

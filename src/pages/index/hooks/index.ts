@@ -112,7 +112,8 @@ export const useCardList = () => {
       res.data?.list.forEach((item) => {
         item.time = time;
         const card = getCard(item.secondaryId);
-        if (card) item.secondaryName = card.name;
+        if (card.image) item.image = card.image;
+        if (card.name) item.secondaryName = card.name;
       });
       return res.data;
     },

@@ -3,7 +3,6 @@ import Taro, { usePullDownRefresh } from '@tarojs/taro';
 import {
   ConfigProvider,
   Divider,
-  Image,
   Price,
   SafeArea,
 } from '@nutui/nutui-react-taro';
@@ -11,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { getCard, samrtCeil } from '../../utils';
 import dayjs from 'dayjs';
 import { PageLoading } from '../../components/PageLoading';
+import { CloudImage } from '../../components/CloudImage';
 
 export interface DiscountCard {
   _id: number;
@@ -95,7 +95,7 @@ const Discount = () => {
               });
             }}
           >
-            <Image
+            <CloudImage
               src={getCard(item._id).image}
               width={64}
               height={64}

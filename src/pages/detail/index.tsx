@@ -4,7 +4,7 @@ import {
   useRouter,
   useShareAppMessage,
 } from '@tarojs/taro';
-import { Divider, Empty, Image, SafeArea } from '@nutui/nutui-react-taro';
+import { Divider, Empty, SafeArea } from '@nutui/nutui-react-taro';
 import { useEffect, useState } from 'react';
 import Taro from '@tarojs/taro';
 import dayjs from 'dayjs';
@@ -26,6 +26,7 @@ import { PriceChart } from './components/PriceChart';
 import { CardRarity } from '../../types';
 import { useCloudFunction } from '../../hooks';
 import { DiscountCard } from '../tools/discount';
+import { CloudImage } from '../../components/CloudImage';
 
 export interface SellCard {
   image: string;
@@ -250,7 +251,12 @@ const Detail = () => {
     <View className="flex flex-col h-screen">
       <View className="p-2 flex">
         <View className="relative">
-          <Image width={128} height={128} src={cardInfo.image} radius="10%" />
+          <CloudImage
+            width={128}
+            height={128}
+            src={cardInfo.image}
+            radius="10%"
+          />
           {!!cardInfo.props && !!level && cardInfo.props[level - 1] && (
             <View
               className="absolute left-5 bottom-6 text-white text-center leading-4 text-xs font-bold"

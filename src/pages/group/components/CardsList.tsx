@@ -1,15 +1,16 @@
-import { Image, Divider } from '@nutui/nutui-react-taro';
+import { Divider } from '@nutui/nutui-react-taro';
 import { View } from '@tarojs/components';
 import { Card, CardFaction, CardFoil, CardType } from '../../../types';
 import { cardsList } from '../../../assets/cards';
 import { useMemo } from 'react';
 import { CardGroup, SelectedCard } from '../detail';
 import { getCard } from '../../../utils';
+import { CloudImage } from '../../../components/CloudImage';
 
 const CardItem = ({ card, onClick }: { card: Card; onClick?: () => void }) => {
   return (
     <View className="flex flex-col items-center text-sm" onClick={onClick}>
-      <Image width={80} height={80} src={card.image} radius="50%" />
+      <CloudImage width={80} height={80} src={card.image} radius="50%" />
       {card.name}
     </View>
   );

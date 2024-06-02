@@ -2,8 +2,7 @@ import { Card, CardFoil, CardRarity } from '../types';
 
 export const cardsList: Card[] = [
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20039.png',
+    image: 'cloud://nft/ol/20039.png',
     id: 301,
     name: '狼牙棒',
     foil: 'Regular',
@@ -15,8 +14,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10003.png',
+    image: 'cloud://nft/ol/10003.png',
     id: 307,
     name: '僵尸宝贝',
     foil: 'Regular',
@@ -31,8 +29,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20003.png',
+    image: 'cloud://nft/ol/20003.png',
     id: 310,
     name: '死亡骑士',
     foil: 'Regular',
@@ -44,8 +41,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20030_g.png',
+    image: 'cloud://nft/ol/20030_g.png',
     id: 311,
     name: '僵尸王子',
     foil: 'Gold',
@@ -56,8 +52,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20033_g.png',
+    image: 'cloud://nft/ol/20033_g.png',
     id: 315,
     name: '友善母鸡',
     foil: 'Gold',
@@ -69,8 +64,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20032_g.png',
+    image: 'cloud://nft/ol/20032_g.png',
     id: 317,
     name: '拳击手套',
     foil: 'Gold',
@@ -82,8 +76,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10001.png',
+    image: 'cloud://nft/ol/10001.png',
     id: 318,
     name: '疯狂兔子',
     foil: 'Regular',
@@ -98,8 +91,7 @@ export const cardsList: Card[] = [
     },
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20042_g.png',
+    image: 'cloud://nft/ol/20042_g.png',
     id: 319,
     name: '散弹枪',
     foil: 'Gold',
@@ -111,8 +103,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20006.png',
+    image: 'cloud://nft/ol/20006.png',
     id: 320,
     name: '弹药箱',
     foil: 'Regular',
@@ -123,8 +114,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20029_g.png',
+    image: 'cloud://nft/ol/20029_g.png',
     id: 322,
     name: '蜗牛',
     foil: 'Gold',
@@ -136,8 +126,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20030.png',
+    image: 'cloud://nft/ol/20030.png',
     id: 323,
     name: '僵尸王子',
     foil: 'Regular',
@@ -148,8 +137,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20023.png',
+    image: 'cloud://nft/ol/20023.png',
     id: 324,
     name: '狮子王',
     foil: 'Regular',
@@ -164,8 +152,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20038_g.png',
+    image: 'cloud://nft/ol/20038_g.png',
     id: 325,
     name: '水手僵尸',
     foil: 'Gold',
@@ -176,8 +163,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20017.png',
+    image: 'cloud://nft/ol/20017.png',
     id: 326,
     name: '南瓜',
     foil: 'Regular',
@@ -204,8 +190,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20058.png',
+    image: 'cloud://nft/ol/20058.png',
     id: 328,
     name: '红菜头',
     foil: 'Regular',
@@ -216,8 +201,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20023_g.png',
+    image: 'cloud://nft/ol/20023_g.png',
     id: 330,
     foil: 'Gold',
     cost: 7,
@@ -232,8 +216,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20031_g.png',
+    image: 'cloud://nft/ol/20031_g.png',
     id: 331,
     name: '扫把',
     foil: 'Gold',
@@ -245,8 +228,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10006.png',
+    image: 'cloud://nft/ol/10006.png',
     id: 332,
     name: '啦啦队长僵尸',
     foil: 'Regular',
@@ -261,8 +243,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20066_g.png',
+    image: 'cloud://nft/ol/20066_g.png',
     id: 333,
     name: '番茄先生',
     foil: 'Gold',
@@ -286,8 +267,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20012.png',
+    image: 'cloud://nft/ol/20012.png',
     id: 334,
     name: '小丑僵尸',
     foil: 'Regular',
@@ -298,8 +278,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10001_g.png',
+    image: 'cloud://nft/ol/10001_g.png',
     id: 335,
     foil: 'Gold',
     nameEn: 'Mad Rabbit',
@@ -314,8 +293,7 @@ export const cardsList: Card[] = [
     },
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20065_g.png',
+    image: 'cloud://nft/ol/20065_g.png',
     id: 336,
     name: '反弹盾',
     foil: 'Gold',
@@ -326,8 +304,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20052.png',
+    image: 'cloud://nft/ol/20052.png',
     id: 337,
     name: 'UFO',
     foil: 'Regular',
@@ -338,8 +315,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20028_g.png',
+    image: 'cloud://nft/ol/20028_g.png',
     id: 338,
     name: '炸弹僵尸',
     foil: 'Gold',
@@ -350,8 +326,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20002.png',
+    image: 'cloud://nft/ol/20002.png',
     id: 339,
     name: '海岛僵尸',
     foil: 'Regular',
@@ -362,8 +337,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20017_g.png',
+    image: 'cloud://nft/ol/20017_g.png',
     id: 341,
     name: '南瓜',
     foil: 'Gold',
@@ -390,8 +364,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20055.png',
+    image: 'cloud://nft/ol/20055.png',
     id: 342,
     name: '大炮',
     foil: 'Regular',
@@ -403,8 +376,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20052_g.png',
+    image: 'cloud://nft/ol/20052_g.png',
     id: 343,
     name: 'UFO',
     foil: 'Gold',
@@ -415,8 +387,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20055_g.png',
+    image: 'cloud://nft/ol/20055_g.png',
     id: 344,
     name: '大炮',
     foil: 'Gold',
@@ -428,8 +399,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20057.png',
+    image: 'cloud://nft/ol/20057.png',
     id: 345,
     name: '电锯',
     foil: 'Regular',
@@ -441,8 +411,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20004.png',
+    image: 'cloud://nft/ol/20004.png',
     id: 346,
     name: '铁头盔',
     foil: 'Regular',
@@ -453,8 +422,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20004_g.png',
+    image: 'cloud://nft/ol/20004_g.png',
     id: 347,
     foil: 'Gold',
     nameEn: 'Iron Helmet',
@@ -465,8 +433,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20059.png',
+    image: 'cloud://nft/ol/20059.png',
     id: 348,
     name: '仙人掌',
     foil: 'Regular',
@@ -504,8 +471,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20057_g.png',
+    image: 'cloud://nft/ol/20057_g.png',
     id: 349,
     foil: 'Gold',
     nameEn: 'Chainsaw',
@@ -517,8 +483,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20021.png',
+    image: 'cloud://nft/ol/20021.png',
     id: 350,
     name: '乌龟大哥',
     foil: 'Regular',
@@ -529,8 +494,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20059_g.png',
+    image: 'cloud://nft/ol/20059_g.png',
     id: 351,
     foil: 'Gold',
     nameEn: 'Cactus',
@@ -568,8 +532,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20018.png',
+    image: 'cloud://nft/ol/20018.png',
     id: 352,
     name: '舞王僵尸',
     foil: 'Regular',
@@ -580,8 +543,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20042.png',
+    image: 'cloud://nft/ol/20042.png',
     id: 353,
     name: '散弹枪',
     foil: 'Regular',
@@ -593,8 +555,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20018_g.png',
+    image: 'cloud://nft/ol/20018_g.png',
     id: 354,
     foil: 'Gold',
     nameEn: 'Dancer Zombie',
@@ -605,8 +566,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20067.png',
+    image: 'cloud://nft/ol/20067.png',
     id: 355,
     name: '凤梨',
     foil: 'Regular',
@@ -617,8 +577,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20065.png',
+    image: 'cloud://nft/ol/20065.png',
     id: 356,
     name: '反弹盾',
     foil: 'Regular',
@@ -629,8 +588,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20067_g.png',
+    image: 'cloud://nft/ol/20067_g.png',
     id: 357,
     foil: 'Gold',
     nameEn: 'Pineapple',
@@ -641,8 +599,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20063.png',
+    image: 'cloud://nft/ol/20063.png',
     id: 358,
     name: '红辣椒',
     cost: 4,
@@ -658,8 +615,7 @@ export const cardsList: Card[] = [
     props: [[7], [8], [9], [10], [11], [12], [13], [14], [15], [18]],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20047.png',
+    image: 'cloud://nft/ol/20047.png',
     id: 359,
     name: '号角',
     cost: 4,
@@ -670,8 +626,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20063_g.png',
+    image: 'cloud://nft/ol/20063_g.png',
     id: 360,
     foil: 'Gold',
     nameEn: 'Red Chili',
@@ -687,8 +642,7 @@ export const cardsList: Card[] = [
     props: [[7], [8], [9], [10], [11], [12], [13], [14], [15], [18]],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20028.png',
+    image: 'cloud://nft/ol/20028.png',
     id: 361,
     foil: 'Regular',
     nameEn: 'Bomb Zombie',
@@ -699,8 +653,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20047_g.png',
+    image: 'cloud://nft/ol/20047_g.png',
     id: 362,
     foil: 'Gold',
     nameEn: 'Trumpet',
@@ -711,8 +664,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20022.png',
+    image: 'cloud://nft/ol/20022.png',
     id: 363,
     name: '路障僵尸',
     foil: 'Regular',
@@ -723,8 +675,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20014.png',
+    image: 'cloud://nft/ol/20014.png',
     id: 364,
     name: '锅铲',
     cost: 4,
@@ -735,8 +686,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20022_g.png',
+    image: 'cloud://nft/ol/20022_g.png',
     id: 365,
     foil: 'Gold',
     nameEn: 'Roadblock Zombie',
@@ -747,8 +697,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20009.png',
+    image: 'cloud://nft/ol/20009.png',
     id: 366,
     name: '快乐绵羊',
     foil: 'Regular',
@@ -759,8 +708,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20009_g.png',
+    image: 'cloud://nft/ol/20009_g.png',
     id: 367,
     foil: 'Gold',
     cost: 4,
@@ -771,8 +719,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20014_g.png',
+    image: 'cloud://nft/ol/20014_g.png',
     id: 368,
     foil: 'Gold',
     nameEn: 'Turner',
@@ -783,8 +730,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20056.png',
+    image: 'cloud://nft/ol/20056.png',
     id: 369,
     name: '斧头',
     foil: 'Regular',
@@ -796,8 +742,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20007.png',
+    image: 'cloud://nft/ol/20007.png',
     id: 370,
     name: '骄傲野猪',
     foil: 'Regular',
@@ -808,8 +753,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20056_g.png',
+    image: 'cloud://nft/ol/20056_g.png',
     id: 371,
     foil: 'Gold',
     nameEn: 'Axe',
@@ -821,8 +765,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20007_g.png',
+    image: 'cloud://nft/ol/20007_g.png',
     id: 372,
     foil: 'Gold',
     nameEn: 'Arrogant Boar',
@@ -833,8 +776,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20062.png',
+    image: 'cloud://nft/ol/20062.png',
     id: 373,
     name: '酪梨',
     foil: 'Regular',
@@ -845,8 +787,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20003_g.png',
+    image: 'cloud://nft/ol/20003_g.png',
     id: 374,
     foil: 'Gold',
     nameEn: 'Death Knight',
@@ -858,8 +799,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20060.png',
+    image: 'cloud://nft/ol/20060.png',
     id: 375,
     name: '勇敢海狸',
     foil: 'Regular',
@@ -871,8 +811,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10013.png',
+    image: 'cloud://nft/ol/10013.png',
     id: 376,
     name: '麋鹿大叔',
     foil: 'Regular',
@@ -887,8 +826,7 @@ export const cardsList: Card[] = [
     },
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20040.png',
+    image: 'cloud://nft/ol/20040.png',
     id: 377,
     name: '农夫僵尸',
     foil: 'Regular',
@@ -900,8 +838,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20016.png',
+    image: 'cloud://nft/ol/20016.png',
     id: 378,
     name: '超能僵尸',
     foil: 'Regular',
@@ -912,8 +849,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20019.png',
+    image: 'cloud://nft/ol/20019.png',
     id: 379,
     name: '贪婪鲨鱼',
     foil: 'Regular',
@@ -924,8 +860,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20026.png',
+    image: 'cloud://nft/ol/20026.png',
     id: 380,
     name: '狡猾狐狸',
     foil: 'Regular',
@@ -936,8 +871,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10015.png',
+    image: 'cloud://nft/ol/10015.png',
     id: 381,
     name: '僵尸新娘',
     foil: 'Regular',
@@ -963,8 +897,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20064.png',
+    image: 'cloud://nft/ol/20064.png',
     id: 382,
     name: '卷心菜',
     foil: 'Regular',
@@ -975,8 +908,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20060_g.png',
+    image: 'cloud://nft/ol/20060_g.png',
     id: 383,
     foil: 'Gold',
     nameEn: 'Brave Beaver',
@@ -988,8 +920,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20044.png',
+    image: 'cloud://nft/ol/20044.png',
     id: 384,
     name: '矿工僵尸',
     foil: 'Regular',
@@ -1000,8 +931,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20050.png',
+    image: 'cloud://nft/ol/20050.png',
     id: 385,
     name: '充气锤',
     foil: 'Regular',
@@ -1013,8 +943,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20058_g.png',
+    image: 'cloud://nft/ol/20058_g.png',
     id: 386,
     foil: 'Gold',
     nameEn: 'Radish',
@@ -1025,8 +954,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20019_g.png',
+    image: 'cloud://nft/ol/20019_g.png',
     id: 387,
     foil: 'Gold',
     nameEn: 'Greedy Shark',
@@ -1037,8 +965,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20044_g.png',
+    image: 'cloud://nft/ol/20044_g.png',
     id: 388,
     foil: 'Gold',
     nameEn: 'Miner Zombie',
@@ -1049,8 +976,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20040_g.png',
+    image: 'cloud://nft/ol/20040_g.png',
     id: 389,
     foil: 'Gold',
     nameEn: 'Farmer Zombie',
@@ -1062,8 +988,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20031.png',
+    image: 'cloud://nft/ol/20031.png',
     id: 390,
     foil: 'Regular',
     nameEn: 'Broom',
@@ -1075,8 +1000,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20035.png',
+    image: 'cloud://nft/ol/20035.png',
     id: 391,
     name: '龙虾',
     foil: 'Regular',
@@ -1088,8 +1012,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20061.png',
+    image: 'cloud://nft/ol/20061.png',
     id: 392,
     name: '毒蘑菇',
     foil: 'Regular',
@@ -1113,8 +1036,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20034.png',
+    image: 'cloud://nft/ol/20034.png',
     id: 393,
     name: '苹果',
     foil: 'Regular',
@@ -1138,8 +1060,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20041.png',
+    image: 'cloud://nft/ol/20041.png',
     id: 394,
     name: '硬坚果',
     foil: 'Regular',
@@ -1163,8 +1084,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10002_g.png',
+    image: 'cloud://nft/ol/10002_g.png',
     id: 395,
     name: '玉米先生',
     foil: 'Gold',
@@ -1179,8 +1099,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10004_g.png',
+    image: 'cloud://nft/ol/10004_g.png',
     id: 396,
     name: '猛虎',
     foil: 'Gold',
@@ -1195,8 +1114,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20035_g.png',
+    image: 'cloud://nft/ol/20035_g.png',
     id: 397,
     foil: 'Gold',
     nameEn: 'Lobster',
@@ -1208,8 +1126,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20013.png',
+    image: 'cloud://nft/ol/20013.png',
     id: 398,
     name: '平底锅',
     foil: 'Regular',
@@ -1221,8 +1138,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20013_g.png',
+    image: 'cloud://nft/ol/20013_g.png',
     id: 399,
     foil: 'Gold',
     nameEn: 'Frying Pan',
@@ -1234,8 +1150,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20039_g.png',
+    image: 'cloud://nft/ol/20039_g.png',
     id: 400,
     foil: 'Gold',
     nameEn: 'Spiked Bat',
@@ -1247,8 +1162,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20033.png',
+    image: 'cloud://nft/ol/20033.png',
     id: 401,
     foil: 'Regular',
     nameEn: 'Friendly Hen',
@@ -1260,8 +1174,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20034_g.png',
+    image: 'cloud://nft/ol/20034_g.png',
     id: 402,
     foil: 'Gold',
     nameEn: 'Apple',
@@ -1285,8 +1198,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20050_g.png',
+    image: 'cloud://nft/ol/20050_g.png',
     id: 403,
     foil: 'Gold',
     nameEn: 'Inflatable Hammer',
@@ -1298,8 +1210,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10014.png',
+    image: 'cloud://nft/ol/10014.png',
     id: 404,
     name: '青花菜爷爷',
     foil: 'Regular',
@@ -1314,8 +1225,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20038.png',
+    image: 'cloud://nft/ol/20038.png',
     id: 405,
     foil: 'Regular',
     nameEn: 'Sailor Zombie',
@@ -1326,8 +1236,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20061_g.png',
+    image: 'cloud://nft/ol/20061_g.png',
     id: 406,
     foil: 'Gold',
     nameEn: 'Poison Mushroom',
@@ -1351,8 +1260,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20029.png',
+    image: 'cloud://nft/ol/20029.png',
     id: 407,
     foil: 'Regular',
     nameEn: 'Snail',
@@ -1364,8 +1272,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10013_g.png',
+    image: 'cloud://nft/ol/10013_g.png',
     id: 408,
     foil: 'Gold',
     nameEn: 'Uncle Elk',
@@ -1380,8 +1287,7 @@ export const cardsList: Card[] = [
     },
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10005.png',
+    image: 'cloud://nft/ol/10005.png',
     id: 409,
     name: '椰子',
     foil: 'Regular',
@@ -1396,8 +1302,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10006_g.png',
+    image: 'cloud://nft/ol/10006_g.png',
     id: 410,
     foil: 'Gold',
     nameEn: 'Cheerleader Zombie',
@@ -1412,8 +1317,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10005_g.png',
+    image: 'cloud://nft/ol/10005_g.png',
     id: 411,
     foil: 'Gold',
     nameEn: 'Coconut',
@@ -1428,8 +1332,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10003_g.png',
+    image: 'cloud://nft/ol/10003_g.png',
     id: 412,
     foil: 'Gold',
     nameEn: 'Zombie Baby',
@@ -1444,8 +1347,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10002.png',
+    image: 'cloud://nft/ol/10002.png',
     id: 413,
     foil: 'Regular',
     nameEn: 'Mr. Corn',
@@ -1460,8 +1362,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20008.png',
+    image: 'cloud://nft/ol/20008.png',
     id: 414,
     name: '火箭',
     foil: 'Regular',
@@ -1472,8 +1373,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20010.png',
+    image: 'cloud://nft/ol/20010.png',
     id: 415,
     name: '愤怒公牛',
     foil: 'Regular',
@@ -1484,8 +1384,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20027.png',
+    image: 'cloud://nft/ol/20027.png',
     id: 416,
     name: '蛇',
     foil: 'Regular',
@@ -1496,8 +1395,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20008_g.png',
+    image: 'cloud://nft/ol/20008_g.png',
     id: 417,
     foil: 'Gold',
     nameEn: 'Rocket',
@@ -1508,8 +1406,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20066.png',
+    image: 'cloud://nft/ol/20066.png',
     id: 418,
     foil: 'Regular',
     nameEn: 'Mr. Tomato',
@@ -1533,8 +1430,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10004.png',
+    image: 'cloud://nft/ol/10004.png',
     id: 419,
     foil: 'Regular',
     nameEn: 'Furious Tiger',
@@ -1549,8 +1445,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20015.png',
+    image: 'cloud://nft/ol/20015.png',
     id: 420,
     name: '饥饿宝箱怪',
     foil: 'Regular',
@@ -1561,8 +1456,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20005.png',
+    image: 'cloud://nft/ol/20005.png',
     id: 421,
     name: '球星僵尸',
     foil: 'Regular',
@@ -1573,8 +1467,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20025.png',
+    image: 'cloud://nft/ol/20025.png',
     id: 422,
     name: '毒药',
     foil: 'Regular',
@@ -1587,8 +1480,7 @@ export const cardsList: Card[] = [
     props: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20036.png',
+    image: 'cloud://nft/ol/20036.png',
     id: 423,
     name: '派对僵尸',
     foil: 'Regular',
@@ -1599,8 +1491,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20011.png',
+    image: 'cloud://nft/ol/20011.png',
     id: 424,
     foil: 'Regular',
     nameEn: 'Master Panda',
@@ -1627,8 +1518,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20041_g.png',
+    image: 'cloud://nft/ol/20041_g.png',
     id: 425,
     foil: 'Gold',
     nameEn: 'Hardshell Nut',
@@ -1652,8 +1542,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20020.png',
+    image: 'cloud://nft/ol/20020.png',
     id: 426,
     name: '西瓜',
     foil: 'Regular',
@@ -1691,8 +1580,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20032.png',
+    image: 'cloud://nft/ol/20032.png',
     id: 427,
     name: '拳击手套',
     foil: 'Regular',
@@ -1704,8 +1592,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20015_g.png',
+    image: 'cloud://nft/ol/20015_g.png',
     id: 428,
     foil: 'Gold',
     nameEn: 'Starving Mimic',
@@ -1716,8 +1603,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10014_g.png',
+    image: 'cloud://nft/ol/10014_g.png',
     id: 429,
     foil: 'Gold',
     nameEn: 'Grandpa Broccoli',
@@ -1732,8 +1618,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10015_g.png',
+    image: 'cloud://nft/ol/10015_g.png',
     id: 430,
     foil: 'Gold',
     nameEn: 'Zombie Bride',
@@ -1759,8 +1644,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20016_g.png',
+    image: 'cloud://nft/ol/20016_g.png',
     id: 431,
     foil: 'Gold',
     nameEn: 'Super Zombie',
@@ -1771,8 +1655,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20011_g.png',
+    image: 'cloud://nft/ol/20011_g.png',
     id: 432,
     name: '熊猫大师',
     foil: 'Gold',
@@ -1799,8 +1682,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20020_g.png',
+    image: 'cloud://nft/ol/20020_g.png',
     id: 433,
     foil: 'Gold',
     nameEn: 'Watermelon',
@@ -1838,8 +1720,7 @@ export const cardsList: Card[] = [
     ],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20027_g.png',
+    image: 'cloud://nft/ol/20027_g.png',
     id: 434,
     foil: 'Gold',
     nameEn: 'Snake',
@@ -1850,8 +1731,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20068_g.png',
+    image: 'cloud://nft/ol/20068_g.png',
     id: 435,
     name: '大蒜',
     foil: 'Gold',
@@ -1866,8 +1746,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20062_g.png',
+    image: 'cloud://nft/ol/20062_g.png',
     id: 436,
     foil: 'Gold',
     nameEn: 'Avocado',
@@ -1878,8 +1757,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20006_g.png',
+    image: 'cloud://nft/ol/20006_g.png',
     id: 437,
     foil: 'Gold',
     nameEn: 'Ammo Crate',
@@ -1890,8 +1768,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20005_g.png',
+    image: 'cloud://nft/ol/20005_g.png',
     id: 438,
     foil: 'Gold',
     nameEn: 'Star Zombie',
@@ -1902,8 +1779,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20012_g.png',
+    image: 'cloud://nft/ol/20012_g.png',
     id: 439,
     foil: 'Gold',
     nameEn: 'Clown Zombie',
@@ -1914,8 +1790,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20010_g.png',
+    image: 'cloud://nft/ol/20010_g.png',
     id: 440,
     foil: 'Gold',
     nameEn: 'Angry Bull',
@@ -1926,8 +1801,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20068.png',
+    image: 'cloud://nft/ol/20068.png',
     id: 441,
     foil: 'Regular',
     nameEn: 'Garlic',
@@ -1942,8 +1816,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20064_g.png',
+    image: 'cloud://nft/ol/20064_g.png',
     id: 442,
     foil: 'Gold',
     nameEn: 'Cabbage',
@@ -1954,8 +1827,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20037.png',
+    image: 'cloud://nft/ol/20037.png',
     id: 443,
     name: '榴莲特务',
     foil: 'Regular',
@@ -1966,8 +1838,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20021_g.png',
+    image: 'cloud://nft/ol/20021_g.png',
     id: 445,
     foil: 'Gold',
     nameEn: 'Tortoise Bro',
@@ -1978,8 +1849,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20036_g.png',
+    image: 'cloud://nft/ol/20036_g.png',
     id: 446,
     foil: 'Gold',
     nameEn: 'Party Zombie',
@@ -1990,8 +1860,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20025_g.png',
+    image: 'cloud://nft/ol/20025_g.png',
     id: 447,
     foil: 'Gold',
     nameEn: 'Poison',
@@ -2004,8 +1873,7 @@ export const cardsList: Card[] = [
     props: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]],
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20002_g.png',
+    image: 'cloud://nft/ol/20002_g.png',
     id: 448,
     foil: 'Gold',
     nameEn: 'Pirate Zombie',
@@ -2016,8 +1884,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20026_g.png',
+    image: 'cloud://nft/ol/20026_g.png',
     id: 449,
     foil: 'Gold',
     nameEn: 'Cunning Fox',
@@ -2028,8 +1895,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20043.png',
+    image: 'cloud://nft/ol/20043.png',
     id: 450,
     name: '警用防爆盾',
     foil: 'Regular',
@@ -2040,8 +1906,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20024.png',
+    image: 'cloud://nft/ol/20024.png',
     id: 451,
     name: '青蛙',
     foil: 'Regular',
@@ -2052,8 +1917,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20046_g.png',
+    image: 'cloud://nft/ol/20046_g.png',
     id: 452,
     name: '疯博士僵尸',
     foil: 'Gold',
@@ -2069,8 +1933,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20069.png',
+    image: 'cloud://nft/ol/20069.png',
     id: 453,
     name: '榴莲将军',
     foil: 'Regular',
@@ -2094,8 +1957,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20048.png',
+    image: 'cloud://nft/ol/20048.png',
     id: 454,
     name: '狼王',
     foil: 'Regular',
@@ -2110,8 +1972,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20053.png',
+    image: 'cloud://nft/ol/20053.png',
     id: 455,
     name: '水桶僵尸',
     foil: 'Regular',
@@ -2122,8 +1983,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20043_g.png',
+    image: 'cloud://nft/ol/20043_g.png',
     id: 457,
     foil: 'Gold',
     nameEn: 'Riot Shield',
@@ -2134,8 +1994,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20037_g.png',
+    image: 'cloud://nft/ol/20037_g.png',
     id: 458,
     foil: 'Gold',
     nameEn: 'Durian Agent',
@@ -2146,8 +2005,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20046.png',
+    image: 'cloud://nft/ol/20046.png',
     id: 459,
     foil: 'Regular',
     nameEn: 'Crazy Doctor Zombie',
@@ -2163,8 +2021,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20053_g.png',
+    image: 'cloud://nft/ol/20053_g.png',
     id: 460,
     foil: 'Gold',
     nameEn: 'Barrel Zombie',
@@ -2175,8 +2032,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20024_g.png',
+    image: 'cloud://nft/ol/20024_g.png',
     id: 461,
     foil: 'Gold',
     nameEn: 'Frog',
@@ -2187,8 +2043,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20048_g.png',
+    image: 'cloud://nft/ol/20048_g.png',
     id: 462,
     name: '狼王',
     foil: 'Gold',
@@ -2203,8 +2058,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20069_g.png',
+    image: 'cloud://nft/ol/20069_g.png',
     id: 463,
     name: '榴莲将军',
     foil: 'Gold',
@@ -2228,8 +2082,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20118.png',
+    image: 'cloud://nft/ol/20118.png',
     id: 474,
     name: '史诗奇迹蛋',
     foil: 'Regular',
@@ -2242,8 +2095,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20117.png',
+    image: 'cloud://nft/ol/20117.png',
     id: 476,
     name: '传说奇迹蛋',
     foil: 'Regular',
@@ -2256,8 +2108,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20117_g.png',
+    image: 'cloud://nft/ol/20117_g.png',
     id: 486,
     name: '传说奇迹蛋',
     foil: 'Gold',
@@ -2270,8 +2121,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20118_g.png',
+    image: 'cloud://nft/ol/20118_g.png',
     id: 487,
     name: '史诗奇迹蛋',
     foil: 'Gold',
@@ -2284,8 +2134,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10016_g.png',
+    image: 'cloud://nft/ol/10016_g.png',
     id: 492,
     name: '迷你机器人',
     foil: 'Gold',
@@ -2300,8 +2149,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20085.png',
+    image: 'cloud://nft/ol/20085.png',
     id: 494,
     name: '坚固机器人',
     foil: 'Regular',
@@ -2313,8 +2161,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10017.png',
+    image: 'cloud://nft/ol/10017.png',
     id: 495,
     name: '淘气龙',
     foil: 'Regular',
@@ -2329,8 +2176,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20086.png',
+    image: 'cloud://nft/ol/20086.png',
     id: 497,
     name: '大地龙',
     foil: 'Regular',
@@ -2341,8 +2187,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10010.png',
+    image: 'cloud://nft/ol/10010.png',
     id: 498,
     name: '诡计幻龙',
     foil: 'Regular',
@@ -2357,8 +2202,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20071.png',
+    image: 'cloud://nft/ol/20071.png',
     id: 499,
     name: '磐石',
     foil: 'Regular',
@@ -2370,8 +2214,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20078.png',
+    image: 'cloud://nft/ol/20078.png',
     id: 500,
     name: '警报机器人',
     foil: 'Regular',
@@ -2382,8 +2225,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20092.png',
+    image: 'cloud://nft/ol/20092.png',
     id: 501,
     name: '疾风龙',
     foil: 'Regular',
@@ -2395,8 +2237,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20083.png',
+    image: 'cloud://nft/ol/20083.png',
     id: 502,
     name: '猫咪机器人',
     foil: 'Regular',
@@ -2407,8 +2248,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10016.png',
+    image: 'cloud://nft/ol/10016.png',
     id: 503,
     foil: 'Regular',
     nameEn: 'Mini Robot',
@@ -2423,8 +2263,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20090.png',
+    image: 'cloud://nft/ol/20090.png',
     id: 504,
     name: '钢铁龙',
     foil: 'Regular',
@@ -2435,8 +2274,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20084.png',
+    image: 'cloud://nft/ol/20084.png',
     id: 505,
     name: '威吓机器人',
     foil: 'Regular',
@@ -2447,8 +2285,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20100_g.png',
+    image: 'cloud://nft/ol/20100_g.png',
     id: 506,
     name: '暗影龙',
     foil: 'Gold',
@@ -2459,8 +2296,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20088.png',
+    image: 'cloud://nft/ol/20088.png',
     id: 507,
     name: '熔岩龙',
     foil: 'Regular',
@@ -2471,8 +2307,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20075_g.png',
+    image: 'cloud://nft/ol/20075_g.png',
     id: 508,
     name: '侦查机器人',
     foil: 'Gold',
@@ -2483,8 +2318,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20076_g.png',
+    image: 'cloud://nft/ol/20076_g.png',
     id: 509,
     name: '充电机器人',
     foil: 'Gold',
@@ -2495,8 +2329,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10009.png',
+    image: 'cloud://nft/ol/10009.png',
     id: 510,
     name: '地狱岩龙',
     foil: 'Regular',
@@ -2511,8 +2344,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10007_g.png',
+    image: 'cloud://nft/ol/10007_g.png',
     id: 511,
     name: '机械公爵',
     foil: 'Gold',
@@ -2527,8 +2359,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20098.png',
+    image: 'cloud://nft/ol/20098.png',
     id: 512,
     name: '黑曜石龙',
     foil: 'Regular',
@@ -2539,8 +2370,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10017_g.png',
+    image: 'cloud://nft/ol/10017_g.png',
     id: 513,
     foil: 'Gold',
     nameEn: 'Naughty Dragon',
@@ -2555,8 +2385,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20100.png',
+    image: 'cloud://nft/ol/20100.png',
     id: 514,
     foil: 'Regular',
     nameEn: 'Shadow Dragon',
@@ -2567,8 +2396,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20075.png',
+    image: 'cloud://nft/ol/20075.png',
     id: 515,
     foil: 'Regular',
     nameEn: 'Scout Bot',
@@ -2579,8 +2407,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10007.png',
+    image: 'cloud://nft/ol/10007.png',
     id: 516,
     foil: 'Regular',
     nameEn: 'Robot Duke',
@@ -2595,8 +2422,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20099.png',
+    image: 'cloud://nft/ol/20099.png',
     id: 517,
     name: '自然龙',
     foil: 'Regular',
@@ -2607,8 +2433,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20081.png',
+    image: 'cloud://nft/ol/20081.png',
     id: 518,
     name: '机械孵化仓',
     foil: 'Regular',
@@ -2619,8 +2444,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20082.png',
+    image: 'cloud://nft/ol/20082.png',
     id: 519,
     name: '狗狗机器人',
     foil: 'Regular',
@@ -2631,8 +2455,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10009_g.png',
+    image: 'cloud://nft/ol/10009_g.png',
     id: 520,
     foil: 'Gold',
     nameEn: 'Inferno Dragon',
@@ -2647,8 +2470,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20095.png',
+    image: 'cloud://nft/ol/20095.png',
     id: 521,
     name: '水晶龙',
     foil: 'Regular',
@@ -2659,8 +2481,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20092_g.png',
+    image: 'cloud://nft/ol/20092_g.png',
     id: 522,
     foil: 'Gold',
     nameEn: 'Wind Dragon',
@@ -2671,8 +2492,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20089.png',
+    image: 'cloud://nft/ol/20089.png',
     id: 523,
     name: '神秘龙蛋',
     foil: 'Regular',
@@ -2683,8 +2503,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20087.png',
+    image: 'cloud://nft/ol/20087.png',
     id: 524,
     name: '冰霜龙',
     foil: 'Regular',
@@ -2695,8 +2514,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20071_g.png',
+    image: 'cloud://nft/ol/20071_g.png',
     id: 525,
     foil: 'Gold',
     nameEn: 'Stone',
@@ -2708,8 +2526,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20097.png',
+    image: 'cloud://nft/ol/20097.png',
     id: 526,
     name: '支援机器人',
     foil: 'Regular',
@@ -2720,8 +2537,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20088_g.png',
+    image: 'cloud://nft/ol/20088_g.png',
     id: 527,
     foil: 'Gold',
     nameEn: 'Lava Dragon',
@@ -2732,8 +2548,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20085_g.png',
+    image: 'cloud://nft/ol/20085_g.png',
     id: 528,
     foil: 'Gold',
     nameEn: 'Sturdy Bot',
@@ -2745,8 +2560,7 @@ export const cardsList: Card[] = [
     rarity: 'Common',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20079.png',
+    image: 'cloud://nft/ol/20079.png',
     id: 529,
     foil: 'Regular',
     nameEn: 'ES-67',
@@ -2757,8 +2571,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20091.png',
+    image: 'cloud://nft/ol/20091.png',
     id: 530,
     foil: 'Regular',
     nameEn: 'Thunder Dragon',
@@ -2769,8 +2582,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20095_g.png',
+    image: 'cloud://nft/ol/20095_g.png',
     id: 531,
     foil: 'Gold',
     nameEn: 'Crystal Dragon',
@@ -2781,8 +2593,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10008.png',
+    image: 'cloud://nft/ol/10008.png',
     id: 532,
     name: '机械武士',
     foil: 'Regular',
@@ -2808,8 +2619,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20073.png',
+    image: 'cloud://nft/ol/20073.png',
     id: 533,
     name: '辅助机器人',
     foil: 'Regular',
@@ -2820,8 +2630,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20098_g.png',
+    image: 'cloud://nft/ol/20098_g.png',
     id: 534,
     foil: 'Gold',
     nameEn: 'Obsidian Dragon',
@@ -2832,8 +2641,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20089_g.png',
+    image: 'cloud://nft/ol/20089_g.png',
     id: 535,
     foil: 'Gold',
     nameEn: 'Dragon Egg',
@@ -2844,8 +2652,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20079_g.png',
+    image: 'cloud://nft/ol/20079_g.png',
     id: 536,
     foil: 'Gold',
     nameEn: 'ES-67',
@@ -2856,8 +2663,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20078_g.png',
+    image: 'cloud://nft/ol/20078_g.png',
     id: 537,
     foil: 'Gold',
     nameEn: 'Alarm Bot',
@@ -2868,8 +2674,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20090_g.png',
+    image: 'cloud://nft/ol/20090_g.png',
     id: 538,
     foil: 'Gold',
     nameEn: 'Steel Dragon',
@@ -2880,8 +2685,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20073_g.png',
+    image: 'cloud://nft/ol/20073_g.png',
     id: 539,
     foil: 'Gold',
     nameEn: 'Support Bot',
@@ -2892,8 +2696,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20097_g.png',
+    image: 'cloud://nft/ol/20097_g.png',
     id: 540,
     foil: 'Gold',
     nameEn: 'Helper Bot',
@@ -2904,8 +2707,7 @@ export const cardsList: Card[] = [
     rarity: 'Rare',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20086_g.png',
+    image: 'cloud://nft/ol/20086_g.png',
     id: 541,
     foil: 'Gold',
     nameEn: 'Terra Dragon',
@@ -2916,8 +2718,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20083_g.png',
+    image: 'cloud://nft/ol/20083_g.png',
     id: 542,
     foil: 'Gold',
     nameEn: 'Kitty Bot',
@@ -2928,8 +2729,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10008_g.png',
+    image: 'cloud://nft/ol/10008_g.png',
     id: 543,
     foil: 'Gold',
     nameEn: 'Mechanic Knight',
@@ -2955,8 +2755,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20074.png',
+    image: 'cloud://nft/ol/20074.png',
     id: 544,
     name: '复仇者 D0',
     foil: 'Regular',
@@ -2967,8 +2766,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/10010_g.png',
+    image: 'cloud://nft/ol/10010_g.png',
     id: 545,
     foil: 'Gold',
     nameEn: 'Deception Dragon',
@@ -2983,8 +2781,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20084_g.png',
+    image: 'cloud://nft/ol/20084_g.png',
     id: 546,
     foil: 'Gold',
     nameEn: 'Deterrent Bot',
@@ -2995,8 +2792,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20072.png',
+    image: 'cloud://nft/ol/20072.png',
     id: 547,
     foil: 'Regular',
     nameEn: 'GT 130',
@@ -3012,8 +2808,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20101.png',
+    image: 'cloud://nft/ol/20101.png',
     id: 548,
     name: '辉光龙',
     foil: 'Regular',
@@ -3037,8 +2832,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20101_g.png',
+    image: 'cloud://nft/ol/20101_g.png',
     id: 549,
     name: '辉光龙',
     foil: 'Gold',
@@ -3062,8 +2856,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20087_g.png',
+    image: 'cloud://nft/ol/20087_g.png',
     id: 550,
     foil: 'Gold',
     nameEn: 'Frost Dragon',
@@ -3074,8 +2867,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20094.png',
+    image: 'cloud://nft/ol/20094.png',
     id: 551,
     foil: 'Regular',
     nameEn: 'Ocean Dragon',
@@ -3086,8 +2878,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20093.png',
+    image: 'cloud://nft/ol/20093.png',
     id: 552,
     name: '暴风龙',
     foil: 'Regular',
@@ -3098,8 +2889,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20076.png',
+    image: 'cloud://nft/ol/20076.png',
     id: 553,
     name: '充电机器人',
     foil: 'Regular',
@@ -3110,8 +2900,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20099_g.png',
+    image: 'cloud://nft/ol/20099_g.png',
     id: 554,
     foil: 'Gold',
     nameEn: 'Nature Dragon',
@@ -3122,8 +2911,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20094_g.png',
+    image: 'cloud://nft/ol/20094_g.png',
     id: 555,
     name: '海洋龙',
     foil: 'Gold',
@@ -3134,8 +2922,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20082_g.png',
+    image: 'cloud://nft/ol/20082_g.png',
     id: 556,
     foil: 'Gold',
     nameEn: 'Doggy Bot',
@@ -3146,8 +2933,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20077.png',
+    image: 'cloud://nft/ol/20077.png',
     id: 557,
     foil: 'Regular',
     nameEn: 'Guardian Bot',
@@ -3158,8 +2944,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20081_g.png',
+    image: 'cloud://nft/ol/20081_g.png',
     id: 558,
     foil: 'Gold',
     nameEn: 'Mech Hatchery',
@@ -3170,8 +2955,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20096.png',
+    image: 'cloud://nft/ol/20096.png',
     id: 559,
     name: '摇滚潮龙',
     foil: 'Regular',
@@ -3182,8 +2966,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20077_g.png',
+    image: 'cloud://nft/ol/20077_g.png',
     id: 560,
     name: '守护机器人',
     foil: 'Gold',
@@ -3194,8 +2977,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20074_g.png',
+    image: 'cloud://nft/ol/20074_g.png',
     id: 561,
     foil: 'Gold',
     nameEn: 'Avenger D0',
@@ -3206,8 +2988,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20096_g.png',
+    image: 'cloud://nft/ol/20096_g.png',
     id: 562,
     name: '摇滚潮龙',
     foil: 'Gold',
@@ -3218,8 +2999,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20093_g.png',
+    image: 'cloud://nft/ol/20093_g.png',
     id: 563,
     name: '暴风龙',
     foil: 'Gold',
@@ -3230,8 +3010,7 @@ export const cardsList: Card[] = [
     rarity: 'Epic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20091_g.png',
+    image: 'cloud://nft/ol/20091_g.png',
     id: 564,
     name: '雷霆龙',
     foil: 'Gold',
@@ -3242,8 +3021,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20072_g.png',
+    image: 'cloud://nft/ol/20072_g.png',
     id: 565,
     foil: 'Gold',
     nameEn: 'GT 130',
@@ -3259,8 +3037,7 @@ export const cardsList: Card[] = [
     rarity: 'Legendary',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20149.png',
+    image: 'cloud://nft/ol/20149.png',
     id: 567,
     foil: 'Regular',
     nameEn: 'Viper Ning',
@@ -3287,8 +3064,7 @@ export const cardsList: Card[] = [
     rarity: 'Mythic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20120.png',
+    image: 'cloud://nft/ol/20120.png',
     id: 572,
     foil: 'Regular',
     nameEn: 'PEPE',
@@ -3312,8 +3088,7 @@ export const cardsList: Card[] = [
     rarity: 'Mythic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20119.png',
+    image: 'cloud://nft/ol/20119.png',
     id: 573,
     foil: 'Regular',
     nameEn: 'DOGE',
@@ -3351,8 +3126,7 @@ export const cardsList: Card[] = [
     rarity: 'Mythic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20121.png',
+    image: 'cloud://nft/ol/20121.png',
     id: 574,
     foil: 'Regular',
     nameEn: 'SHIBA INU',
@@ -3368,8 +3142,7 @@ export const cardsList: Card[] = [
     rarity: 'Mythic',
   },
   {
-    image:
-      'https://lb2nastorage-hk-cdn-endpoint.azureedge.net/nft-image/bin/nft/ol/20119_g.png',
+    image: 'cloud://nft/ol/20119_g.png',
     id: 575,
     foil: 'Gold',
     nameEn: 'DOGE',

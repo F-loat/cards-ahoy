@@ -3,7 +3,6 @@ import { View } from '@tarojs/components';
 import {
   ConfigProvider,
   Divider,
-  Image,
   Loading,
   Menu,
   SafeArea,
@@ -26,6 +25,7 @@ import { CardFaction, CardFoil, CardRarity, CardType } from '../../types';
 import { Notice } from './components/Notice';
 import { useNotice } from './hooks/notice';
 import { GlobalData, getGlobalData } from '../../utils/data';
+import { CloudImage } from '../../components/CloudImage';
 
 definePageConfig({
   navigationBarTitleText: 'Cards Ahoy!',
@@ -222,7 +222,7 @@ const Index = () => {
             >
               {banners.map((item) => (
                 <Swiper.Item key={item.img}>
-                  <Image
+                  <CloudImage
                     width="100%"
                     height="100%"
                     src={item.img}
@@ -260,7 +260,7 @@ const Index = () => {
                   });
                 }}
               >
-                <Image
+                <CloudImage
                   src={item.image}
                   width={64}
                   height={64}

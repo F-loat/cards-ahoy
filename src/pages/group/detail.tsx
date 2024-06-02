@@ -1,6 +1,6 @@
 import { View, Text, CustomWrapper } from '@tarojs/components';
 import { Card, CardRarity, CardType } from '../../types';
-import { Button, Dialog, Image, SafeArea } from '@nutui/nutui-react-taro';
+import { Button, Dialog, SafeArea } from '@nutui/nutui-react-taro';
 import { useEffect, useMemo, useState } from 'react';
 import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
 import { CardsList } from './components/CardsList';
@@ -17,6 +17,7 @@ import {
 import { LevelSlider } from '../../components/LevelSlider';
 import { CardImage } from './components/CardImage';
 import { getBonusesForGroup } from '../../utils';
+import { CloudImage } from '../../components/CloudImage';
 
 export interface CardGroup {
   leader: { id: number; level?: number };
@@ -249,7 +250,7 @@ const GroupDetail = () => {
       <View className="p-3">
         <View className="flex items-center px-1">
           <View className="flex justify-center text-sm relative">
-            <Image
+            <CloudImage
               width={100}
               height={100}
               radius="10%"

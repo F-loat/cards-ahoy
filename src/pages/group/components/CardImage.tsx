@@ -1,7 +1,7 @@
 import { View, Text } from '@tarojs/components';
-import { Image } from '@nutui/nutui-react-taro';
 import { getCard } from '../../../utils';
 import { ReactNode, useState } from 'react';
+import { CloudImage } from '../../../components/CloudImage';
 
 export const CardImage = ({
   id,
@@ -23,7 +23,7 @@ export const CardImage = ({
 
   return (
     <View className="relative mt-2 flex justify-center" onClick={onClick}>
-      <Image
+      <CloudImage
         width={size ?? 80}
         height={size ?? 80}
         radius={shape === 'circle' ? '50%' : '10%'}
