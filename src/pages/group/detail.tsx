@@ -335,6 +335,10 @@ const GroupDetail = () => {
       <Dialog
         title={selectedCard?.name}
         visible={!!selectedCard}
+        overlay={false}
+        style={{
+          top: 160,
+        }}
         confirmText={selectedCard?.group ? '确认' : '上阵'}
         cancelText={selectedCard?.group ? '下阵' : '取消'}
         onConfirm={() => {

@@ -23,7 +23,7 @@ export interface DiscountCard {
 }
 
 definePageConfig({
-  navigationBarTitleText: 'Cards Ahoy!',
+  navigationBarTitleText: '折扣卡牌',
   enablePullDownRefresh: true,
   enableShareTimeline: true,
   enableShareAppMessage: true,

@@ -38,13 +38,13 @@ export const CheckboxMenuItem = ({
               activeIcon={
                 <Checklist className="nut-checkbox-button-icon-checked" />
               }
-              style={{ marginInlineEnd: '8px' }}
+              style={{ margin: '4px 8px 4px 0' }}
             />
           ))}
         </Checkbox.Group>
         <Button
           size="mini"
-          style={{ marginBottom: '4px' }}
+          style={{ margin: '4px 0' }}
           onClick={() => {
             onChange?.(val);
             (itemRef.current as any)?.toggle(false);

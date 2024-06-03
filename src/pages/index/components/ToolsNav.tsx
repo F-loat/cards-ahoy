@@ -34,9 +34,11 @@ const ToolsNav = () => {
     },
   ];
 
-  usePageScroll(() => {
-    if (visible) {
+  usePageScroll((e) => {
+    if (e.scrollTop > 64 && visible) {
       setVisible(false);
+    } else if (e.scrollTop < 64 && !visible) {
+      setVisible(true);
     }
   });
 
@@ -49,7 +51,6 @@ const ToolsNav = () => {
         visible={visible}
         onChange={setVisible}
         onSelect={(item) => {
-          setVisible(false);
           switch (item.id) {
             case 'back-top':
               Taro.pageScrollTo({ scrollTop: 0, duration: 300 });

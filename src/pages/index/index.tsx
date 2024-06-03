@@ -58,7 +58,7 @@ const types = [
   { text: '领袖', value: CardType.Leaders },
   { text: '成员', value: CardType.Members },
   { text: '金卡', value: CardFoil.Gold },
-  { text: '普卡', value: CardFoil.Regular },
+  { text: '白卡', value: CardFoil.Regular },
 ];
 
 const factions = [
