@@ -338,6 +338,8 @@ const GroupDetail = () => {
         overlay={false}
         style={{
           top: 160,
+          boxShadow:
+            '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
         }}
         confirmText={selectedCard?.group ? '确认' : '上阵'}
         cancelText={selectedCard?.group ? '下阵' : '取消'}

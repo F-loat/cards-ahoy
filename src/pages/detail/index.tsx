@@ -92,7 +92,7 @@ const Detail = () => {
   const cardInfo = cardId && getCard(cardId);
   const [time, setTime] = useState(params.time);
   const [price, setPrice] = useState(params.price);
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(Number(params.level || 1));
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
 
   const {
@@ -231,7 +231,7 @@ const Detail = () => {
       title: cardInfo
         ? `价格分享 - ${cardInfo.name} - $${price}`
         : 'Cards Ahoy!',
-      path: `/pages/detail/index?id=${cardId}&price=${price}&time=${time}`,
+      path: `/pages/detail/index?id=${cardId}&level=${level}&price=${price}&time=${time}`,
     };
   });
 
@@ -275,7 +275,7 @@ const Detail = () => {
         </View>
         <View className="ml-2 flex flex-col flex-1">
           <View className="flex justify-between">
-            <View className="text-lg">{cardInfo.name}</View>
+            <View className="text-lg">{cardInfo.name || '暂未收录'}</View>
             {!!price && (
               <View className="flex items-center">
                 <View>地板价</View>

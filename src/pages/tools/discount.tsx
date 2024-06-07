@@ -91,7 +91,7 @@ const Discount = () => {
             className="flex items-center mx-1"
             onClick={() => {
               Taro.navigateTo({
-                url: `/pages/detail/index?id=${item._id}&price=${item.floorPrice}&time=${Number(item.updatedAt)}&from=discount`,
+                url: `/pages/detail/index?id=${item._id}&level=${item.level}&price=${item.floorPrice}&time=${Number(item.updatedAt)}&from=discount`,
               });
             }}
           >
