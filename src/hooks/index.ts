@@ -5,9 +5,10 @@ import { Plan, getGlobalData } from '../utils/data';
 export const useShowAds = () => {
   const [showAds, setShowAds] = useState(false);
   const plan = getGlobalData('plan') as Plan;
+  const openid = getGlobalData('openid') as string;
 
   useEffect(() => {
-    if (plan === Plan.Pro) return;
+    if (!openid || plan === Plan.Pro) return;
     Taro.getStorage({ key: 'ad-time' })
       .then(({ data: time }) => {
         setShowAds(!time || time < Date.now() - 1000 * 60 * 60 * 24);
