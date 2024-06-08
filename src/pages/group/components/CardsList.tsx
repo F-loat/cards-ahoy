@@ -37,10 +37,10 @@ const compareCards = (a: Card, b: Card) => {
 };
 
 export const CardsList = ({
-  group,
+  leader,
   onSelect,
 }: {
-  group: CardGroup;
+  leader: CardGroup['leader'];
   onSelect: (card: SelectedCard) => void;
 }) => {
   const leaders = useMemo(() => {
@@ -54,11 +54,11 @@ export const CardsList = ({
       .filter((card) => {
         if (card.type !== CardType.Members) return false;
         if (card.faction === CardFaction.Neutral) return true;
-        const leader = getCard(group.leader.id);
-        return !leader || card.faction === leader.faction;
+        const leaderInfo = getCard(leader.id);
+        return !leaderInfo || card.faction === leaderInfo.faction;
       })
       .sort(compareCards);
-  }, [group.leader]);
+  }, [leader]);
 
   return (
     <>
@@ -76,7 +76,7 @@ export const CardsList = ({
             onClick={() => {
               onSelect({
                 ...getCard(card.id),
-                level: group.leader.level ?? 1,
+                level: leader.level ?? 1,
                 group: false,
               });
             }}
@@ -97,7 +97,7 @@ export const CardsList = ({
             onClick={() => {
               onSelect({
                 ...getCard(card.id),
-                level: group.leader.level ?? 1,
+                level: leader.level ?? 1,
                 group: false,
               });
             }}

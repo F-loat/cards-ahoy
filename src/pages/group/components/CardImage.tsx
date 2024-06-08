@@ -22,7 +22,7 @@ export const CardImage = ({
   const { image, props } = getCard(id) || {};
 
   return (
-    <View className="relative mt-2 flex justify-center" onClick={onClick}>
+    <View className="relative flex justify-center" onClick={onClick}>
       <CloudImage
         width={size ?? 80}
         height={size ?? 80}

@@ -1,7 +1,7 @@
 import { View, Text, CustomWrapper } from '@tarojs/components';
-import { Card, CardRarity, CardType } from '../../types';
+import { Card, CardType } from '../../types';
 import { Button, Dialog, SafeArea } from '@nutui/nutui-react-taro';
-import { useEffect, useMemo, useState } from 'react';
+import { useRef, useEffect, useMemo, useState } from 'react';
 import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
 import { CardsList } from './components/CardsList';
 import { TotalPrice, getPriceForCards } from './components/TotalPrice';
@@ -15,75 +15,65 @@ import {
   samrtCeil,
 } from '../../utils';
 import { LevelSlider } from '../../components/LevelSlider';
-import { CardImage } from './components/CardImage';
 import { getBonusesForGroup } from '../../utils';
 import { CloudImage } from '../../components/CloudImage';
+import { MembersList } from './components/MembersList';
+import { useGroupInfo } from './hooks';
+
+export type Member = { id: number; level?: number };
 
 export interface CardGroup {
-  leader: { id: number; level?: number };
-  members: { id: number; level?: number }[];
+  leader: Member;
+  members: Member[];
 }
 
 export type SelectedCard = Card & { level: number; group: boolean };
 
+definePageConfig({
+  disableScroll: true,
+});
+
 const GroupDetail = () => {
-  const [group, setGroup] = useState<CardGroup>({
-    leader: { id: -1 },
-    members: Array(8).fill({ id: -1 }),
-  });
   const { params } = useRouter();
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(true);
   const [priceMap, setPriceMap] = useState<Record<number, number>>({});
+
+  const [leader, setLeader] = useState<CardGroup['leader']>({ id: -1 });
+  const [members, setMembers] = useState<CardGroup['members']>(
+    Array(8).fill({ id: -1 }),
+  );
+  const sortedMembers = useRef(members);
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
 
-  const totalCost = useMemo(() => {
-    return group.members.reduce(
-      (acc, cur) => {
-        return acc + (getCard(cur.id)?.cost || 0);
-      },
-      getCard(group.leader.id)?.cost || 0,
-    );
-  }, [group]);
-
-  const totalHonorPoints = useMemo(() => {
-    return group.members.reduce(
-      (acc, cur) => acc + getHonorPointsForCard(getCard(cur.id), cur.level),
-      getHonorPointsForCard(getCard(group.leader.id), group.leader.level),
-    );
-  }, [group]);
-
-  const faction = useMemo(() => {
-    const card = getCard(group.leader.id);
-    return card ? getLabelForFaction(card.faction) : null;
-  }, [group.leader.id]);
+  const { totalCost, totalHonorPoints, faction } = useGroupInfo({
+    leader,
+    members,
+  });
 
   const handleLeaderUpdate = (card: SelectedCard) => {
-    setGroup({
-      leader: {
-        id: card.id,
-        level: card.level,
-      },
-      members:
-        getCard(group.leader.id).faction === getCard(card.id).faction
-          ? group.members
-          : Array(8).fill({ id: -1 }),
+    setLeader({
+      id: card.id,
+      level: card.level,
     });
+    if (getCard(leader.id).faction !== getCard(card.id).faction) {
+      handleMembersUpdate(Array(8).fill({ id: -1 }));
+    }
   };
 
-  const handleLeaderDown = () => {
-    setGroup({
-      leader: { id: -1 },
-      members: group.members,
-    });
+  const handleLeaderDown = () => setLeader({ id: -1 });
+
+  const handleMembersUpdate = (newMembers: Member[]) => {
+    setMembers(newMembers);
+    sortedMembers.current = newMembers;
   };
 
   const getUpIndex = (card: SelectedCard) => {
-    const index = group.members.findIndex(({ id }) => {
+    const index = sortedMembers.current.findIndex(({ id }) => {
       return card.name === getCard(id)?.name;
     });
     if (index !== -1) return index;
-    return group.members.findIndex(({ id }) => {
+    return sortedMembers.current.findIndex(({ id }) => {
       return id === -1;
     });
   };
@@ -97,19 +87,16 @@ const GroupDetail = () => {
       });
       return;
     }
-    const newMembers = [...group.members];
+    const newMembers = [...sortedMembers.current];
     newMembers[index] = {
       id: card.id,
       level: card.level,
     };
-    setGroup({
-      leader: group.leader,
-      members: newMembers,
-    });
+    handleMembersUpdate(newMembers);
   };
 
   const handleMemberDown = (card: SelectedCard) => {
-    const newMembers = [...group.members];
+    const newMembers = [...sortedMembers.current];
     const index = newMembers.findIndex(({ id }) => {
       return card.name === getCard(id)?.name;
     });
@@ -117,21 +104,18 @@ const GroupDetail = () => {
     newMembers[index] = {
       id: -1,
     };
-    setGroup({
-      leader: group.leader,
-      members: newMembers,
-    });
+    handleMembersUpdate(newMembers);
   };
 
   const handleSubmit = async () => {
-    if (group.leader.id === -1) {
+    if (leader.id === -1) {
       Taro.showToast({
         title: '请选择领袖',
         icon: 'none',
       });
       return;
     }
-    if (group.members.every(({ id }) => id === -1)) {
+    if (members.every(({ id }) => id === -1)) {
       Taro.showToast({
         title: '请至少选择一个成员',
         icon: 'none',
@@ -144,8 +128,10 @@ const GroupDetail = () => {
       onConfirm: async () => {
         Dialog.close('submit');
 
-        const members = group.members.filter(({ id }) => id !== -1);
-        const cards = members.concat(group.leader);
+        const validMembers = sortedMembers.current.filter(
+          ({ id }) => id !== -1,
+        );
+        const cards = validMembers.concat(leader);
 
         Taro.showLoading({
           title: '发布中',
@@ -157,12 +143,12 @@ const GroupDetail = () => {
           await Taro.cloud.callFunction({
             name: 'upsertCardGroup',
             data: {
-              leader: group.leader,
-              members,
+              leader,
+              members: validMembers,
               cost: totalCost,
               price: samrtCeil(price),
               honorPoints: totalHonorPoints,
-              faction: getCard(group.leader.id)?.faction,
+              faction: getCard(leader.id)?.faction,
             },
           });
           Taro.hideLoading();
@@ -194,12 +180,12 @@ const GroupDetail = () => {
         .doc(options.id)
         .get({})
         .then(({ data }) => {
-          setGroup({
-            leader: data.leader,
-            members: Array(8)
+          setLeader(data.leader);
+          handleMembersUpdate(
+            Array(8)
               .fill({ id: -1 })
               .map((m, idx) => data.members[idx] || m),
-          });
+          );
         })
         .catch((err) => {
           Taro.showToast({
@@ -219,15 +205,16 @@ const GroupDetail = () => {
             members: number[];
           };
       if (typeof value.leader !== 'number') {
-        setGroup(value as CardGroup);
+        setLeader(value.leader);
+        handleMembersUpdate(value.members as Member[]);
         return;
       }
-      setGroup({
-        leader: { id: value.leader },
-        members: value.members.map((id) => {
+      setLeader({ id: value.leader });
+      handleMembersUpdate(
+        value.members.map((id) => {
           return { id } as { id: number };
         }),
-      });
+      );
     } catch (err) {
       console.log(err);
     }
@@ -240,36 +227,34 @@ const GroupDetail = () => {
 
   useShareAppMessage(() => {
     return {
-      title: `卡组分享 - ${faction} - ${totalCost}费`,
-      path: `/pages/group/detail?group=${JSON.stringify(group)}`,
+      title: `卡组分享 - ${faction || '未知'} - ${totalCost}费`,
+      path: `/pages/group/detail?group=${JSON.stringify({ leader, members: sortedMembers.current })}`,
     };
   });
 
   return (
     <View className="h-screen flex flex-col">
-      <View className="p-3">
+      <View className="pt-3 px-3 pb-1">
         <View className="flex items-center px-1">
           <View className="flex justify-center text-sm relative">
             <CloudImage
               width={100}
               height={100}
               radius="10%"
-              key={group.leader.id === -1 ? 0 : 1}
-              src={getCard(group.leader.id)?.image}
+              key={leader.id === -1 ? 0 : 1}
+              src={getCard(leader.id)?.image}
               onClick={() => {
                 setSelectedCard({
-                  ...getCard(group.leader.id),
-                  level: group.leader.level ?? 1,
+                  ...getCard(leader.id),
+                  level: leader.level ?? 1,
                   group: true,
                 });
               }}
             />
-            {group.leader.id !== -1 && (
+            {leader.id !== -1 && (
               <View className="absolute bottom-0 left-0 right-0 text-center text-sm text-white">
-                <Text>lv.{group.leader.level}</Text>
-                {!!priceMap[group.leader.id] && (
-                  <Text>/${priceMap[group.leader.id]}</Text>
-                )}
+                <Text>lv.{leader.level}</Text>
+                {!!priceMap[leader.id] && <Text>/${priceMap[leader.id]}</Text>}
               </View>
             )}
           </View>
@@ -282,42 +267,34 @@ const GroupDetail = () => {
               <View>荣耀：{totalHonorPoints}</View>
             </View>
             <View className="flex">
-              <View className="w-24">加成：{getBonusesForGroup(group)}%</View>
+              <View className="w-24">
+                加成：{getBonusesForGroup({ leader, members })}%
+              </View>
               <View className="flex items-center">
                 <View>成本：</View>
                 <CustomWrapper>
-                  <TotalPrice group={group} onUpdate={setPriceMap} />
+                  <TotalPrice
+                    group={{ leader, members }}
+                    onUpdate={setPriceMap}
+                  />
                 </CustomWrapper>
               </View>
             </View>
           </View>
         </View>
-        <View className="mt-1 grid gap-2 grid-cols-4">
-          {group.members.map((member, index) => (
-            <CardImage
-              id={member.id}
-              level={member.level}
-              key={`${index}_${member.id === -1 ? 0 : 1}`}
-              bottomSlot={
-                !!priceMap[member.id] && (
-                  <Text>
-                    /${priceMap[member.id]}
-                    {getCard(member.id).rarity === CardRarity.Mythic &&
-                    member.level !== 1
-                      ? '*'
-                      : null}
-                  </Text>
-                )
-              }
-              onClick={() => {
-                setSelectedCard({
-                  ...getCard(member.id),
-                  level: member.level ?? 1,
-                  group: true,
-                });
-              }}
-            />
-          ))}
+        <View className="mt-4">
+          <MembersList
+            data={members}
+            priceMap={priceMap}
+            onMemberClick={(member) => {
+              setSelectedCard({
+                ...getCard(member.id),
+                level: member.level ?? 1,
+                group: true,
+              });
+            }}
+            onSortChange={(members) => (sortedMembers.current = members)}
+          />
         </View>
       </View>
       <View
@@ -328,7 +305,7 @@ const GroupDetail = () => {
       >
         {!loading && (
           <CustomWrapper>
-            <CardsList group={group} onSelect={setSelectedCard} />
+            <CardsList leader={leader} onSelect={setSelectedCard} />
           </CustomWrapper>
         )}
       </View>
