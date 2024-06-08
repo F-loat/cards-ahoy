@@ -55,7 +55,7 @@ export const TotalPrice = ({
   useEffect(() => {
     onUpdate({});
     setValue(undefined);
-  }, [group]);
+  }, [group.leader, group.members]);
 
   const handleCalculate = async () => {
     setLoading(true);

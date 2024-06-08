@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import {
+  getBonusesForGroup,
   getCard,
   getHonorPointsForCard,
   getLabelForFaction,
@@ -28,9 +29,15 @@ export const useGroupInfo = ({ leader, members }: CardGroup) => {
     return card ? getLabelForFaction(card.faction) : null;
   }, [leader.id]);
 
+  const bonuses = useMemo(
+    () => getBonusesForGroup({ leader, members }),
+    [leader, members],
+  );
+
   return {
     totalCost,
     totalHonorPoints,
     faction,
+    bonuses,
   };
 };

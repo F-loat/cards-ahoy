@@ -46,7 +46,7 @@ const GroupDetail = () => {
   const sortedMembers = useRef(members);
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null);
 
-  const { totalCost, totalHonorPoints, faction } = useGroupInfo({
+  const { totalCost, totalHonorPoints, faction, bonuses } = useGroupInfo({
     leader,
     members,
   });
@@ -267,17 +267,13 @@ const GroupDetail = () => {
               <View>荣耀：{totalHonorPoints}</View>
             </View>
             <View className="flex">
-              <View className="w-24">
-                加成：{getBonusesForGroup({ leader, members })}%
-              </View>
+              <View className="w-24">加成：{bonuses}%</View>
               <View className="flex items-center">
                 <View>成本：</View>
-                <CustomWrapper>
-                  <TotalPrice
-                    group={{ leader, members }}
-                    onUpdate={setPriceMap}
-                  />
-                </CustomWrapper>
+                <TotalPrice
+                  group={{ leader, members }}
+                  onUpdate={setPriceMap}
+                />
               </View>
             </View>
           </View>
