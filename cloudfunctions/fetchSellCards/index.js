@@ -21,7 +21,7 @@ const upsertCard = async (cardId, cards) => {
   const level = Number(card.priorityTrait1.match(/\d+$/)?.[0]);
   const unitCard = cards.find((c) => c.accumulateTrait.value === 1);
   const salePrice = Number(card.salePrice);
-  const floorPrice = Number(unitCard?.salePrice || samrtCeil(salePrice / exp));
+  const floorPrice = Number(unitCard?.salePrice || ceil(salePrice / exp));
   const data = {
     exp,
     level,
