@@ -6,7 +6,7 @@ import {
   Menu,
   SafeArea,
 } from '@nutui/nutui-react-taro';
-import { View, Text } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import Taro, {
   useLoad,
   usePullDownRefresh,
@@ -15,18 +15,11 @@ import Taro, {
 } from '@tarojs/taro';
 import { PageLoading } from '../../components/PageLoading';
 import { useEffect, useRef, useState } from 'react';
-import { CardGroup } from './detail';
+import { Member } from './detail';
 import { CardFaction } from '../../types';
 import { RangeMenuItem } from './components/RangeMenuItem';
-import {
-  getBonusesForGroup,
-  getCard,
-  getHonorPointsForCard,
-} from '../../utils';
 import { CheckboxMenuItem } from '../index/components/CheckboxMenuItem';
-import { ThumbsDown, ThumbsUp, Trash } from '@nutui/icons-react-taro';
-import dayjs from 'dayjs';
-import { CloudImage } from '../../components/CloudImage';
+import { GroupItem } from './components/GroupItem';
 
 definePageConfig({
   enablePullDownRefresh: true,
@@ -42,37 +35,37 @@ const factions = [
   { text: '龙族', value: 'Dragon' },
 ];
 
+const sorts = [
+  { text: '创建时间', value: 0 },
+  { text: '点赞数量', value: 1 },
+];
+
 interface Filters {
   faction?: string;
   factions?: string[];
   cost?: [number, number];
-  price?: [number, number];
   level?: [number, number];
+  sort?: number;
 }
 
-const getHonorPointsForGroup = (group: CardGroup) => {
-  return group.members.reduce(
-    (acc, member) =>
-      acc + getHonorPointsForCard(getCard(member.id), member.level),
-    getHonorPointsForCard(getCard(group.leader.id), group.leader.level),
-  );
+export type CardGroup = {
+  _id: string;
+  cost: number;
+  price: number;
+  faction: CardFaction;
+  createAt: number;
+  leader: Member;
+  members: Member[];
+  up?: number;
+  down?: number;
 };
 
 const Group = () => {
-  const [list, setList] = useState<
-    (CardGroup & {
-      _id: string;
-      cost: number;
-      price: number;
-      faction: CardFaction;
-      createAt: number;
-      up?: number;
-      down?: number;
-    })[]
-  >([]);
+  const [list, setList] = useState<CardGroup[]>([]);
 
   const [filters, setFilters] = useState<Filters>({
     faction: 'All',
+    sort: 0,
   });
   const filtersRef = useRef(filters);
 
@@ -91,6 +84,8 @@ const Group = () => {
       data: {
         filters,
         type: params.type,
+        pageNumber: 1,
+        pageSize: 30,
       },
     });
 
@@ -105,69 +100,20 @@ const Group = () => {
     Taro.hideNavigationBarLoading();
   };
 
-  const handleVote = async (index: number, type: 'up' | 'down') => {
-    try {
-      Taro.showLoading({
-        title: '投票中...',
-      });
-      const res = await Taro.cloud.callFunction({
-        name: 'voteCardGroup',
-        data: {
-          id: list[index]._id,
-          type,
-        },
-      });
-      Taro.hideLoading();
-      const result = res.result as {
-        code: number;
-        msg: string;
-      };
-      if (result.code === 0) {
-        Taro.showToast({
-          title: result.msg,
-          icon: 'none',
-        });
-        return;
-      }
-      const newList = [...list];
-      newList[index][type] = (newList[index][type] || 0) + 1;
-      setList(newList);
-    } catch (err) {
-      Taro.showToast({
-        title: type === 'up' ? '点赞失败，请稍后再试' : '踩失败，请稍后再试',
-        icon: 'none',
-      });
-    }
+  const handleVoteSuccess = async (item: CardGroup, type: 'up' | 'down') => {
+    const index = list.findIndex((i) => i._id === item._id);
+    if (index === -1) return;
+    const newList = [...list];
+    newList[index][type] = (newList[index][type] || 0) + 1;
+    setList(newList);
   };
 
-  const handleDelete = (index: number) => {
-    Dialog.open('confirm', {
-      title: '确认删除?',
-      content: '删除后无法恢复，但分享链接仍然有效',
-      onConfirm: async () => {
-        Dialog.close('confirm');
-        const db = Taro.cloud.database();
-        db.collection('card_groups')
-          .doc(list[index]?._id)
-          .remove({
-            success: () => {
-              const newList = [...list];
-              newList.splice(index, 1);
-              setList(newList);
-            },
-            fail: () => {
-              Taro.showToast({
-                title: '删除失败，请稍后再试',
-                icon: 'none',
-              });
-            },
-          });
-        return Promise.resolve(() => true);
-      },
-      onCancel: () => {
-        Dialog.close('confirm');
-      },
-    });
+  const handleDeleteSuccess = (item: CardGroup) => {
+    const index = list.findIndex((i) => i._id === item._id);
+    if (index === -1) return;
+    const newList = [...list];
+    newList.splice(index, 1);
+    setList(newList);
   };
 
   useEffect(() => {
@@ -220,18 +166,6 @@ const Group = () => {
           }}
         />
         <RangeMenuItem
-          title={'成本'}
-          min={0}
-          max={10000}
-          children
-          onChange={(value) => {
-            fetchCardGroups({
-              ...filters,
-              price: value,
-            });
-          }}
-        />
-        <RangeMenuItem
           title={'等级'}
           min={1}
           max={10}
@@ -243,87 +177,26 @@ const Group = () => {
             });
           }}
         />
+        <Menu.Item
+          title="排序"
+          options={sorts}
+          defaultValue={filters.sort}
+          onChange={({ value }) => {
+            fetchCardGroups({
+              ...filters,
+              sort: value,
+            });
+          }}
+        />
       </Menu>
-      <View className="flex-1 overflow-scroll px-3 py-4">
-        {list.map((item, index) => (
+      <View className="flex-1 overflow-scroll px-2 py-4">
+        {list.map((item) => (
           <View key={item._id}>
-            <View className="flex justify-between">
-              <View
-                className="relative"
-                onClick={() => {
-                  Taro.showToast({
-                    title: `创建时间：${dayjs(item.createAt).format('YYYY/MM/DD')}`,
-                    icon: 'none',
-                  });
-                }}
-              >
-                <View className="relative">
-                  <CloudImage
-                    width={92}
-                    height={92}
-                    radius="10%"
-                    lazyLoad
-                    src={getCard(item.leader.id)?.image}
-                  />
-                  <View className="absolute bottom-0 left-0 right-0 text-center text-white text-sm leading-4">
-                    <Text>lv.{item.leader.level}</Text>
-                  </View>
-                </View>
-                <View className="text-xs flex justify-between -ml-1">
-                  <Text>总{item.cost}费</Text>
-                  <Text>${item.price}*</Text>
-                </View>
-                <View className="text-xs break-keep absolute -bottom-3 -left-1 -right-4">
-                  {getHonorPointsForGroup(item)}点/加成
-                  {getBonusesForGroup(item)}%
-                </View>
-              </View>
-              <View
-                className="grid gap-3 grid-cols-4 h-full"
-                onClick={() => {
-                  Taro.navigateTo({
-                    url: `/pages/group/detail?id=${item._id}`,
-                  });
-                }}
-              >
-                {item.members
-                  .filter((member) => member.id !== -1)
-                  .map((member) => (
-                    <View
-                      key={member.id}
-                      className="relative flex justify-center"
-                    >
-                      <CloudImage
-                        width={50}
-                        height={50}
-                        radius="10%"
-                        lazyLoad
-                        src={getCard(member.id)?.image}
-                      />
-                      {!!member.level && (
-                        <View className="absolute bottom-0 leading-3 left-0 right-0 text-center text-xs text-white">
-                          <Text>lv.{member.level}</Text>
-                        </View>
-                      )}
-                    </View>
-                  ))}
-              </View>
-              <View className="flex flex-col justify-center items-center text-xs text-center w-4 pt-1.5">
-                <View onClick={() => handleVote(index, 'up')}>
-                  <ThumbsUp size={16} className="text-green-500" />
-                  <View className="mb-1">{item.up || 0}</View>
-                </View>
-                {params.type === 'self' ? (
-                  <View onClick={() => handleDelete(index)}>
-                    <Trash size={16} className="text-red-500" />
-                  </View>
-                ) : (
-                  <View onClick={() => handleVote(index, 'down')}>
-                    <ThumbsDown size={16} className="text-red-500" />
-                  </View>
-                )}
-              </View>
-            </View>
+            <GroupItem
+              item={item}
+              onVoteSuccess={handleVoteSuccess}
+              onDeleteSuccess={handleDeleteSuccess}
+            />
             <Divider />
           </View>
         ))}
@@ -334,7 +207,7 @@ const Group = () => {
         )}
         {!!list.length && (
           <View className="text-sm text-center text-gray-400 dark:text-gray-600">
-            {list.length >= 50 ? '仅展示前50条数据~' : '没有更多了~'}
+            {list.length >= 30 ? '仅展示前30条数据~' : '没有更多了~'}
           </View>
         )}
       </View>

@@ -1,28 +1,21 @@
 import { View, Text, CustomWrapper } from '@tarojs/components';
 import { Card, CardType } from '../../types';
 import { Button, Dialog, SafeArea } from '@nutui/nutui-react-taro';
-import { useRef, useEffect, useMemo, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
 import { CardsList } from './components/CardsList';
 import { TotalPrice, getPriceForCards } from './components/TotalPrice';
 import { PageLoading } from '../../components/PageLoading';
 import classnames from 'classnames';
-import {
-  formatSkills,
-  getCard,
-  getHonorPointsForCard,
-  getLabelForFaction,
-  samrtCeil,
-} from '../../utils';
+import { formatSkills, getCard, samrtCeil } from '../../utils';
 import { LevelSlider } from '../../components/LevelSlider';
-import { getBonusesForGroup } from '../../utils';
 import { CloudImage } from '../../components/CloudImage';
 import { MembersList } from './components/MembersList';
 import { useGroupInfo } from './hooks';
 
 export type Member = { id: number; level?: number };
 
-export interface CardGroup {
+interface CardGroup {
   leader: Member;
   members: Member[];
 }
@@ -174,47 +167,14 @@ const GroupDetail = () => {
   };
 
   useLoad((options) => {
-    if (options.id) {
-      const db = Taro.cloud.database();
-      db.collection('card_groups')
-        .doc(options.id)
-        .get({})
-        .then(({ data }) => {
-          setLeader(data.leader);
-          handleMembersUpdate(
-            Array(8)
-              .fill({ id: -1 })
-              .map((m, idx) => data.members[idx] || m),
-          );
-        })
-        .catch((err) => {
-          Taro.showToast({
-            title: '获取卡组失败，请稍后再试',
-            icon: 'none',
-          });
-          console.log(err);
-        });
-      return;
-    }
     if (!options.group) return;
     try {
-      const value = JSON.parse(options.group) as
-        | CardGroup
-        | {
-            leader: number;
-            members: number[];
-          };
-      if (typeof value.leader !== 'number') {
-        setLeader(value.leader);
-        handleMembersUpdate(value.members as Member[]);
-        return;
+      const value = JSON.parse(options.group) as CardGroup;
+      while (value.members.length < 8) {
+        value.members.push({ id: -1 });
       }
-      setLeader({ id: value.leader });
-      handleMembersUpdate(
-        value.members.map((id) => {
-          return { id } as { id: number };
-        }),
-      );
+      setLeader(value.leader);
+      handleMembersUpdate(value.members as Member[]);
     } catch (err) {
       console.log(err);
     }
@@ -222,7 +182,7 @@ const GroupDetail = () => {
 
   useEffect(() => {
     setTimeout(() => setLoading(false));
-    setTimeout(() => setImageLoading(false), 600);
+    setTimeout(() => setImageLoading(false), 300);
   }, []);
 
   useShareAppMessage(() => {
@@ -253,7 +213,7 @@ const GroupDetail = () => {
             />
             {leader.id !== -1 && (
               <View className="absolute bottom-0 left-0 right-0 text-center text-sm text-white">
-                <Text>lv.{leader.level}</Text>
+                {<Text>lv.{leader.level}</Text>}
                 {!!priceMap[leader.id] && <Text>/${priceMap[leader.id]}</Text>}
               </View>
             )}

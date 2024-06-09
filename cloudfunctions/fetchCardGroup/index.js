@@ -8,7 +8,11 @@ const db = cloud.database();
 const _ = db.command;
 const CARD_GROUPS = 'card_groups';
 
-exports.main = async ({ type, filters }, context, callback) => {
+exports.main = async (
+  { type, filters, pageNumber = 1, pageSize = 20 },
+  context,
+  callback,
+) => {
   const params = {};
 
   if (type === 'self') {
@@ -29,12 +33,20 @@ exports.main = async ({ type, filters }, context, callback) => {
       _.lte(filters.level[1]),
     );
   }
+  if (filters.createAt) {
+    params.createAt = _.gte(filters.createAt);
+  }
 
-  const res = await db
-    .collection(CARD_GROUPS)
+  let query = db.collection(CARD_GROUPS);
+
+  if (filters.sort) {
+    query = query.orderBy('up', 'desc');
+  }
+
+  const res = await query
     .orderBy('createAt', 'desc')
-    .skip(0)
-    .limit(50)
+    .skip(pageNumber - 1)
+    .limit(pageSize)
     .where(params)
     .get();
 
