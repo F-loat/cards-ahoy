@@ -5,7 +5,10 @@ import {
   Dialog,
 } from '@nutui/nutui-react-taro';
 import { ScrollView, View } from '@tarojs/components';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { CardProfit, getProfit } from './CardProfit';
+import { samrtCeil } from '../../../utils';
+import classNames from 'classnames';
 
 export interface Cost {
   price?: string;
@@ -15,11 +18,13 @@ export interface Cost {
 export const CostPopup = ({
   value,
   visible,
+  floorPrice,
   onChange,
   onClose,
 }: {
   value: Cost[];
   visible?: boolean;
+  floorPrice?: string;
   onChange?: (costs?: Cost[]) => void;
   onClose?: () => void;
 }) => {
@@ -28,6 +33,14 @@ export const CostPopup = ({
     count: 1,
   };
   const [costList, setCostList] = useState<Cost[]>([defaultCost]);
+
+  const totalProfit = useMemo(() => {
+    if (!floorPrice) return 0;
+    return getProfit(
+      floorPrice,
+      costList.filter((item) => !!item.price),
+    );
+  }, [floorPrice, costList]);
 
   const handleSubmit = () => {
     const result = costList.filter((item) => item.count && Number(item.price));
@@ -53,7 +66,17 @@ export const CostPopup = ({
       onOverlayClick={onClose}
     >
       <ScrollView style={{ height: '32vh' }} scrollY>
-        <ConfigProvider theme={{ nutuiInputPadding: '10px' }}>
+        <ConfigProvider
+          theme={{
+            nutuiInputPadding: '10px',
+            nutuiInputnumberInputWidth: '36px',
+            nutuiInputnumberButtonWidth: '24px',
+            nutuiInputnumberButtonHeight: '24px',
+            nutuiInputnumberButtonBackgroundColor: '#f4f4f4',
+            nutuiInputnumberInputBackgroundColor: '#fff',
+            nutuiInputnumberInputMargin: '0 2px',
+          }}
+        >
           {costList.map((item, index) => (
             <View key={index} className="flex items-center">
               <View className="text-gray-600 dark:text-gray-400 text-sm">
@@ -69,6 +92,16 @@ export const CostPopup = ({
                   setCostList(newVal);
                 }}
               />
+              {!!floorPrice && (
+                <CardProfit
+                  value={samrtCeil(
+                    (Number(floorPrice) - Number(item.price || 0)) * item.count,
+                  )}
+                  className={classNames('mx-2 min-w-12 text-center', {
+                    invisible: !item.price,
+                  })}
+                />
+              )}
               <InputNumber
                 className="nut-input-text"
                 placeholder="数量"
@@ -82,6 +115,12 @@ export const CostPopup = ({
               />
             </View>
           ))}
+          {!!totalProfit && (
+            <View className="flex items-center justify-end mt-2">
+              <View>合计：</View>
+              <CardProfit value={totalProfit} className="mx-2" />
+            </View>
+          )}
         </ConfigProvider>
       </ScrollView>
     </Dialog>

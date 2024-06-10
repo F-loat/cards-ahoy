@@ -81,6 +81,7 @@ export const SwiperBanner = ({ filters }: { filters: Filters }) => {
   return (
     <ConfigProvider theme={{ nutuiSwiperIndicatorBottom: '2px' }}>
       <Swiper
+        loop
         height={124}
         indicator={banners.length > 1}
         className="rounded -my-2"

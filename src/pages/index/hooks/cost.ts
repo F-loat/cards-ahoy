@@ -9,6 +9,7 @@ export const useCardCost = () => {
   const [costPopup, setCostPopup] = useState<{
     visible: boolean;
     cardId?: number;
+    floorPrice?: string;
   }>({
     visible: false,
   });

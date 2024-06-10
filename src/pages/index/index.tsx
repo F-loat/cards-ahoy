@@ -13,11 +13,10 @@ import Taro, {
   useReachBottom,
   useShareAppMessage,
 } from '@tarojs/taro';
-import { Cost, CostPopup } from './components/CostPopup';
+import { CostPopup } from './components/CostPopup';
 import ToolsNav from './components/ToolsNav';
 import { Filters, useCardList } from './hooks';
 import { PageLoading } from '../../components/PageLoading';
-import { samrtCeil } from '../../utils';
 import classnames from 'classnames';
 import { CheckboxMenuItem } from './components/CheckboxMenuItem';
 import { CardFaction, CardFoil, CardRarity, CardType } from '../../types';
@@ -26,6 +25,7 @@ import { useNotice } from './hooks/notice';
 import { CloudImage } from '../../components/CloudImage';
 import { SwiperBanner } from './components/SwiperBanner';
 import { useCardCost } from './hooks/cost';
+import { CardProfit, getProfit } from './components/CardProfit';
 
 definePageConfig({
   navigationBarTitleText: 'Cards Ahoy!',
@@ -33,26 +33,6 @@ definePageConfig({
   enableShareTimeline: true,
   enableShareAppMessage: true,
 });
-
-const getProfit = (floorPrice: string, costList: Cost[]) => {
-  const totalCost = costList.reduce((acc, cur) => {
-    return acc + Number(cur.price) * cur.count;
-  }, 0);
-  const totalCount = costList.reduce((acc, cur) => {
-    return acc + cur.count;
-  }, 0);
-  return samrtCeil(totalCount * Number(floorPrice) - totalCost);
-};
-
-const Profit = ({ value }: { value: number }) => {
-  return (
-    <View
-      className={`text-sm ${value > 0 ? 'text-green-500' : 'text-red-500'}`}
-    >
-      ${Math.abs(value)}
-    </View>
-  );
-};
 
 const types = [
   { text: '领袖', value: CardType.Leaders },
@@ -241,11 +221,12 @@ const Index = () => {
                     setCostPopup({
                       visible: true,
                       cardId: item.secondaryId,
+                      floorPrice: item.floorPrice,
                     });
                   }}
                 >
                   {costMap[item.secondaryId] && (
-                    <Profit
+                    <CardProfit
                       value={getProfit(
                         item.floorPrice,
                         costMap[item.secondaryId],
@@ -274,6 +255,7 @@ const Index = () => {
         <CostPopup
           visible={costPopup.visible}
           value={costMap[costPopup.cardId!]}
+          floorPrice={costPopup.floorPrice}
           onChange={(value) => {
             updateCostMap({ ...costMap, [costPopup.cardId!]: value });
             setCostPopup({ visible: false });
