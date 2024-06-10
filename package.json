@@ -12,7 +12,8 @@
   "scripts": {
     "build": "taro build --type weapp",
     "dev": "npm run build -- --watch",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "prepare": "husky"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
