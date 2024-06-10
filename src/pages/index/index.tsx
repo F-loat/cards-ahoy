@@ -25,6 +25,7 @@ import { Notice } from './components/Notice';
 import { useNotice } from './hooks/notice';
 import { CloudImage } from '../../components/CloudImage';
 import { SwiperBanner } from './components/SwiperBanner';
+import { useCardCost } from './hooks/cost';
 
 definePageConfig({
   navigationBarTitleText: 'Cards Ahoy!',
@@ -89,15 +90,13 @@ const Index = () => {
     runAsync: fetchNotice,
   } = useNotice();
 
-  const [costMap, setCostMap] = useState<Record<string, Cost[]>>(
-    Taro.getStorageSync('costMap') || {},
-  );
-
   const [filters, setFilters] = useState<Filters>(
     Taro.getStorageSync('filters') || {
       sort: 1,
     },
   );
+
+  const { costMap, costPopup, setCostPopup, updateCostMap } = useCardCost();
 
   const {
     list,
@@ -106,13 +105,6 @@ const Index = () => {
     isLoadAll,
     run: fetchCardList,
   } = useCardList();
-
-  const [popupConfig, setPopupConfig] = useState<{
-    visible: boolean;
-    cardId?: number;
-  }>({
-    visible: false,
-  });
 
   useEffect(() => {
     if (loading) Taro.hideNavigationBarLoading();
@@ -246,7 +238,7 @@ const Index = () => {
                   className="flex items-center p-2 text-gray-600 dark:text-gray-400"
                   onClick={(e) => {
                     e.stopPropagation();
-                    setPopupConfig({
+                    setCostPopup({
                       visible: true,
                       cardId: item.secondaryId,
                     });
@@ -280,12 +272,13 @@ const Index = () => {
           )}
         </View>
         <CostPopup
-          cardId={popupConfig.cardId!}
-          visible={popupConfig.visible}
-          onClose={() => {
-            setPopupConfig({ visible: false });
-            setCostMap(Taro.getStorageSync('costMap'));
+          visible={costPopup.visible}
+          value={costMap[costPopup.cardId!]}
+          onChange={(value) => {
+            updateCostMap({ ...costMap, [costPopup.cardId!]: value });
+            setCostPopup({ visible: false });
           }}
+          onClose={() => setCostPopup({ visible: false })}
         />
         <ToolsNav />
         <SafeArea position="bottom" />

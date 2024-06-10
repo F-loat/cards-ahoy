@@ -1,6 +1,10 @@
 import Taro from '@tarojs/taro';
 import { useEffect, useState } from 'react';
-import { GlobalData, getGlobalData } from '../../../utils/data';
+import {
+  GlobalData,
+  getGlobalData,
+  updateGlobalData,
+} from '../../../utils/data';
 
 type Notice = GlobalData['notice'];
 
@@ -15,8 +19,8 @@ export const useNotice = () => {
         name: 'fetchInitialData',
       });
       const result = res.result as { notice: Notice };
-      console.log(result);
       setData(result.notice);
+      updateGlobalData(result);
     } catch (err) {
       console.error(err);
     } finally {

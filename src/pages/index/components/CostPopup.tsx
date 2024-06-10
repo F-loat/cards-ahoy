@@ -5,7 +5,6 @@ import {
   Dialog,
 } from '@nutui/nutui-react-taro';
 import { ScrollView, View } from '@tarojs/components';
-import Taro from '@tarojs/taro';
 import { useEffect, useState } from 'react';
 
 export interface Cost {
@@ -14,12 +13,14 @@ export interface Cost {
 }
 
 export const CostPopup = ({
-  cardId,
+  value,
   visible,
+  onChange,
   onClose,
 }: {
-  cardId: number;
+  value: Cost[];
   visible?: boolean;
+  onChange?: (costs?: Cost[]) => void;
   onClose?: () => void;
 }) => {
   const defaultCost = {
@@ -29,26 +30,15 @@ export const CostPopup = ({
   const [costList, setCostList] = useState<Cost[]>([defaultCost]);
 
   const handleSubmit = () => {
-    const result = costList.filter((item) => {
-      return item.count && Number(item.price);
-    });
-    const costMap = Taro.getStorageSync('costMap');
-    if (result.length) {
-      Taro.setStorageSync('costMap', { ...costMap, [cardId]: result });
-    } else {
-      Taro.setStorageSync('costMap', { ...costMap, [cardId]: undefined });
-    }
-    onClose?.();
+    const result = costList.filter((item) => item.count && Number(item.price));
+    onChange?.(result.length ? result : undefined);
   };
 
   useEffect(() => {
-    if (!visible) {
+    if (visible) {
+      setCostList(value || [defaultCost]);
+    } else {
       setCostList([defaultCost]);
-      return;
-    }
-    const costMap = Taro.getStorageSync('costMap');
-    if (costMap && costMap[cardId]) {
-      setCostList(costMap[cardId]);
     }
   }, [visible]);
 
