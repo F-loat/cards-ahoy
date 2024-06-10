@@ -35,9 +35,14 @@ const factions = [
   { text: '龙族', value: 'Dragon' },
 ];
 
+enum SortType {
+  CreateAt = 0,
+  Up = 1,
+}
+
 const sorts = [
-  { text: '创建时间', value: 0 },
-  { text: '点赞数量', value: 1 },
+  { text: '创建时间', value: SortType.CreateAt },
+  { text: '点赞数量', value: SortType.Up },
 ];
 
 interface Filters {
@@ -65,7 +70,7 @@ const Group = () => {
 
   const [filters, setFilters] = useState<Filters>({
     faction: 'All',
-    sort: 0,
+    sort: SortType.CreateAt,
   });
   const filtersRef = useRef(filters);
 

@@ -1,4 +1,4 @@
-import { Divider, Swiper } from '@nutui/nutui-react-taro';
+import { ConfigProvider, Divider, Swiper } from '@nutui/nutui-react-taro';
 import { getGlobalData } from '../../../utils/data';
 import { CloudImage } from '../../../components/CloudImage';
 import Taro from '@tarojs/taro';
@@ -53,8 +53,15 @@ export const SwiperBanner = ({ filters }: { filters: Filters }) => {
       pageNumber: 1,
       pageSize: 5,
       filters: {
+        sort: 1,
         factions: filters.factions,
-        createAt: dayjs().hour(8).minute(0).second(0).millisecond(0).valueOf(),
+        createAt: dayjs()
+          .add(-8, 'hour')
+          .hour(8)
+          .minute(0)
+          .second(0)
+          .millisecond(0)
+          .valueOf(),
       },
     },
     formatResult(res) {
@@ -72,19 +79,18 @@ export const SwiperBanner = ({ filters }: { filters: Filters }) => {
   if (!banners?.length) return null;
 
   return (
-    <>
+    <ConfigProvider theme={{ nutuiSwiperIndicatorBottom: '2px' }}>
       <Swiper
         height={124}
-        autoPlay
         indicator={banners.length > 1}
-        className="rounded mb-4 -mt-2"
+        className="rounded -my-2"
       >
         {banners.map((item) => (
           <Swiper.Item key={item.img || item._id}>
             {item.type === 'activity' ? (
               <ImageItem item={item as Banner} />
             ) : (
-              <View className="flex">
+              <View className="flex -ml-1">
                 <GroupItem
                   item={item as CardGroup}
                   showVote={false}
@@ -97,6 +103,6 @@ export const SwiperBanner = ({ filters }: { filters: Filters }) => {
         ))}
       </Swiper>
       <Divider />
-    </>
+    </ConfigProvider>
   );
 };

@@ -259,8 +259,11 @@ const Detail = () => {
           />
           {!!cardInfo.props && !!level && cardInfo.props[level - 1] && (
             <View
-              className="absolute left-5 bottom-6 text-white text-center leading-4 text-xs font-bold"
-              style={{ fontSize: '10px' }}
+              className="absolute left-4 bottom-7 text-white text-center leading-4 text-xs font-bold"
+              style={{
+                fontSize: '10px',
+                marginLeft: cardInfo.props[level - 1].length > 1 ? 0 : 6,
+              }}
             >
               {!!cardInfo.props[level - 1][1] && (
                 <View className="bg-blue-500 min-w-4 border-solid border-white border-1.5 rounded">

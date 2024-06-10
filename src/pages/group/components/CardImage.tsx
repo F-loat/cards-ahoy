@@ -33,7 +33,10 @@ export const CardImage = ({
       {load && !!props && !!level && props[level - 1] && (
         <View
           className="absolute text-xs left-3 bottom-4 text-white text-center leading-3 font-bold"
-          style={{ fontSize: '8px' }}
+          style={{
+            fontSize: '8px',
+            marginLeft: props[level - 1].length > 1 ? 3 : 4,
+          }}
         >
           {!!props[level - 1][1] && (
             <View className="bg-blue-500 min-w-3 border-solid border-white border-1 rounded">
