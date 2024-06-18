@@ -24,7 +24,7 @@ import { VideoAd } from './components/VideoAd';
 import { Subscribe } from './components/Subscribe';
 import { PriceChart } from './components/PriceChart';
 import { CardRarity } from '../../types';
-import { useCloudFunction } from '../../hooks';
+import { useCloudFunction, useStorageState } from '../../hooks';
 import { DiscountCard } from '../tools/discount';
 import { CloudImage } from '../../components/CloudImage';
 
@@ -92,7 +92,10 @@ const Detail = () => {
   const cardInfo = cardId && getCard(cardId);
   const [time, setTime] = useState(params.time);
   const [price, setPrice] = useState(params.price);
-  const [level, setLevel] = useState(Number(params.level || 1));
+  const [level, setLevel] = useStorageState<number>(
+    params.level ? undefined : 'cards_level',
+    Number(params.level || 3),
+  );
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
 
   const {

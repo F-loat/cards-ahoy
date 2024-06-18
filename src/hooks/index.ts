@@ -1,6 +1,29 @@
 import Taro from '@tarojs/taro';
 import { useEffect, useState } from 'react';
 import { Plan, getGlobalData } from '../utils/data';
+import { noop } from '../utils';
+
+export const useStorageState = <T>(
+  key: string | undefined,
+  defaultValue: T,
+) => {
+  const [data, setData] = useState(defaultValue);
+
+  useEffect(() => {
+    if (key === undefined) return;
+    Taro.getStorage({ key })
+      .then((res) => setData(res.data))
+      .catch(noop);
+  }, []);
+
+  const setStorageState = (val: T) => {
+    setData(val);
+    if (key === undefined) return;
+    Taro.setStorage({ key, data: val });
+  };
+
+  return [data, setStorageState] as const;
+};
 
 export const useShowAds = () => {
   const [showAds, setShowAds] = useState(false);

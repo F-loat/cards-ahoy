@@ -59,6 +59,7 @@ const sendMessage = async (cardId, level, price) => {
       },
     };
     console.log(message);
+    db.collection(SUBSCRIPTIONS).doc(doc._id).remove();
     await cloud.openapi.subscribeMessage.send({
       touser: doc._openid,
       page: `pages/detail/index?id=${cardId}`,
@@ -66,7 +67,6 @@ const sendMessage = async (cardId, level, price) => {
       data: message,
       templateId: '7tACZmiQF0qnNR5v5PAUAF_i_bEEMNtQRbdbKZaPvJQ',
     });
-    db.collection(SUBSCRIPTIONS).doc(doc._id).remove();
   });
 
   await Promise.all(queue).then(console.log).catch(console.error);
