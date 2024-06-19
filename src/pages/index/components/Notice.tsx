@@ -1,4 +1,4 @@
-import { Loading, NoticeBar } from '@nutui/nutui-react-taro';
+import { ConfigProvider, Loading, NoticeBar } from '@nutui/nutui-react-taro';
 import Taro from '@tarojs/taro';
 import { GlobalData } from '../../../utils/data';
 
@@ -14,10 +14,17 @@ export const Notice = ({
   return (
     <NoticeBar
       wrap
+      closeable
       leftIcon={null}
       scrollable={false}
       content={notice.text}
-      rightIcon={loading ? <Loading type="circular" /> : null}
+      rightIcon={
+        loading && (
+          <ConfigProvider theme={{ nutuiLoadingIconColor: 'currentColor' }}>
+            <Loading type="circular" />
+          </ConfigProvider>
+        )
+      }
       className="mb-4 -mt-2 rounded overflow-hidden"
       onClick={() => {
         if (!notice.copy?.content) return;

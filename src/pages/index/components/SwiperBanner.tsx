@@ -1,4 +1,9 @@
-import { ConfigProvider, Divider, Swiper } from '@nutui/nutui-react-taro';
+import {
+  ConfigProvider,
+  Divider,
+  Loading,
+  Swiper,
+} from '@nutui/nutui-react-taro';
 import { getGlobalData } from '../../../utils/data';
 import { CloudImage } from '../../../components/CloudImage';
 import Taro from '@tarojs/taro';
@@ -9,6 +14,8 @@ import { View } from '@tarojs/components';
 import { Filters } from '../hooks';
 import { CardGroup } from '../../group';
 import { useEffect } from 'react';
+import { ThumbsUp } from '@nutui/icons-react-taro';
+import { useGroupVote } from '../../../pages/group/hooks';
 
 type Banner = CardGroup & {
   img: string;
@@ -46,6 +53,8 @@ const ImageItem = ({ item }: { item: Banner }) => {
 };
 
 export const SwiperBanner = ({ filters }: { filters: Filters }) => {
+  const { loading, runAsync: handleVote } = useGroupVote();
+
   const { data: banners, run: fetchBanners } = useCloudFunction<Banner[]>({
     name: 'fetchCardGroup',
     manual: true,
@@ -97,7 +106,27 @@ export const SwiperBanner = ({ filters }: { filters: Filters }) => {
                   showVote={false}
                   className="flex-1 px-1"
                 />
-                <View className="vertical-text text-xs">今日卡组</View>
+                <View>
+                  <View className="vertical-text text-xs">今日卡组</View>
+                  <View
+                    className="flex flex-col justify-center items-center mt-6"
+                    onClick={() => handleVote(item._id, 'up')}
+                  >
+                    {loading === 'up' ? (
+                      <ConfigProvider
+                        theme={{
+                          nutuiLoadingIconColor: 'currentColor',
+                        }}
+                        className="h-4"
+                      >
+                        <Loading className="text-green-500" />
+                      </ConfigProvider>
+                    ) : (
+                      <ThumbsUp size={16} className="text-green-500" />
+                    )}
+                    <View className="my-1 text-xs">{item.up || 0}</View>
+                  </View>
+                </View>
               </View>
             )}
           </Swiper.Item>

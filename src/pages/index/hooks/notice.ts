@@ -20,7 +20,7 @@ export const useNotice = () => {
       });
       const result = res.result as { notice: Notice };
       setData(result.notice);
-      updateGlobalData(result);
+      updateGlobalData({ fetchedData: JSON.stringify(result) });
     } catch (err) {
       console.error(err);
     } finally {

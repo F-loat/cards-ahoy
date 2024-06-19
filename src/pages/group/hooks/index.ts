@@ -1,13 +1,20 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   getBonusesForGroup,
   getCard,
   getHonorPointsForCard,
   getLabelForFaction,
 } from '../../../utils';
-import { CardGroup } from '../detail';
+import { Member } from '../detail';
+import Taro from '@tarojs/taro';
 
-export const useGroupInfo = ({ leader, members }: CardGroup) => {
+export const useGroupInfo = ({
+  leader,
+  members,
+}: {
+  leader: Member;
+  members: Member[];
+}) => {
   const totalCost = useMemo(() => {
     return members.reduce(
       (acc, cur) => {
@@ -39,5 +46,45 @@ export const useGroupInfo = ({ leader, members }: CardGroup) => {
     totalHonorPoints,
     faction,
     bonuses,
+  };
+};
+
+export const useGroupVote = () => {
+  const [loading, setLoading] = useState<string | null>(null);
+  const runAsync = async (id: string, type: 'up' | 'down') => {
+    try {
+      setLoading(type);
+      const res = await Taro.cloud.callFunction({
+        name: 'voteCardGroup',
+        data: {
+          id,
+          type,
+        },
+      });
+      setLoading(null);
+      const result = res.result as {
+        code: number;
+        msg: string;
+      };
+      if (result.code === 0) {
+        Taro.showToast({
+          title: result.msg,
+          icon: 'none',
+        });
+        return;
+      }
+      return true;
+    } catch (err) {
+      setLoading(null);
+      Taro.showToast({
+        title: type === 'up' ? '点赞失败，请稍后再试' : '踩失败，请稍后再试',
+        icon: 'none',
+      });
+    }
+  };
+
+  return {
+    loading,
+    runAsync,
   };
 };

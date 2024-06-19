@@ -67,9 +67,10 @@ exports.main = async (event, context, callback) => {
     callback(null, {
       openid: OPENID,
       notice: {
-        text: `CAC 实时价格: $${Math.round((JSON.parse(data).price || 0) * 100000) / 100000} / 小程序已开源,点击完善卡牌数据`,
+        text: `CAC 实时价格: $${Math.round((JSON.parse(data).price || 0) * 100000) / 100000}`,
         copy: {
-          content: 'https://github.com/F-loat/cards-ahoy',
+          content:
+            'https://apespace.io/bsc/0xe0b1a112ee17ef376260ad347d0d9c38efdffe07',
           message: '已复制，请通过浏览器访问',
         },
       },
