@@ -55,7 +55,11 @@ const ImageItem = ({ item }: { item: Banner }) => {
 export const SwiperBanner = ({ filters }: { filters: Filters }) => {
   const { loading, runAsync: handleVote } = useGroupVote();
 
-  const { data: banners, run: fetchBanners } = useCloudFunction<Banner[]>({
+  const {
+    data: banners,
+    mutate,
+    run: fetchBanners,
+  } = useCloudFunction<Banner[]>({
     name: 'fetchCardGroup',
     manual: true,
     data: {
@@ -95,7 +99,7 @@ export const SwiperBanner = ({ filters }: { filters: Filters }) => {
         indicator={banners.length > 1}
         className="rounded -my-2"
       >
-        {banners.map((item) => (
+        {banners.map((item, index) => (
           <Swiper.Item key={item.img || item._id}>
             {item.type === 'activity' ? (
               <ImageItem item={item as Banner} />
@@ -110,7 +114,17 @@ export const SwiperBanner = ({ filters }: { filters: Filters }) => {
                   <View className="vertical-text text-xs">今日卡组</View>
                   <View
                     className="flex flex-col justify-center items-center mt-6"
-                    onClick={() => handleVote(item._id, 'up')}
+                    onClick={async () => {
+                      const successed = await handleVote(item._id, 'up');
+                      if (!successed) return;
+                      const newBanners = [...banners];
+                      if (newBanners[index].up) {
+                        newBanners[index].up! += 1;
+                      } else {
+                        newBanners[index].up = 1;
+                      }
+                      mutate(newBanners);
+                    }}
                   >
                     {loading === 'up' ? (
                       <ConfigProvider

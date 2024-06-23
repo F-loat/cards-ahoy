@@ -152,5 +152,6 @@ export const useCloudFunction = <T>({
     loading,
     validating,
     run,
+    mutate: setData,
   };
 };
