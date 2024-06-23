@@ -27,7 +27,6 @@ definePageConfig({
 });
 
 const GroupDetail = () => {
-  const { params } = useRouter();
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(true);
   const [priceMap, setPriceMap] = useState<Record<number, number>>({});
@@ -125,16 +124,11 @@ const GroupDetail = () => {
       title: '确认发布?',
       content: '每人每天可以发布一套卡组配置，多次发布则覆盖历史版本',
       onConfirm: async () => {
-        Dialog.close('submit');
-
         const validMembers = sortedMembers.current.filter(
           ({ id }) => id !== -1,
         );
         const cards = validMembers.concat(leader);
 
-        Taro.showLoading({
-          title: '发布中',
-        });
         try {
           const price = Object.values(priceMap).length
             ? Object.values(priceMap).reduce((acc, cur) => acc + cur, 0)
@@ -150,20 +144,19 @@ const GroupDetail = () => {
               faction: getCard(leader.id)?.faction,
             },
           });
-          Taro.hideLoading();
           Taro.showToast({
             title: '发布成功',
             icon: 'success',
           });
           Taro.eventCenter.trigger('refreshCardGroups');
         } catch (err) {
-          Taro.hideLoading();
           Taro.showToast({
             title: '发布失败，请稍后再试',
             icon: 'error',
           });
           console.log(err);
         }
+        Dialog.close('submit');
         return Promise.resolve(() => true);
       },
       onCancel: () => {
@@ -327,13 +320,11 @@ const GroupDetail = () => {
             分享
           </Button>
         </View>
-        {!params.id && (
-          <View className="flex-1 pl-2 h-8">
-            <Button className="w-full" type="primary" onClick={handleSubmit}>
-              发布
-            </Button>
-          </View>
-        )}
+        <View className="flex-1 pl-2 h-8">
+          <Button className="w-full" type="primary" onClick={handleSubmit}>
+            发布
+          </Button>
+        </View>
       </View>
       <SafeArea position="bottom" />
       <PageLoading visible={loading || imageLoading} />

@@ -49,9 +49,9 @@ export const GroupItem = ({
       title: '确认删除?',
       content: '删除后无法恢复，但分享链接仍然有效',
       onConfirm: async () => {
-        Dialog.close('confirm');
         const db = Taro.cloud.database();
-        db.collection('card_groups')
+        await db
+          .collection('card_groups')
           .doc(item._id)
           .remove({
             success: () => {
@@ -64,6 +64,7 @@ export const GroupItem = ({
               });
             },
           });
+        Dialog.close('confirm');
         return Promise.resolve(() => true);
       },
       onCancel: () => {
