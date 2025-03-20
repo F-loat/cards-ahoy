@@ -7,15 +7,15 @@
 ### 小程序码
 
 <p>
-  <img alt="weapp" src="https://6361-cards-ahoy-3g50hglqe5f630e4-1325577246.tcb.qcloud.la/github/gh_ed3bba279ec5_430.jpg" width="24%" />
+  <img alt="weapp" src="https://assets-1251785959.cos.ap-beijing.myqcloud.com/cards-ahoy/wecode.jpg" width="24%" />
 </p>
 
 ### 截图
 
 <p>
-  <img src="https://6361-cards-ahoy-3g50hglqe5f630e4-1325577246.tcb.qcloud.la/github/screenshot_1.jpg" width="24%" />
-  <img src="https://6361-cards-ahoy-3g50hglqe5f630e4-1325577246.tcb.qcloud.la/github/screenshot_2.jpg" width="24%" />
-  <img src="https://6361-cards-ahoy-3g50hglqe5f630e4-1325577246.tcb.qcloud.la/github/screenshot_3.png" width="24%" />
+  <img src="https://assets-1251785959.cos.ap-beijing.myqcloud.com/cards-ahoy/screenshot_1.jpg" width="24%" />
+  <img src="https://assets-1251785959.cos.ap-beijing.myqcloud.com/cards-ahoy/screenshot_2.jpg" width="24%" />
+  <img src="https://assets-1251785959.cos.ap-beijing.myqcloud.com/cards-ahoy/screenshot_3.jpg" width="24%" />
 </p>
 
 ## 运行
@@ -51,8 +51,8 @@ pnpm dev
 ## 赞赏
 
 <p>
-  <img alt="赞赏码" src="https://6361-cards-ahoy-3g50hglqe5f630e4-1325577246.tcb.qcloud.la/github/reward.jpg" width="24%" />
+  <img alt="赞赏码" src="https://assets-1251785959.cos.ap-beijing.myqcloud.com/reward.png" width="24%" />
 </p>
 <p>
-  <img alt="web3" src="https://6361-cards-ahoy-3g50hglqe5f630e4-1325577246.tcb.qcloud.la/github/okex.jpg" width="24%" />
+  <img alt="web3" src="https://assets-1251785959.cos.ap-beijing.myqcloud.com/okex-usdt.png" width="24%" />
 </p>
